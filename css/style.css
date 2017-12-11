@@ -1,0 +1,30 @@
+.container,
+.row {
+    margin-bottom: 20px;
+}
+
+#income-form div,
+#costs-form div { /*слипание блоков инпута*/
+    padding: 0;
+}
+
+.panel-title {
+    display: inline-block;
+}
+
+.category-title,
+.count-title
+{
+    cursor: pointer;
+}
+
+.badge-success {
+    background-color: #468847;
+}
+.badge-success:hover {
+    background-color: #356635;
+}
+
+#test.test {
+    border-radius: 0;
+}

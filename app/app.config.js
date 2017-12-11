@@ -21,7 +21,7 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
                 templateUrl: 'app/home/home.html',
                 controller: 'HomeController',
                 resolve: {
-                    
+
                     "currentAuth": ["Auth", function (Auth) {
                         return Auth.$requireSignIn();
                     }]
@@ -34,7 +34,8 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
             })
             .state('home.costs', {
                 url: "/costs",
-                template: "<h2>Costs</h2>",
+                templateUrl: "app/costs/costs_page.template.html",
+                controller: "CostsController"
             })
             .state('home.calendar', {
                 url: "/calendar",
@@ -44,9 +45,9 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
                 url: "/statistics",
                 template: "<h2>Statistics</h2>",
             })
-            
 
-$urlRouterProvider.otherwise('home');
+
+        $urlRouterProvider.otherwise('home');
 
         ngToastProvider.configure({
             animation: 'fade',

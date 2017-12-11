@@ -1,0 +1,32 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+            <button type="button" class="btn btn-default navbar-btn" ng-click="signOut()">
+                <span class="glyphicon glyphicon-log-in"></span> LogOut
+            </button>
+         
+        </ul>
+    </div>
+</nav>
+
+<div class="btn-group-vertical col-xs-2 row" >
+
+    <button type="button" class="btn btn-success"  ui-sref="home.income">
+       Income
+    </button>
+    <button type="button" class="btn btn-success" ui-sref="home.costs">
+        Costs
+    </button>
+    <button type="button" class="btn btn-success" ui-sref="home.statistics">
+       Statistics
+    </button>
+    <button type="button" class="btn btn-success" ui-sref="home.calendar">
+        Calendar
+    </button>
+  
+    </div>
+</div>
+
+<div class="col-xs-10" >
+    <div ui-view=""></div>
+</div>

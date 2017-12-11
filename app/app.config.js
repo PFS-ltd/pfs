@@ -29,7 +29,8 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
             })
             .state('home.income', {
                 url: "/income",
-                template: "<h2>Income</h2>",
+                templateUrl: 'app/income/income_page.template.html',
+                controller: 'IncomeController as incomeCtrl'
             })
             .state('home.costs', {
                 url: "/costs",

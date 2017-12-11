@@ -1,0 +1,143 @@
+
+<div class="row">
+    <form class="col-md-12">
+
+        <div class="input-group" id="costs-form">
+
+            <div class="col-md-2 ">
+                <select class="form-control" ng-model='newCosts.who' ng-options="role.title for role in rolesArr">
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" ng-model='newCosts.from' ng-options="key.title for key in billsCategories">
+                    <option disabled selected='selected'>Откуда</option>
+                    <!-- <option ng-repeat="key in storageFactory.income">{{key.title}}</option> -->
+
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" ng-model='newCosts.to' ng-options="key.title for key in costsCategoriesArr">
+                    <!-- <option>Куда</option>
+                    <option ng-repeat="key in storageFactory.ExpenditureCategory">{{key.title}}</option> -->
+                </select>
+            </div>
+            <div class="col-md-1">
+                <input type="number" placeholder="Сумма" min='0' class="form-control" ng-model='newCosts.sum'>
+            </div>
+            <div class="col-md-2">
+                <p class="input-group">
+
+                    <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="newCosts.date" is-open="popup.opened"
+                        datepicker-options="dateOptions" ng-required="true" show-button-bar="false" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="openPicker()">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                    </span>
+                </p>
+            </div>
+            <div class="col-md-2">
+                <input type="text" placeholder="Комментарий" class="form-control" ng-model='newCosts.comment'>
+            </div>
+            <span class="input-group-btn pull-left">
+                <button class="btn btn-success" type="submit" ng-click='addNewCosts(newCosts)'>Внести</button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<div class="col-md-6">
+    <div class="panel panel-success">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title">Источники расходов</h3>
+            <div class="pull-right">
+                <button type="button" class="btn btn-success btn-sm" ng-click="addExpenditureCategory()">
+                    <span class="glyphicon glyphicon-plus"></span> Добавить категорию</button>
+            </div>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <!-- <li class="list-group-item">
+                    <span class="category-title">Без категории</span>
+                </li> -->
+                <li class="list-group-item text-left" ng-repeat='item in costsCategoriesArr'>
+                    <span class="category-title">{{item.title}}</span>
+                    <div class="col-xs-4" class="list-group-item-heading" ng-if="item.limit!=0">
+                        <uib-progressbar animate="false" type="success" max="item.limitPayment" value="item.sum" ng-hide="item.sum ==0">
+                            <i>{{item.sum}}</i> <i ng-hide="item.limitPayment ==0"> / {{item.limitPayment}}</i>
+                        </uib-progressbar>
+                    </div>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="editExpenditureCategory(item)">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs" title="Удалить" ng-click="deleteExpenditureCategory(item)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="panel panel-warning">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title">Шаблоны </h3>
+            <div class="pull-right">
+                <button type="button" class="btn btn-warning btn-sm" ng-click="addTemplateCosts()">
+                    <span class="glyphicon glyphicon-plus"></span> Добавить шаблон</button>
+            </div>
+        </div>
+        <div class="panel-body">
+            <li class="list-group-item" ng-repeat='item in templateCostsArr'>
+                <span ng-click="makeTemplateTransfer(item)" class="count-title">{{item.comment}}</span>
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="editTemplate(item)">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-xs" title="Удалить" ng-click="deleteTemplate(item)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+            </li>
+        </div>
+    </div>
+</div>
+<div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Последние расходы</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                    <thead>
+                            <th>#</th>
+                            <th>Сумма</th>
+                            <th>Откуда/Куда</th>
+                            <th>Кто</th>
+                            <th>Дата</th>
+                            <th>Комментарий</th>
+                            <th>Отменить</th>
+                        </thead>
+                <tbody ng-repeat='item in costsTransferArrQuery'>
+                    <tr>
+                        <td>{{$index+1}}</td>
+                        <td>{{item.sum}}</td>
+                        <td>Из {{item.from.title}} в {{item.to.title}}</td>
+                        <td>{{item.who.title}}</td>
+                        <td>{{item.date| date:'dd-MM-yyyy'}}</td>
+                        <td>{{item.comment}}</td>
+                        <td>
+                            <button class="btn btn-danger btn-xs" title="Удалить" ng-click='deleteTransfer(item)'>
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-window"></div>

@@ -1,5 +1,5 @@
-app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRouterProvider',
-    function ($stateProvider, ngToastProvider, $locationProvider, $urlRouterProvider) {
+app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRouterProvider', '$translateProvider',
+    function ($stateProvider, ngToastProvider, $locationProvider, $urlRouterProvider, $translateProvider) {
         $locationProvider.hashPrefix('');
 
         $stateProvider
@@ -67,6 +67,22 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
         };
 
         firebase.initializeApp(configFirebase);
+
+//        $translateProvider.translations('en', {
+//            "Incomes": "Incomes",
+//            "Costs": "Costs"
+//        });
+//
+//        $translateProvider.translations('ru', {
+//            "Incomes": 'Доходы",
+//            "Costs": "Расходы"
+//        });
+        $translateProvider.useStaticFilesLoader({
+            prefix: '/i18n/',
+            suffix: '.json'
+        });
+
+        $translateProvider.preferredLanguage('ru');
 
     }]);
 

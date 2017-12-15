@@ -2,29 +2,39 @@
     <div class="container-fluid">
         <ul class="nav navbar-nav navbar-right">
             <button type="button" class="btn btn-default navbar-btn" ng-click="signOut()">
-                <span class="glyphicon glyphicon-log-in"></span> LogOut
+                <span class="glyphicon glyphicon-log-in"></span> Выход
             </button>
          
         </ul>
     </div>
 </nav>
 
+<!--
 <div class="btn-group-vertical col-xs-2 row" >
 
     <button type="button" class="btn btn-success"  ui-sref="home.income">
-       Income
+       <i class="fa fa-money" aria-hidden="true"></i><br>{{'Incomes' | translate}}
     </button>
     <button type="button" class="btn btn-success" ui-sref="home.costs">
-        Costs
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i><br>{{'Costs' | translate}}
     </button>
     <button type="button" class="btn btn-success" ui-sref="home.statistics">
-       Statistics
+        <i class="fa fa-bar-chart" aria-hidden="true"></i><br>Статистика
     </button>
     <button type="button" class="btn btn-success" ui-sref="home.calendar">
-        Calendar
+        <i class="fa fa-calendar" aria-hidden="true"></i><br>Календарь
     </button>
   
-    </div>
+</div>
+-->
+
+<div class="row col-md-2">
+    <ul class="nav nav-pills nav-stacked">
+        <li class="text-center" ng-class="classes[0]" ng-click="changeClass(0)"><a href="#" ui-sref="home.income"><i class="fa fa-money" aria-hidden="true"></i><br>{{'Incomes' | translate}}</a></li>
+        <li class="text-center" ng-class="classes[1]" ng-click="changeClass(1)"><a href="#" ui-sref="home.costs"><i class="fa fa-shopping-cart" aria-hidden="true"></i><br>{{'Costs' | translate}}</a></li>
+        <li class="text-center" ng-class="classes[2]" ng-click="changeClass(2)"><a href="#" ui-sref="home.statistics"><i class="fa fa-bar-chart" aria-hidden="true"></i><br>Статистика</a></li>
+        <li class="text-center" ng-class="classes[3]" ng-click="changeClass(3)"><a href="#" ui-sref="home.calendar"><i class="fa fa-calendar" aria-hidden="true"></i><br>Календарь</a></li>
+    </ul>
 </div>
 
 <div class="col-xs-10" >

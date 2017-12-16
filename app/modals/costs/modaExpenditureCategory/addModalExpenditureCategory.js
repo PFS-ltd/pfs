@@ -4,15 +4,14 @@ app.controller('AddExpenditureCategory', ['$scope', '$uibModalInstance', 'newExp
     
     $scope.cancel = function() {
 
-		$uibModalInstance.close();
+		$uibModalInstance.dismiss();
 
 	};
 
 	$scope.ok = function() {
   	
 		console.log($scope.newExpenditureCategoryModel);
-		$uibModalInstance.close($scope.newExpenditureCategoryModel);
-		
+		$uibModalInstance.close($scope.newExpenditureCategoryModel);	
 	};
 	
 }])

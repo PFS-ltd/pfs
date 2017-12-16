@@ -1,11 +1,15 @@
 app.controller('CostsController',
   function ($uibModal, $log, $document, $scope, costsService, incomeService, settingsService, uibDateParser, $filter, ngToast) {
-    $scope.costsCategoriesArr = costsService.getCostsCategoriesArray()
+    $scope.costsCategoriesArr = costsService.getCostsCategoriesArray();
+   console.log('costsCategoriesArr',$scope.costsCategoriesArr);
     $scope.templateCostsArr = costsService.getCostsTemplateArray();
+    console.log('$scope.templateCostsArr',$scope.templateCostsArr);
     $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
+    console.log('$scope.costsTransferArrQuery',$scope.costsTransferArrQuery);
     // $scope.costsTransferArr = costsService.getCostsTransferArray();
     $scope.billsCategories = incomeService.getIncomeAccounts();
     $scope.rolesArr = settingsService.getRolesArray();
+    console.log('$scope.rolesArr', $scope.rolesArr);
 
     // главн инпут
     $scope.costsModel = {
@@ -52,11 +56,13 @@ app.controller('CostsController',
     }
 
     //независимые копии моделей 
-    $scope.newCosts = angular.extend({}, $scope.costsModel);
+    // $scope.newCosts = angular.extend({}, $scope.costsModel);
     $scope.newExpenditureCategoryModel = angular.extend({}, $scope.ExpenditureCategoryModel);
     $scope.newTemplateModel = angular.extend({}, $scope.templateModel);
 
-    // // добавление даты и календаря в инпут 
+    $scope.newCosts = {};
+    $scope.newCosts.date = new Date();
+    // добавление даты и календаря в инпут 
     $scope.today = function () {
       $scope.newCosts.date = new Date();
 
@@ -65,6 +71,7 @@ app.controller('CostsController',
 
     $scope.dateOptions = {
       format: 'yy',
+      maxDate: new Date(2020,5,22)
     };
 
     $scope.openPicker = function () {
@@ -83,6 +90,7 @@ app.controller('CostsController',
     var makeTransfer = function (item) {
       var bill = $scope.billsCategories.$getRecord(item.from.id);
       var cost = costsService.getItemInCostsCategoriesByKey(item.to.id);
+      console.log(bill.amount);
       if ((bill.amount - item.sum) < 0) {
         ngToast.create({
           "content": "Недоасточно денег на счету " + bill.title,

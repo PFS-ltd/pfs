@@ -15,8 +15,7 @@
             $scope.locPaths = ['/home/income', '/home/costs', '/home/statistics', '/home/calendar',]
             if ($scope.locPaths.indexOf($location.$$path) != -1) {
                 $scope.classes.forEach(function(item, i, arr){
-                    if (i != $scope.locPaths.indexOf($location.$$path)) arr[i] = '';
-                    else arr[i] = 'active';
+                    (i != $scope.locPaths.indexOf($location.$$path)) ? arr[i] = '' : arr[i] = 'active';
                 })
             }
         

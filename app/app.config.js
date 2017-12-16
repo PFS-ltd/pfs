@@ -43,17 +43,18 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
             })
             .state('home.statistics', {
                 url: "/statistics",
-                template: "<h2>Statistics</h2>",
+                templateUrl: "app/statistics/statistics_page.template.html",
+                controller: "StatisticsController",
             })
 
 
         $urlRouterProvider.otherwise('home');
 
         ngToastProvider.configure({
-            animation: 'fade',
-            horizontalPosition: 'middle',
+            additionalClasses: 'my-animation',
+            horizontalPosition: 'right',
             verticalPosition: 'top',
-            maxNumber: 1,
+            maxNumber: 0,
             combineDuplications: false
         });
 

@@ -28,3 +28,14 @@
 #test.test {
     border-radius: 0;
 }
+
+.my-animation.ng-enter {
+    -webkit-animation: zoomInDown 1s;
+    -moz-animation: zoomInDown 1s;
+    animation: zoomInDown 1s;
+  }
+  .my-animation.ng-leave {
+    -webkit-animation: zoomOutDown 1s;
+    -moz-animation: zoomOutDown 1s;
+    animation: zoomOutDown 1s;
+  }

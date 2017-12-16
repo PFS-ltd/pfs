@@ -5,7 +5,11 @@ var app = angular.module('application',
         'ui.router',
         'ui.router.stateHelper',
         'ngToast',
-        
+        'daterangepicker',
+        // 'googlechart'
+        'nvd3',
+        'ngAnimate',
+        'ngSanitize',
     ]);
 
     

@@ -1,0 +1,61 @@
+<!-- <h1>Hello i'm statistics</h1>
+{{datePicker.date}} -->
+<!-- <div class="row"> -->
+<!-- <form class="input-group"> -->
+<!-- <div class="container"> -->
+
+<div>
+    <div class="col-xs-12 text-cener">
+        <h4>Доходы и расходы</h4>
+    </div>
+    <form>
+        <div class="col-xs-4">Выберите диапазон</div>
+        <div class="col-xs-6">
+
+            <input date-range-picker class="  form-control date-picker" type="text" ng-model="datePicker.date" options="options" />
+        </div>
+        <button type="button" class="btn btn-default" ng-click="makeLineChart(datePicker.date)">
+            Show
+        </button>
+    </form>
+    <nvd3 options="chart1Options" data="chart1Data"></nvd3>
+</div>
+<div>
+    <div class="col-xs-12 text-cener">
+        <h4>Расходы (столбиковая диаграмма)</h4>
+    </div>
+    <div class="col-xs-6">
+        <input date-range-picker class="form-control date-picker" type="text" ng-model="datePicker2.date" options="options" />
+    </div>
+    <button type="button" class="btn btn-default" ng-click="makeMultiBarChart(datePicker2.date)">
+        Show
+    </button>
+    <nvd3 options="chart2Options" data="chart2Data"></nvd3>
+</div>
+<div>
+    <div class="col-xs-12 text-cener">
+        <h4>Расходы (пирог)</h4>
+    </div>
+    <div class="col-xs-6">
+        <input date-range-picker class="form-control date-picker" type="text" ng-model="datePicker3.date" options="options" />
+    </div>
+    <button type="button" class="btn btn-default" ng-click="makePieChartCosts(datePicker3.date)">
+        Show
+    </button>
+    <nvd3 options="chart3Options" data="chart3Data"></nvd3>
+</div>
+
+<div>
+    <div class="col-xs-12 text-cener">
+        <h4>Источники дохода (пирог)</h4>
+    </div>
+    <div class="col-xs-6">
+        <input date-range-picker class="form-control date-picker" type="text" ng-model="datePicker3.date" options="options" />
+    </div>
+    <button type="button" class="btn btn-default" ng-click="makePieChartIncome(datePicker3.date)">
+        Show
+    </button>
+    <nvd3 options="chart4Options" data="chart4Data"></nvd3>
+</div>
+<!-- <div google-chart chart="myChartObject" style="height:600px; width:100%;"></div> -->
+<!-- </div> -->

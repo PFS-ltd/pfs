@@ -2,8 +2,20 @@
     app.controller('StatisticsController', ['$uibModal', '$scope', 'incomeService', 'settingsService', 'costsService', '$filter', 'ngToast', 'Auth', 'currentAuth',
         function ($uibModal, $scope, incomeService, settingsService, costsService, $filter, ngToast, Auth, currentAuth) {
             $scope.incomeTransfers = incomeService.getIncomeTransfers();
+            console.log($scope.incomeTransfers);
             $scope.costsTransfers = costsService.getCostsTransferArray();
-
+            console.log($scope.costsTransfers);
+            $scope.rolesArray = settingsService.getRolesArray();
+           $scope.rolesArray.$loaded(function(arr){
+            //    console.log(arr);
+            if (arr.length > 1) {
+                $scope.rolesArray.push({
+                    title: 'Общий'
+                });
+            }
+           })
+           
+            console.log($scope.rolesArray);
             $scope.chart1Options = {
                 chart: {
                     type: 'discreteBarChart',
@@ -48,7 +60,8 @@
                         showMaxMin: false,
                         tickFormat: function (d) {
                             return d3.time.format(d);
-                        }
+                        },
+                        rotateLabels: -90
                     },
                     yAxis: {
                         axisLabel: 'Сумма',
@@ -57,7 +70,7 @@
                             return d3.format(',.1f')(d);
                         }
                     },
-
+                    // reduceXTicks: false,
                 }
             }
             $scope.chart3Options = {
@@ -141,22 +154,28 @@
 
 
 
-            $scope.makeLineChart = function (date) {
+            $scope.makeLineChart = function (date, role) {
 
-                function sumOfOperationsFilterBydate(arr) {
+                function sumOfOperationsFilterBydate(arr, role) {
                     var operation = 0;
                     arr.filter(function (item) {
                         if (moment(item.date).isBetween(date.startDate._d, date.endDate._d, null, '[]')
                             || moment(item.date).isSame(date.startDate._d, 'day')
                             || moment(item.date).isSame(date.endDate._d, 'day')) {
-                            return operation += item.sum;
+                            if (role == 'Общий') {
+                                return operation += item.sum;
+                            } else {
+                                if (item.who == role || item.who.title === role) {
+                                    return operation += item.sum;
+                                }
+                            }
                         }
                     });
                     return operation;
                 };
 
-                var costsSum = sumOfOperationsFilterBydate($scope.costsTransfers);
-                var incomeSum = sumOfOperationsFilterBydate($scope.incomeTransfers)
+                var costsSum = sumOfOperationsFilterBydate($scope.costsTransfers, role);
+                var incomeSum = sumOfOperationsFilterBydate($scope.incomeTransfers, role);
 
                 $scope.chart1Data = [
                     {
@@ -177,9 +196,11 @@
             };
 
             $scope.makeMultiBarChart = function (date) {
-             
+
                 range = moment(date.endDate).dayOfYear() - moment(date.startDate).dayOfYear() + 1;
                 var rangeDateArr = [];
+
+
                 for (let i = 0, day = moment(date.startDate).dayOfYear(); i < range; day++ , i++) {
                     rangeDateArr[i] = {
                         x: day,
@@ -187,38 +208,58 @@
                     }
                 }
                 console.log(rangeDateArr);
-        
-        
+
+
                 // console.log(filterdateStart)
-        
+
                 $scope.costsSum = 0;
+
                 var filteredCosts = $scope.costsTransfers.filter(function (item) {
                     //    console.log(moment(item.date).isSame(filterdateStart, 'day'))
-                    if (moment(item.date).isBetween(date.startDate._d, date.endDate._d, null, '[]') || moment(item.date).isSame(date.startDate._d, 'day') || moment(item.date).isSame(date.endDate._d, 'day')) {
+                    if (moment(item.date).isBetween(date.startDate._d, date.endDate._d, null, '[]')
+                        || moment(item.date).isSame(date.startDate._d, 'day')
+                        || moment(item.date).isSame(date.endDate._d, 'day')) {
                         return item.title = item.to.title
                     }
                 });
-                console.log(filteredCosts)
+
+                console.log(filteredCosts);
+
                 function unique(arr) {
                     var obj = {};
                     for (var i = 0; i < arr.length; i++) {
                         var str = arr[i].to.title;
-                        obj[str] = true; // запомнить строку в виде свойства объекта
+                        obj[str] = true;
                     }
-                    // console.log(obj);
-                    return Object.keys(obj); // или собрать ключи перебором для IE8-
+                    return Object.keys(obj);
                 };
-        
-                var keyForData = unique(filteredCosts);
-                console.log(keyForData);
+
+                var categoriesArr = unique(filteredCosts);
+                console.log(categoriesArr);
+
                 var dataForChart = [];
-                for (let i = 0; i < keyForData.length; i++) {
+                for (let i = 0; i < categoriesArr.length; i++) {
+
                     dataForChart.push({
-                        key: keyForData[i],
-                        values: []
-                    })
+                        key: categoriesArr[i],
+                        values: [],
+                    });
+
+                    // filteredCosts.forEach(function (item2) {
+                    //     if (categoriesArr[i] == item2.title) {
+                    //         console.log(dataForChart)
+                    //        dataForChart.values[i].push( {
+
+                    //                 y: item2.sum,
+                    //                 y0: item2.sum,
+
+
+                    //         })
+                    //     }
+                    // });
                 }
                 console.log(dataForChart);
+
                 dataForChart.forEach(function (item) {
                     for (let i = 0; i < rangeDateArr.length; i++) {
                         item.values.push({
@@ -230,10 +271,10 @@
                     }
                 })
                 console.log(dataForChart);
-        
+
                 arrToDel = filteredCosts;
                 var arr3 = [];
-        
+
                 dataForChart.forEach(function (item) {
                     filteredCosts.forEach(function (item2) {
                         if (item.key == item2.title) {
@@ -246,9 +287,9 @@
                         }
                     })
                 });
-             
+
                 console.dir(dataForChart);
-                
+
                 // console.log(arr3);
                 // console.log(filteredCosts);
                 // // console.log($scope.costsSum);
@@ -258,11 +299,11 @@
                 //         return item;
                 //     }
                 // })
-        
+
                 // console.log(filterIncome);
-        
+
                 $scope.chart2Data = dataForChart;
-            
+
             };
 
             $scope.makePieChartCosts = function (date) {
@@ -299,12 +340,12 @@
                     return Object.keys(obj); // или собрать ключи перебором для IE8-
                 };
 
-                var keyForData = unique(filteredCosts);
-                console.log(keyForData);
+                var categoriesArr = unique(filteredCosts);
+                console.log(categoriesArr);
                 var dataForChart = [];
-                for (let i = 0; i < keyForData.length; i++) {
+                for (let i = 0; i < categoriesArr.length; i++) {
                     dataForChart.push({
-                        key: keyForData[i],
+                        key: categoriesArr[i],
                         y: 0
                     })
                 }
@@ -356,12 +397,12 @@
                     return Object.keys(obj); // или собрать ключи перебором для IE8-
                 };
 
-                var keyForData = unique(filterIncome);
-                console.log(keyForData);
+                var categoriesArr = unique(filterIncome);
+                console.log(categoriesArr);
                 var dataForChart = [];
-                for (let i = 0; i < keyForData.length; i++) {
+                for (let i = 0; i < categoriesArr.length; i++) {
                     dataForChart.push({
-                        key: keyForData[i],
+                        key: categoriesArr[i],
                         y: 0
                     })
                 }

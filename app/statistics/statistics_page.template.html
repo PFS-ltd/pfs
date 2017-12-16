@@ -3,10 +3,19 @@
 <!-- <div class="row"> -->
 <!-- <form class="input-group"> -->
 <!-- <div class="container"> -->
-
+<div>
+    <select class="form-control" ng-model="role" >
+        <!-- <option value="" disabled selected>Участник</option> ng-options="role.title for role in incomeCtrl.rolesArr"-->
+        <!-- <select class="form-control" ng-model='newCosts.who' > -->
+    
+            <!-- </select> -->
+        <option value="" disabled selected>Участник</option>
+        <option ng-repeat="item in rolesArray" >{{item.title}}</option>
+    </select>
+</div>
 <div>
     <div class="col-xs-12 text-cener">
-        <h4>Доходы и расходы</h4>
+        <h4>Доходы и расходы (столбиковая диаграмма)</h4>
     </div>
     <form>
         <div class="col-xs-4">Выберите диапазон</div>
@@ -14,7 +23,7 @@
 
             <input date-range-picker class="  form-control date-picker" type="text" ng-model="datePicker.date" options="options" />
         </div>
-        <button type="button" class="btn btn-default" ng-click="makeLineChart(datePicker.date)">
+        <button type="button" class="btn btn-default" ng-click="makeLineChart(datePicker.date, role)">
             Show
         </button>
     </form>

@@ -13,7 +13,8 @@
 }
 
 .category-title,
-.count-title
+.count-title,
+.table-th-cursor
 {
     cursor: pointer;
 }
@@ -25,17 +26,14 @@
     background-color: #356635;
 }
 
-#test.test {
-    border-radius: 0;
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
+    outline: none;
 }
 
-.my-animation.ng-enter {
-    -webkit-animation: zoomInDown 1s;
-    -moz-animation: zoomInDown 1s;
-    animation: zoomInDown 1s;
-  }
-  .my-animation.ng-leave {
-    -webkit-animation: zoomOutDown 1s;
-    -moz-animation: zoomOutDown 1s;
-    animation: zoomOutDown 1s;
-  }
+.navbar-btn {
+    margin-right: 10px;
+}
+
+.fa {
+    font-size: 28px;
+}

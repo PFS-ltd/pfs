@@ -2,6 +2,17 @@
     <form class="col-md-12">
         <div class="input-group" id="income-form">
             <div class="col-md-2">
+                
+                    <input type="text" 
+                    class="form-control"
+                    placeholder="Дата"
+                    uib-datepicker-popup="dd.MM.yyyy"
+                    ng-model="incomeCtrl.tmpIncome.date" is-open="incomeCtrl.popup.opened" 
+                    datepicker-options="incomeCtrl.dateOptions"
+                    show-button-bar="false" ng-focus="incomeCtrl.open()" />
+                    
+            </div>
+            <div class="col-md-2">
                     <select class="form-control" ng-model="incomeCtrl.tmpIncome.who" >
                         <!-- <option value="" disabled selected>Участник</option> ng-options="role.title for role in incomeCtrl.rolesArr"-->
                         <!-- <select class="form-control" ng-model='newCosts.who' > -->
@@ -23,8 +34,9 @@
                 </select>
             </div>
             <div class="col-md-1">
-                <input type="number" placeholder="Сумма" required min='0' class="form-control" ng-model="incomeCtrl.tmpIncome.sum">
+                <input type="number" placeholder="Сумма" min='0' class="form-control" ng-model="incomeCtrl.tmpIncome.sum">
             </div>
+<!--
             <div class="col-md-2">
                 <div class="input-group">
                     <input type="text" 
@@ -39,7 +51,7 @@
                     </span>
                 </div>
             </div>
-
+-->
             <div class="col-md-2">
                 <input type="text" placeholder="Комментарий" class="form-control" ng-model="incomeCtrl.tmpIncome.comment">
             </div>
@@ -49,8 +61,6 @@
         </div>
     </form>
 </div>
-
-<!-- {{dt}} -->
 
 <div class="col-md-6">
     <div class="panel panel-success">
@@ -107,21 +117,42 @@
         <div class="panel-body">
             <table class="table table-hover">
                 <thead>
-                    <th>#</th>
-                    <th>Сумма</th>
-                    <th>Откуда/Куда</th>
-                    <th>Кто</th>
-                    <th>Дата</th>
+                    <th>
+<!--
+                    <th ng-click="sortBy('number')">
+                        <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'number', 'glyphicon-menu-down': sortField === '-number'}"></i>
+-->
+                        #
+                    </th>
+                    <th ng-click="sortBy('sum')" class="table-th-cursor" title="Сортировать">
+                        <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'sum', 'glyphicon-menu-down': sortField === '-sum'}"></i>
+                        Сумма
+                    </th>
+                    <th>
+<!--
+                    <th ng-click="sortBy('categories')">
+                        <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'categories', 'glyphicon-menu-down': sortField === '-categories'}"></i>
+-->
+                        Откуда/Куда
+                    </th>
+                    <th ng-click="sortBy('who')" class="table-th-cursor" title="Сортировать">
+                        <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'who', 'glyphicon-menu-down': sortField === '-who'}"></i>
+                        Кто
+                    </th>
+                    <th ng-click="sortBy('date')" class="table-th-cursor" title="Сортировать">
+                        <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'date', 'glyphicon-menu-down': sortField === '-date'}"></i>
+                        Дата
+                    </th>
                     <th>Комментарий</th>
                     <th>Удалить</th>
                 </thead>
-                <tbody ng-repeat='item in incomeCtrl.incomeTransfers'>
-                    <tr>
+                <tbody>
+                    <tr ng-repeat='item in incomeCtrl.incomeTransfers | orderBy: sortField'>
                         <td>{{$index+1}}</td>
                         <td>{{item.sum}}</td>
-                        <td>Из '{{item.from.title}}' в '{{item.to.title}}'</td>
+                        <td>Из "{{item.from.title}}" в "{{item.to.title}}"</td>
                         <td>{{item.who}}</td>
-                        <td>{{item.date}}</td>
+                        <td>{{item.date | date : dd.MM.yyyy}}</td>
                         <td>{{item.comment}}</td>
                         <td><button class="btn btn-danger btn-xs" title="Удалить" 
         ng-click="incomeCtrl.delIncomeTransfer(item)"><span class="glyphicon glyphicon-remove"></span></button></td>
@@ -131,4 +162,4 @@
         </div>
     </div>
 </div>
-<div class="modal-window"></div>
+<!--<div class="modal-window"></div>-->

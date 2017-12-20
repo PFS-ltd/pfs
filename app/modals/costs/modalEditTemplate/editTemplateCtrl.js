@@ -5,7 +5,7 @@ app.controller('editTemplateCtrl', function ($scope, $uibModalInstance, item, co
 	// console.log(item);
 
 	$scope.correctTemplate = item;
-
+	
 	$scope.costsCategoriesArr = costsCategoriesArr.map(function (item) {
 		return {
 			id: item.$id,
@@ -19,7 +19,7 @@ app.controller('editTemplateCtrl', function ($scope, $uibModalInstance, item, co
 		};
 	});
 	
-	console.log($scope.incomeCategories);
+	
 
 
 

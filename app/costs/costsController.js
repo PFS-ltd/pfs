@@ -1,11 +1,15 @@
 app.controller('CostsController',
   function ($uibModal, $log, $document, $scope, costsService, incomeService, settingsService, uibDateParser, $filter, ngToast) {
-    $scope.costsCategoriesArr = costsService.getCostsCategoriesArray()
+    $scope.costsCategoriesArr = costsService.getCostsCategoriesArray();
+   console.log('costsCategoriesArr',$scope.costsCategoriesArr);
     $scope.templateCostsArr = costsService.getCostsTemplateArray();
+    // console.log('$scope.templateCostsArr',$scope.templateCostsArr);
     $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
+    // console.log('$scope.costsTransferArrQuery',$scope.costsTransferArrQuery);
     // $scope.costsTransferArr = costsService.getCostsTransferArray();
     $scope.billsCategories = incomeService.getIncomeAccounts();
     $scope.rolesArr = settingsService.getRolesArray();
+    // console.log('$scope.rolesArr', $scope.rolesArr);
 
     // главн инпут
     $scope.costsModel = {
@@ -50,13 +54,75 @@ app.controller('CostsController',
       date: '',
       comment: '',
     }
+    $scope.valid = function (item) {
+      if (item.title === undefined || item.title === null) {
+            ngToast.create({
+                "content": "Укажите участника",
+                "className": 'danger'
+                })
+            return false;
+        }
+    return true;
+    };   
 
+    $scope.validInput = function (item) {
+                 //DATE
+                 // console.log(item)
+                if (item.date === undefined) {
+                    ngToast.create({
+                        "content": "Укажите дату",
+                        "className": 'danger'
+                    })
+                    return false;
+                }
+                
+                //WHO
+                if (item.who === null || item.who === undefined) {
+                    ngToast.create({
+                        "content": "Укажите участника",
+                        "className": 'danger'
+                    })
+                    return false;
+                }
+                
+                //FROM
+                if (item.from === null || item.from === undefined) {
+                    ngToast.create({
+                        "content": "Укажите счет",
+                        "className": 'danger'
+                    })
+                    return false;
+                }
+                
+                //TO
+                if (item.to === null || item.to === undefined) {
+                    ngToast.create({
+                        "content": "Укажите категорию",
+                        "className": 'danger'
+                    })
+                    return false;
+                }
+                
+                //SUM
+                if (item.sum === null || item.sum === undefined) {
+                    ngToast.create({
+                        "content": "Укажите сумму",
+                        "className": 'danger'
+                    })
+                    return false;
+                }
+                
+                return true;
+
+    };
     //независимые копии моделей 
-    $scope.newCosts = angular.extend({}, $scope.costsModel);
+    // $scope.newCosts = angular.extend({}, $scope.costsModel);
     $scope.newExpenditureCategoryModel = angular.extend({}, $scope.ExpenditureCategoryModel);
     $scope.newTemplateModel = angular.extend({}, $scope.templateModel);
 
-    // // добавление даты и календаря в инпут 
+    $scope.newCosts = {};
+    $scope.newCosts.date = new Date();
+    // добавление даты и календаря в инпут 
     $scope.today = function () {
       $scope.newCosts.date = new Date();
 
@@ -65,6 +131,7 @@ app.controller('CostsController',
 
     $scope.dateOptions = {
       format: 'yy',
+      maxDate: new Date(2020,5,22)
     };
 
     $scope.openPicker = function () {
@@ -81,8 +148,10 @@ app.controller('CostsController',
 
 
     var makeTransfer = function (item) {
+      console.log(item);
       var bill = $scope.billsCategories.$getRecord(item.from.id);
       var cost = costsService.getItemInCostsCategoriesByKey(item.to.id);
+      console.log(bill.amount);
       if ((bill.amount - item.sum) < 0) {
         ngToast.create({
           "content": "Недоасточно денег на счету " + bill.title,
@@ -117,15 +186,20 @@ app.controller('CostsController',
 
 
     $scope.addNewCosts = function (item) {
-     
+      var isValid = $scope.validInput(item);
+      if(isValid){
+
+
       item.from.id = item.from.$id;
       item.to.id = item.to.$id;
       item.date = $filter('date')(item.date, 'yyyy-MM-dd');
 
       // costsService.addItemInCostsTransfer(item);
       makeTransfer(item);
-      $scope.newCosts = angular.extend({}, $scope.costsModel);
+      // $scope.newCosts = angular.extend({}, $scope.costsModel);
+      $scope.newCosts = {comment: ''};
       $scope.today();
+      }
     };
 
 
@@ -137,12 +211,17 @@ app.controller('CostsController',
         resolve: {
           newExpenditureCategoryModel: function () {
             return $scope.newExpenditureCategoryModel;
-          }
+          },
+          costsCategoriesArr : function () {
+            return $scope.costsCategoriesArr ;
+          } 
         },
       });
       modalExpenditureCategory.result.then(function (result) {
-        itemToSave = angular.extend({}, $scope.newExpenditureCategoryModel, result);
-        costsService.addItemInCostsCategories(itemToSave);
+        if (result) {
+         itemToSave = angular.extend({}, $scope.newExpenditureCategoryModel, result);
+        costsService.addItemInCostsCategories(itemToSave); 
+        }
       });
     };
 
@@ -161,18 +240,22 @@ app.controller('CostsController',
     };
 
     $scope.editExpenditureCategory = function (item) {
+      var modItem = angular.extend({},item);
       var modalEditExpenditureCategory = $uibModal.open({
         templateUrl: 'app/modals/costs/modalEditExpenditureCategory/template.html',
         controller: 'EditExpenditureCategory',
         size: 'lg',
         resolve: {
           correctCategory: function () {
-            return item;
+            return modItem;
           }
         },
       });
       modalEditExpenditureCategory.result.then(function (result) {
-        costsService.updateItemInCostsCategories(item)
+        console.log(item)
+        item = angular.extend(item, result);
+        // costsService.updateItemInCostsCategories(angular.extend(item, result));
+        costsService.updateItemInCostsCategories(item);
       });
     };
 
@@ -186,12 +269,15 @@ app.controller('CostsController',
     };
 
     $scope.editTemplate = function (item) {
+      console.log(item);
+      var modItem = angular.extend({},item);
+      console.log('item2', modItem);
       var modalEditTemplate = $uibModal.open({
         templateUrl: 'app/modals/costs/modalEditTemplate/template.html',
         controller: 'editTemplateCtrl',
         size: 'lg',
         resolve: {
-          item: item,
+          item: modItem,
           billsCategories: function () {
             return $scope.billsCategories;
           },
@@ -204,14 +290,40 @@ app.controller('CostsController',
         },
       });
       modalEditTemplate.result.then(function (result) {
+        // var item = angular.extend({}, result);
+        // console.log(item);
         // console.log(result);
         // var newItem = angular.extend({},result)
         // console.log(newItem);
         // console.log(item);
-        costsService.updateItemInCostsTemplate(item);
+        costsService.updateItemInCostsTemplate(angular.extend(item,result));
         // $scope.templateCostsArr.$save(item);
       });
     };
+
+  // $scope.editTemplate = function (item) {
+  //   var modalEditTemplate = $uibModal.open({
+  //     templateUrl: 'app/modals/costs/modalEditTemplate/template.html',
+  //     controller: 'editTemplateCtrl',
+  //     size: 'lg',
+  //     resolve: {
+  //       item: item,
+  //       incomeCategories: function () {
+  //         return $scope.storageFactory.income;
+  //       },
+  //       templateCosts: function () { 
+  //         return $scope.templateCosts },
+  //     },
+  //   });
+  //   modalEditTemplate.result.then(function (result) {
+  //     // console.log(result);
+  //     // var newItem = angular.extend({},result)
+  //     // console.log(newItem);
+  //     console.log(item);
+  //     $scope.templateCosts.$save(item);
+  //   });
+  // };
+
 
     $scope.addTemplateCosts = function () {
       var modalAddTemplate = $uibModal.open({
@@ -225,6 +337,10 @@ app.controller('CostsController',
           costsCategoriesArr: function () {
             return $scope.costsCategoriesArr;
           },
+          rolesArr : function () {
+            return $scope.rolesArr;
+          },
+
         },
       });
       modalAddTemplate.result.then(function (result) {
@@ -369,29 +485,6 @@ app.controller('CostsController',
     modalEditExpenditureCategory.result.then(function (result) {
 
       $scope.storageFactory.ExpenditureCategory[$index] = result;
-    });
-  };
-
-  $scope.editTemplate = function (item) {
-    var modalEditTemplate = $uibModal.open({
-      templateUrl: 'app/modals/costs/modalEditTemplate/template.html',
-      controller: 'editTemplateCtrl',
-      size: 'lg',
-      resolve: {
-        item: item,
-        incomeCategories: function () {
-          return $scope.storageFactory.income;
-        },
-        templateCosts: function () { 
-          return $scope.templateCosts },
-      },
-    });
-    modalEditTemplate.result.then(function (result) {
-      // console.log(result);
-      // var newItem = angular.extend({},result)
-      // console.log(newItem);
-      console.log(item);
-      $scope.templateCosts.$save(item);
     });
   };
 

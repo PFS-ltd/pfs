@@ -41,6 +41,12 @@ body {
 }
 
 #left-panel .fa {
+    font-size: 28px;
+}
+
+.spinner {
+    position: absolute;
+    left: 50%;
     font-size: 30px;
 }
 

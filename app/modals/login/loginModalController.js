@@ -24,5 +24,4 @@
         '$uibModalInstance',
         'Auth'
     ]
-
 })();

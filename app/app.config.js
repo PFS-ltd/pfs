@@ -1,5 +1,6 @@
 app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRouterProvider', '$translateProvider',
     function ($stateProvider, ngToastProvider, $locationProvider, $urlRouterProvider, $translateProvider) {
+        
         $locationProvider.hashPrefix('');
 
         $stateProvider
@@ -21,7 +22,6 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
                 templateUrl: 'app/home/home.html',
                 controller: 'HomeController',
                 resolve: {
-
                     "currentAuth": ["Auth", function (Auth) {
                         return Auth.$requireSignIn();
                     }]
@@ -52,6 +52,11 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
                 url: "/statistics",
                 templateUrl: "app/statistics/statistics_page.template.html",
                 controller: "StatisticsController",
+            })
+            .state('home.settings', {
+                url: "/settings",
+                templateUrl: 'app/settings/settings.html',
+                controller: 'SettingsController as settingsCtrl'
             })
 
 

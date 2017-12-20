@@ -30,12 +30,19 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
             .state('home.income', {
                 url: "/income",
                 templateUrl: 'app/income/income_page.template.html',
-                controller: 'IncomeController as incomeCtrl'
+                controller: 'IncomeController as incomeCtrl',
+                resolve: {
+
+                    "currentAuth": ["Auth", function (Auth) {
+                        return Auth.$requireSignIn();
+                    }]
+                },
             })
             .state('home.costs', {
                 url: "/costs",
                 templateUrl: "app/costs/costs_page.template.html",
-                controller: "CostsController"
+                controller: "CostsController",
+                
             })
             .state('home.calendar', {
                 url: "/calendar",

@@ -1,70 +1,62 @@
-<!-- <h1>Hello i'm statistics</h1>
-{{datePicker.date}} -->
-<!-- <div class="row"> -->
-<!-- <form class="input-group"> -->
-<!-- <div class="container"> -->
-<div>
-    <select class="form-control" ng-model="role" >
-        <!-- <option value="" disabled selected>Участник</option> ng-options="role.title for role in incomeCtrl.rolesArr"-->
-        <!-- <select class="form-control" ng-model='newCosts.who' > -->
-    
-            <!-- </select> -->
-        <option value="" disabled selected>Участник</option>
-        <option ng-repeat="item in rolesArray" >{{item.title}}</option>
-    </select>
+<div class="spinner" ng-if="load">
+    <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
 </div>
-<div>
-    <div class="col-xs-12 text-cener">
-        <h4>Доходы и расходы (столбиковая диаграмма)</h4>
-    </div>
-    <form>
-        <div class="col-xs-4">Выберите диапазон</div>
-        <div class="col-xs-6">
+<div ng-if="!load">
 
-            <input date-range-picker class="  form-control date-picker" type="text" ng-model="datePicker.date" options="options" />
+
+    <div class="row">
+
+        <div class="col-xs-3">
+            <select class="form-control" ng-model="data.role.title" ng-init="data.role.title = rolesArray[0].title" ng-change="update()">
+                <option ng-repeat="item in rolesArray" value="{{item.title}}">{{item.title}}</option>
+                <option ng-show="rolesArray.length > 1">Общий</option>
+            </select>
         </div>
-        <button type="button" class="btn btn-default" ng-click="makeLineChart(datePicker.date, role)">
-            Show
-        </button>
-    </form>
-    <nvd3 options="chart1Options" data="chart1Data"></nvd3>
-</div>
-<div>
-    <div class="col-xs-12 text-cener">
-        <h4>Расходы (столбиковая диаграмма)</h4>
-    </div>
-    <div class="col-xs-6">
-        <input date-range-picker class="form-control date-picker" type="text" ng-model="datePicker2.date" options="options" />
-    </div>
-    <button type="button" class="btn btn-default" ng-click="makeMultiBarChart(datePicker2.date)">
-        Show
-    </button>
-    <nvd3 options="chart2Options" data="chart2Data"></nvd3>
-</div>
-<div>
-    <div class="col-xs-12 text-cener">
-        <h4>Расходы (пирог)</h4>
-    </div>
-    <div class="col-xs-6">
-        <input date-range-picker class="form-control date-picker" type="text" ng-model="datePicker3.date" options="options" />
-    </div>
-    <button type="button" class="btn btn-default" ng-click="makePieChartCosts(datePicker3.date)">
-        Show
-    </button>
-    <nvd3 options="chart3Options" data="chart3Data"></nvd3>
-</div>
+        <div class="col-xs-3">
+            <h5>Выберите диапазон</h5>
+        </div>
+        <div class="col-xs-6">
+            <input date-range-picker class="form-control date-picker" type="text" ng-model="data.date" options="data.options" />
+        </div>
 
-<div>
-    <div class="col-xs-12 text-cener">
-        <h4>Источники дохода (пирог)</h4>
+
     </div>
-    <div class="col-xs-6">
-        <input date-range-picker class="form-control date-picker" type="text" ng-model="datePicker3.date" options="options" />
+{{data.date}}
+    <div class="col-xs-12">
+
+        <uib-tabset type="pills">
+            <uib-tab select="select(1)">
+                <uib-tab-heading>
+                    Доходы
+                    <br> (Столбиковая диаграмма)
+                </uib-tab-heading>
+                <nvd3 options="chart1.options" data="chart1.data" api="chart1.api"></nvd3>
+            </uib-tab>
+
+            <uib-tab select="select(2)">
+                <uib-tab-heading>
+                    Расходы
+                    <br> (Столбиковая диаграмма)
+                </uib-tab-heading>
+                <nvd3 options="chart2.options" data="chart2.data" api="chart2.api"></nvd3>
+            </uib-tab>
+            <uib-tab select="select(3)">
+                <uib-tab-heading>
+                    Расходы
+                    <br> (Круговая диаграмма)
+                </uib-tab-heading>
+                <nvd3 options="chart3.options" data="chart3.data" api="chart3.api"></nvd3>
+            </uib-tab>
+            <uib-tab select="select(4)">
+                <uib-tab-heading>
+                    Источники доходов
+                    <br> (Круговая диаграмма)
+                </uib-tab-heading>
+                <nvd3 options="chart4.options" data="chart4.data" api="chart4.api"></nvd3>
+            </uib-tab>
+        </uib-tabset>
     </div>
-    <button type="button" class="btn btn-default" ng-click="makePieChartIncome(datePicker3.date)">
-        Show
-    </button>
-    <nvd3 options="chart4Options" data="chart4Data"></nvd3>
+
+
 </div>
-<!-- <div google-chart chart="myChartObject" style="height:600px; width:100%;"></div> -->
-<!-- </div> -->
+</div>

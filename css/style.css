@@ -37,3 +37,8 @@
 .fa {
     font-size: 28px;
 }
+
+.spinner {
+    position: absolute;
+    left:50%;
+}

@@ -19,8 +19,6 @@ body {
     display: inline-block;
 }
 
-.category-title,
-.count-title,
 .table-th-cursor
 {
     cursor: pointer;
@@ -29,6 +27,7 @@ body {
 .badge-success {
     background-color: #468847;
 }
+
 .badge-success:hover {
     background-color: #356635;
 }
@@ -41,7 +40,7 @@ body {
     margin-right: 10px;
 }
 
-.fa {
+#left-panel .fa {
     font-size: 30px;
 }
 

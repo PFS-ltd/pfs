@@ -76,7 +76,7 @@
                 ngToast.create({
                     "content": "Укажите дату",
                     "className": 'warning'
-                })
+                });
                 return false;
             }
 
@@ -85,7 +85,7 @@
                 ngToast.create({
                     "content": "Укажите участника",
                     "className": 'warning'
-                })
+                });
                 return false;
             }
 
@@ -94,7 +94,7 @@
                 ngToast.create({
                     "content": "Укажите источник",
                     "className": 'warning'
-                })
+                });
                 return false;
             }
 
@@ -103,7 +103,7 @@
                 ngToast.create({
                     "content": "Укажите счет",
                     "className": 'warning'
-                })
+                });
                 return false;
             }
 
@@ -112,12 +112,12 @@
                 ngToast.create({
                     "content": "Укажите сумму",
                     "className": 'warning'
-                })
+                });
                 return false;
             }
 
             return true;
-        }
+        };
 
         this.makeIncomeTransfer = function (item) {
             item.from.id = item.from.$id;
@@ -129,7 +129,7 @@
             incomeService.updItemInIncomeAccounts(account);
             // console.log(account);
             // incomeService.addIncomeTransfer(item);
-        }
+        };
 
         this.makeReverseIncomeTransfer = function (item) {
             var account = incomeService.getItemInIncomeAccounts(item.to.id);
@@ -137,16 +137,16 @@
                 ngToast.create({
                     "content": "Невозможно отменить операцию, т.к. на счету " + account.title + " будет отрицательная сумма",
                     "className": 'warning'
-                })
+                });
             } else {
                 account.amount = account.amount - item.sum;
                 console.log(account);
                 incomeService.updItemInIncomeAccounts(account);
                 incomeService.delIncomeTransfer(item);
-                ngToast.create('Внесенный доход удален')
+                ngToast.create('Внесенный доход удален');
             }
             // incomeService.addIncomeTransfer(item);
-        }
+        };
 
         this.addIncomeTransfer = function (item) {
             var isValid = incomeCtrl.validateInput(item);
@@ -161,7 +161,7 @@
                 incomeCtrl.tmpIncome = {comment: ''}; //обнуляет значения инпута
 //                    incomeCtrl.tmpIncome = angular.extend({}, incomeCtrl.inputFormModel); //обнуляет значения инпута <- так появляются пустые строки в select (из-за ng-value)
             }
-        }
+        };
 
         this.delIncomeTransfer = function (item) {
             var modalInstance = $uibModal.open({
@@ -182,7 +182,7 @@
             }, function () {
                 //error
             });
-        }
+        };
 
         this.addIncomeSource = function () {
             var titles = [];
@@ -205,14 +205,14 @@
             }, function () {
                 //error
             });
-        }
+        };
 
         this.editIncomeSource = function (item) {
-            var titles = [];
+            var titles = [],
+                editItem = angular.extend({}, item);
             incomeCtrl.incomeSourceArr.forEach(function(item, i, arr) {
                 titles.push(arr[i].title);
             });
-            var editItem = angular.extend({}, item);
             var modalInstance = $uibModal.open({
                 templateUrl: 'app/modals/income/editIncomeSource/editIncomeSource.html',
                 controller: 'editIncomeSourceController',
@@ -228,17 +228,17 @@
                 }
             });
             modalInstance.result.then(function (result) {
-                if (result) { 
+                if (result) {
                     incomeService.updItemInIncomeSource(angular.extend(item, result));
                     ngToast.create({
-                        content:'Категория "' + result.title + '" успешно обновлена',
+                        content: 'Категория "' + result.title + '" успешно обновлена',
                         timeout: 3000
                     });
                 }
             }, function () {
                 //error
             });
-        }
+        };
 
         this.delIncomeSource = function (item) {
             var modalInstance = $uibModal.open({
@@ -258,7 +258,7 @@
                 //error
             });
 
-        }
+        };
 
         var accountModel = {
             title: '',
@@ -294,11 +294,11 @@
             }, function () {
                 //error
             });
-        }
+        };
 
         this.editIncomeAccount = function (item) {
-            var editItem = angular.extend({}, item);
-            var titles = [];
+            var editItem = angular.extend({}, item),
+                titles = [];
             incomeCtrl.incomeAccountsArr.forEach(function(item, i, arr) {
                 titles.push(arr[i].title);
             });
@@ -319,14 +319,14 @@
                 if (result) {
                     incomeService.updItemInIncomeAccounts(angular.extend(item, result));
                     ngToast.create({
-                        content:'Счет "' + result.title + '" успешно обновлен',
+                        content: 'Счет "' + result.title + '" успешно обновлен',
                         timeout: 3000
                     });
                 }
             }, function () {
                 //error
             });
-        }
+        };
 
         this.delIncomeAccount = function (item) {
             var modalInstance = $uibModal.open({
@@ -344,7 +344,7 @@
             }, function () {
                 //error
             });
-        }
+        };
         //modals end
 
         //sorts of income

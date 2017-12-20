@@ -68,18 +68,24 @@
             <h3 class="panel-title incomes-panel">Источники доходов</h3>
             <div class="pull-right">
                 <button type="button" class="btn btn-success btn-sm" 
-        ng-click="incomeCtrl.addIncomeSource()"><span class="glyphicon glyphicon-plus"></span> Добавить категорию</button>
+        ng-click="incomeCtrl.addIncomeSource()">
+                    <span class="glyphicon glyphicon-plus"></span> Добавить категорию
+                </button>
             </div>
         </div>
         <div class="panel-body">
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat='item in incomeCtrl.incomeSourceArr'>
-                    <span class="category-title">{{item.title}}</span>
+                    <span>{{item.title}}</span>
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-primary btn-xs" title="Редактировать" 
-        ng-click="incomeCtrl.editIncomeSource(item)"><span class="glyphicon glyphicon-pencil"></span></button>
+        ng-click="incomeCtrl.editIncomeSource(item)">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
                         <button type="button" class="btn btn-danger btn-xs" title="Удалить" 
-        ng-click="incomeCtrl.delIncomeSource(item)"><span class="glyphicon glyphicon-remove"></span></button>
+        ng-click="incomeCtrl.delIncomeSource(item)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
                     </div>
                 </li>
             </ul>
@@ -92,17 +98,23 @@
             <h3 class="panel-title incomes-panel">Ваши счета</h3>
             <div class="pull-right">
                 <button type="button" class="btn btn-warning btn-sm" 
-        ng-click="incomeCtrl.addIncomeAccount()"><span class="glyphicon glyphicon-plus"></span> Добавить счет</button>
+        ng-click="incomeCtrl.addIncomeAccount()">
+                    <span class="glyphicon glyphicon-plus"></span> Добавить счет
+                </button>
             </div>
         </div>
         <div class="panel-body">
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat='item in incomeCtrl.incomeAccountsArr'>
-                    <span class="count-title">{{item.title}} <span class="badge badge-success" title="Доступны">{{item.amount}}</span></span>
+                    <span>{{item.title}} <span class="badge badge-success" title="Доступны">{{item.amount}}</span></span>
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="incomeCtrl.editIncomeAccount(item)"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="incomeCtrl.editIncomeAccount(item)">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
                         <button type="button" class="btn btn-danger btn-xs" title="Удалить" 
-            ng-click="incomeCtrl.delIncomeAccount(item)"><span class="glyphicon glyphicon-remove"></span></button>
+            ng-click="incomeCtrl.delIncomeAccount(item)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
                     </div>
                 </li>
             </ul>

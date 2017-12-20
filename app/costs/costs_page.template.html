@@ -1,41 +1,40 @@
 
 <div class="row">
     <form class="col-md-12">
-
         <div class="input-group" id="costs-form">
-
+             <div class="col-md-2">
+                    <input type="text"
+                    class="form-control"
+                    placeholder="Дата" 
+                    uib-datepicker-popup="dd.MM.yyyy" 
+                    ng-model="newCosts.date" is-open="popup.opened"
+                    datepicker-options="dateOptions" ng-required="true"
+                    show-button-bar="false"
+                    ng-focus="openPicker()" />
+            </div>
             <div class="col-md-2 ">
-                <select class="form-control" ng-model='newCosts.who' ng-options="role.title for role in rolesArr">
+                <select class="form-control" ng-model='newCosts.who' >
+                    <option value="" disabled selected>Участник</option>
+                    <option ng-repeat="key in rolesArr" ng-value="key">{{key.title}}</option>
                 </select>
             </div>
             <div class="col-md-2">
-                <select class="form-control" ng-model='newCosts.from' ng-options="key.title for key in billsCategories">
-                    <option disabled selected='selected'>Откуда</option>
-                    <!-- <option ng-repeat="key in storageFactory.income">{{key.title}}</option> -->
+                <select class="form-control" ng-model='newCosts.from'>
+                    <option value="" selected disabled>Счет</option>
+                    <option ng-repeat="item in billsCategories" ng-value="item">{{item.title}}</option>
 
                 </select>
             </div>
             <div class="col-md-2">
-                <select class="form-control" ng-model='newCosts.to' ng-options="key.title for key in costsCategoriesArr">
-                    <!-- <option>Куда</option>
-                    <option ng-repeat="key in storageFactory.ExpenditureCategory">{{key.title}}</option> -->
+                <select class="form-control" ng-model='newCosts.to'>
+                    <option value=""  disabled selected >Категория</option>
+                    <option ng-repeat='key in costsCategoriesArr' ng-value="key">{{key.title}}</option>
                 </select>
             </div>
             <div class="col-md-1">
                 <input type="number" placeholder="Сумма" min='0' class="form-control" ng-model='newCosts.sum'>
             </div>
-            <div class="col-md-2">
-                <p class="input-group">
-
-                    <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="newCosts.date" is-open="popup.opened"
-                        datepicker-options="dateOptions" ng-required="true" show-button-bar="false" />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="openPicker()">
-                            <i class="glyphicon glyphicon-calendar"></i>
-                        </button>
-                    </span>
-                </p>
-            </div>
+           
             <div class="col-md-2">
                 <input type="text" placeholder="Комментарий" class="form-control" ng-model='newCosts.comment'>
             </div>
@@ -63,8 +62,9 @@
                 <li class="list-group-item text-left" ng-repeat='item in costsCategoriesArr'>
                     <span class="category-title">{{item.title}}</span>
                     <div class="col-xs-4" class="list-group-item-heading" ng-if="item.limit!=0">
-                        <uib-progressbar animate="false" type="success" max="item.limitPayment" value="item.sum" ng-hide="item.sum ==0">
-                            <i>{{item.sum}}</i> <i ng-hide="item.limitPayment ==0"> / {{item.limitPayment}}</i>
+                        <uib-progressbar animate="false" type="success" max="item.limitPayment" value="item.sum" >
+                            <!-- <i style="color:black;">{{item.sum}}</i> <i style ng-hide="item.limitPayment ==0"> / {{item.limitPayment}}</i> -->
+                            <i style="color:black; text-align:center;">{{item.sum}}/{{item.limitPayment}}</i>
                         </uib-progressbar>
                     </div>
                     <div class="btn-group pull-right">
@@ -91,17 +91,22 @@
             </div>
         </div>
         <div class="panel-body">
-            <li class="list-group-item" ng-repeat='item in templateCostsArr'>
-                <span ng-click="makeTemplateTransfer(item)" class="count-title">{{item.comment}}</span>
-                <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="editTemplate(item)">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-xs" title="Удалить" ng-click="deleteTemplate(item)">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </div>
-            </li>
+             <ul class="list-group">
+                <li class="list-group-item" ng-repeat='item in templateCostsArr'>
+                    <span >{{item.comment}}</span>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-success btn-xs" title="Совершить платеж" ng-click="makeTemplateTransfer(item)">
+                            <span class="glyphicon glyphicon-usd"></span>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="editTemplate(item)">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs" title="Удалить" ng-click="deleteTemplate(item)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
@@ -127,7 +132,7 @@
                         <td>{{item.sum}}</td>
                         <td>Из {{item.from.title}} в {{item.to.title}}</td>
                         <td>{{item.who.title}}</td>
-                        <td>{{item.date| date:'dd-MM-yyyy'}}</td>
+                        <td>{{item.date| date:'dd.MM.yyyy'}}</td>
                         <td>{{item.comment}}</td>
                         <td>
                             <button class="btn btn-danger btn-xs" title="Удалить" ng-click='deleteTransfer(item)'>

@@ -58,6 +58,11 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
                 templateUrl: 'app/settings/settings.html',
                 controller: 'SettingsController as settingsCtrl'
             })
+            .state('home.goals',{
+                url: "/goals",
+                templateUrl : "app/goals/goal_page.html",
+                controller : "GoalController"
+            })
 
 
         $urlRouterProvider.otherwise('home');

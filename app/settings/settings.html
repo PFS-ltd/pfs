@@ -1,0 +1,25 @@
+<h2>Настройки пользователя</h2>
+
+<uib-accordion close-others="false">
+    <div uib-accordion-group class="panel-default" heading="Профиль пользователя">
+        email
+        pass
+    </div>
+    <div uib-accordion-group class="panel-default" heading="Выбор цветовой темы">
+      radio button || checkbox || select
+    </div>
+    <div uib-accordion-group class="panel-default" heading="Выбор языка интерфейса">
+        рус
+        eng
+    </div>
+    <div uib-accordion-group class="panel-default" heading="Добавить\редактировать участника бюджета">
+      <p>xeditable поле для редактирования</p>
+      <button type="button" class="btn btn-default btn-sm" ng-click="addItem()">Добавить участника</button>
+      <div ng-repeat="item in items">{{item}}</div>
+    </div>
+    <div uib-accordion-group class="panel-danger" heading="Удалить аккаунт">
+      <p>Нажмите на кнопку для удаления аккаунта</p>
+      <button class="btn btn-danger">Удалить</button>
+    </div>
+    
+  </uib-accordion>

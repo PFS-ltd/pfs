@@ -1,5 +1,6 @@
 app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRouterProvider', '$translateProvider',
     function ($stateProvider, ngToastProvider, $locationProvider, $urlRouterProvider, $translateProvider) {
+        
         $locationProvider.hashPrefix('');
 
         $stateProvider
@@ -21,7 +22,6 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
                 templateUrl: 'app/home/home.html',
                 controller: 'HomeController',
                 resolve: {
-
                     "currentAuth": ["Auth", function (Auth) {
                         return Auth.$requireSignIn();
                     }]
@@ -30,12 +30,19 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
             .state('home.income', {
                 url: "/income",
                 templateUrl: 'app/income/income_page.template.html',
-                controller: 'IncomeController as incomeCtrl'
+                controller: 'IncomeController as incomeCtrl',
+                resolve: {
+
+                    "currentAuth": ["Auth", function (Auth) {
+                        return Auth.$requireSignIn();
+                    }]
+                },
             })
             .state('home.costs', {
                 url: "/costs",
                 templateUrl: "app/costs/costs_page.template.html",
-                controller: "CostsController"
+                controller: "CostsController",
+                
             })
             .state('home.calendar', {
                 url: "/calendar",
@@ -43,17 +50,23 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
             })
             .state('home.statistics', {
                 url: "/statistics",
-                template: "<h2>Statistics</h2>",
+                templateUrl: "app/statistics/statistics_page.template.html",
+                controller: "StatisticsController",
+            })
+            .state('home.settings', {
+                url: "/settings",
+                templateUrl: 'app/settings/settings.html',
+                controller: 'SettingsController as settingsCtrl'
             })
 
 
         $urlRouterProvider.otherwise('home');
 
         ngToastProvider.configure({
-            animation: 'fade',
-            horizontalPosition: 'middle',
+            additionalClasses: 'my-animation',
+            horizontalPosition: 'right',
             verticalPosition: 'top',
-            maxNumber: 1,
+            maxNumber: 0,
             combineDuplications: false
         });
 

@@ -1,3 +1,8 @@
+/*
+body {
+    padding-top: 90px;
+}
+*/
 .container,
 .row {
     margin-bottom: 20px;
@@ -8,7 +13,9 @@
     padding: 0;
 }
 
-.panel-title {
+.incomes-panel,
+.costs-panel
+{
     display: inline-block;
 }
 
@@ -36,4 +43,27 @@
 
 .fa {
     font-size: 28px;
+}
+
+.spinner {
+    position: absolute;
+    left:50%;
+    font-size: 30px;
+}
+
+#info-window {
+    position: relative;
+    top: 60px;
+}
+
+/*
+#upper-panel {
+    position: fixed;
+    z-index: 900;
+}
+*/
+
+#left-panel {
+    position: fixed;
+    top: 60px;
 }

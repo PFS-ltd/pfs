@@ -230,17 +230,28 @@ app.controller('CostsController',
       var modalDeleteCategory = $uibModal.open({
         templateUrl: 'app/modals/costs/modalDeleteExpenditureCategory/templateDelete.html',
         controller: 'modalDeleteExpenditureCategory',
-        size: 'md'
+        size: 'md',
+        resolve :{
+          item : function () {
+            return item
+          },
+        },
       });
       modalDeleteCategory.result.then(function (result) {
         if (result) {
           costsService.delItemInCostsCategories(item);
+          ngToast.create ({
+            'content' : 'Успешно удалено',
+            'className' : 'success'
+          });
         }
       });
     };
 
     $scope.editExpenditureCategory = function (item) {
       var modItem = angular.extend({},item);
+      var backup = angular.extend({},item);
+      item.title = undefined;
       var modalEditExpenditureCategory = $uibModal.open({
         templateUrl: 'app/modals/costs/modalEditExpenditureCategory/template.html',
         controller: 'EditExpenditureCategory',
@@ -248,14 +259,19 @@ app.controller('CostsController',
         resolve: {
           correctCategory: function () {
             return modItem;
-          }
+          },
+          costsCategoriesArr : function () {
+            return $scope.costsCategoriesArr;
+          },
         },
       });
       modalEditExpenditureCategory.result.then(function (result) {
         console.log(item)
         item = angular.extend(item, result);
-        // costsService.updateItemInCostsCategories(angular.extend(item, result));
         costsService.updateItemInCostsCategories(item);
+      }, function() {
+        item = angular.extend(item, backup);
+        $log.info('Modal dismissed at: ' + new Date());
       });
     };
 
@@ -269,9 +285,12 @@ app.controller('CostsController',
     };
 
     $scope.editTemplate = function (item) {
-      console.log(item);
+
+      // console.log(item);
       var modItem = angular.extend({},item);
-      console.log('item2', modItem);
+      var backup = angular.extend({},item);
+      item.comment = undefined;
+      // console.log('item2', modItem);
       var modalEditTemplate = $uibModal.open({
         templateUrl: 'app/modals/costs/modalEditTemplate/template.html',
         controller: 'editTemplateCtrl',
@@ -287,6 +306,12 @@ app.controller('CostsController',
           templateCosts: function () {
             return $scope.templateCostsArr
           },
+          templateCostsArr : function () {
+            return $scope.templateCostsArr;
+          },
+          rolesArr : function () {
+            return $scope.rolesArr;
+          },
         },
       });
       modalEditTemplate.result.then(function (result) {
@@ -298,6 +323,9 @@ app.controller('CostsController',
         // console.log(item);
         costsService.updateItemInCostsTemplate(angular.extend(item,result));
         // $scope.templateCostsArr.$save(item);
+      }, function() {
+        item = angular.extend(item,backup);
+        $log.info('Modal dismissed at: ' + new Date());
       });
     };
 
@@ -340,6 +368,9 @@ app.controller('CostsController',
           rolesArr : function () {
             return $scope.rolesArr;
           },
+          templateCostsArr : function() {
+            return $scope.templateCostsArr;
+          },
 
         },
       });
@@ -354,7 +385,12 @@ app.controller('CostsController',
       var modalDelete = $uibModal.open({
         templateUrl: 'app/modals/costs/modalDeleteTemplate/templateDelete.html',
         controller: 'ModalController',
-        size: 'md'
+        size: 'md' , 
+        resolve: {
+          item: function () {
+            return item;
+          },
+        },
       });
       modalDelete.result.then(function (result) {
         console.log('result', result);
@@ -369,7 +405,12 @@ app.controller('CostsController',
       var modalDelete = $uibModal.open({
         templateUrl: 'app/modals/costs/modalDelete/templateDelete.html',
         controller: 'ModalController',
-        size: 'md'
+        size: 'md',
+        resolve: {
+          item : function () {
+            return item;
+          }
+        }
       });
       modalDelete.result.then(function (result) {
         if (result) {

@@ -4,7 +4,9 @@
 
 app.controller('ModalController', ModalController);
 
-function ModalController($scope, $uibModalInstance) {
+function ModalController($scope, $uibModalInstance,item) {
+	$scope.item = item;
+	console.log(item)
 	$scope.cancel = function() {
 		$uibModalInstance.close(false);
 
@@ -14,8 +16,5 @@ function ModalController($scope, $uibModalInstance) {
 		$uibModalInstance.close(true);
 	};
 }
-ModalController.$inject = [
-	'$scope',
-	'$uibModalInstance',
-];
+
 })();

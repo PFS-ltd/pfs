@@ -1,4 +1,4 @@
-<div class="modal-header">
+ <div class="modal-header">
     <h3 class="modal-title" id="modal-title">Редактирование шаблона расхода</h3>
 </div>
 <div class="modal-body" id="modal-body">
@@ -9,23 +9,37 @@
                 <input ng-model='correctTemplate.comment' type="text" class="form-control" id="countName" placeholder="Название категории">
             </div>
         </div>  
-        <div class="form-group">
-            <label  class="col-sm-4 control-label">Откуда</label>
+         <div class="form-group">
+            <label class="col-sm-4 control-label" >Участник</label>
             <div class="col-sm-8">
-                <select class="form-control" ng-model='correctTemplate.from' ng-options="key.title for key in billsCategories">
+                <select class='form-control' ng-model='newTemplateModel.who' ng-options="key.title for key in rolesArr">
+                    
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label  class="col-sm-4 control-label">Счет</label>
+            <div class="col-sm-8">
+               <!--  <select class="form-control" ng-model='correctTemplate.from' ng-init='correctTemplate.from' 
+                ng-options="key.title for key in billsCategories"> -->
                         <!-- ng-options="key.$id as key.title for key in incomeCategories" -->
                         <!-- ng-options="key.title for key in incomeCategories track by key.$id" -->
                     <!-- <option ng-repeat="key in incomeCategories" ng-value="key.$id" >{{key.title}}</option> -->
                     <!-- ng-options="color.name for color in colors" -->
+                <!-- </select>
+ -->                <select class="form-control" ng-model='correctTemplate.from' ng-init="correctTemplate.from = billsCategories[0].title">
+                       
+                    <option ng-repeat="key in billsCategories" ng-value="key.$id" >{{key.title}}</option>
+                    <!-- ng-options="color.name for color in colors" -->
                 </select>
-               
             </div>
         </div>
         <div class="form-group">
-            <label  class="col-sm-4 control-label">Куда</label>
+            <label  class="col-sm-4 control-label">Категория</label>
             <div class="col-sm-8">
-                <select class="form-control" ng-model='correctTemplate.to' ng-options="key.title for key in costsCategoriesArr" >
-                    <!-- <option ng-repeat="key in costsCategoriesArr">{{key.title}}</option> -->
+                <select class="form-control" ng-model='correctTemplate.to' ng-options="key.title  for key in costsCategoriesArr" >
+                    
+                    
                 </select>
             </div>
         </div>

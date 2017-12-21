@@ -1,10 +1,6 @@
-(function(){
-'use strict';
-
-
-app.controller('deleteTemplate', deleteTemplate);
-
-function deleteTemplate($scope, $uibModalInstance) {
+app.controller('ModalController', function ($scope, $uibModalInstance, item){
+	$scope.item = item ;
+	console.log(item.comment);
 	$scope.cancel = function() {
 		$uibModalInstance.close(false);
 
@@ -13,9 +9,5 @@ function deleteTemplate($scope, $uibModalInstance) {
 	$scope.ok = function() {
 		$uibModalInstance.close(true);
 	};
-}
-deleteTemplate.$inject = [
-	'$scope',
-	'$uibModalInstance',
-];
-})();
+});
+

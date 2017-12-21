@@ -1,10 +1,9 @@
-(function(){
-'use strict';
 
 
-app.controller('modalDeleteExpenditureCategory', ModalController);
 
-function ModalController($scope, $uibModalInstance) {
+app.controller('modalDeleteExpenditureCategory', function($scope , $uibModalInstance, item){
+	$scope.item = item ;
+
 	$scope.cancel = function() {
 		$uibModalInstance.close(false);
 
@@ -13,9 +12,6 @@ function ModalController($scope, $uibModalInstance) {
 	$scope.ok = function() {
 		$uibModalInstance.close(true);
 	};
-}
-ModalController.$inject = [
-	'$scope',
-	'$uibModalInstance',
-];
-})();
+
+
+});

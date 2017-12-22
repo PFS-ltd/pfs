@@ -30,8 +30,9 @@
                
                
                 Auth.$signOut().then(function () {
+                    var asdf = 'Прощай'
                     $state.transitionTo('root');
-                    ngToast.create('Good-bye');
+                    ngToast.create(asdf);
                 })
             }
         });

@@ -1,5 +1,5 @@
-app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRouterProvider', '$translateProvider',
-    function ($stateProvider, ngToastProvider, $locationProvider, $urlRouterProvider, $translateProvider) {
+app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRouterProvider', '$translateProvider','$provide',
+    function ($stateProvider, ngToastProvider, $locationProvider, $urlRouterProvider, $translateProvider, $provide) {
         
         $locationProvider.hashPrefix('');
 
@@ -46,7 +46,8 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
             })
             .state('home.calendar', {
                 url: "/calendar",
-                template: "<h2>Calendar</h2>",
+                templateUrl: "app/calendar/calendar.template.html",
+                controller: "CalendarsController",
             })
             .state('home.statistics', {
                 url: "/statistics",
@@ -64,7 +65,7 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
 
         ngToastProvider.configure({
             additionalClasses: 'my-animation',
-            horizontalPosition: 'right',
+            horizontalPosition: 'middle',
             verticalPosition: 'top',
             maxNumber: 0,
             combineDuplications: false
@@ -81,6 +82,14 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
 
         firebase.initializeApp(configFirebase);
 
+        $provide.decorator('ColorPickerOptions', function($delegate) {
+            var options = angular.copy($delegate);
+            options.round = false;
+            options.alpha = false;
+            options.format = 'rgb';
+            options.inputClass = 'form-control';
+            return options;
+        });
 //        $translateProvider.translations('en', {
 //            "Incomes": "Incomes",
 //            "Costs": "Costs"

@@ -1,9 +1,9 @@
 (function () {
-    app.controller('StatisticsController', ['$scope', 'incomeService', 'settingsService', 'costsService', '$filter', 'ngToast', 'Auth', 'currentAuth', '$timeout',
-        function ($scope, incomeService, settingsService, costsService, $filter, ngToast, Auth, currentAuth, $timeout) {
+    app.controller('StatisticsController', ['$scope', 'incomeService', 'settingsService', 'costsService', '$filter', 'ngToast', 'Auth', 'currentAuth', '$timeout', 'calendarLocale',
+        function ($scope, incomeService, settingsService, costsService, $filter, ngToast, Auth, currentAuth, $timeout, calendarLocale) {
             $scope.load = true;
 
-            $scope.rolesArray = settingsService.getRolesArray();
+                $scope.rolesArray = settingsService.getRolesArray();
             $scope.incomeTransfers = incomeService.getIncomeTransfers();
             $scope.costsTransfers = costsService.getCostsTransferArray();
             $scope.costsTransfers.$loaded(
@@ -11,19 +11,21 @@
                     $scope.load = false;
                 }
             )
-    
+
             $scope.chart1 = {};
             $scope.chart2 = {};
             $scope.chart3 = {};
             $scope.chart4 = {};
-    
+
+
+
             $scope.update = function () {
                 $scope.chart1.api.update();
                 $scope.chart2.api.update();
                 $scope.chart3.api.update();
                 $scope.chart4.api.update();
             }
-    
+
             $scope.select = function (arg) {
                 $scope.selectedTab = arg;
                 $timeout(function () {
@@ -31,26 +33,22 @@
                     else if (arg === 2) $scope.chart2.api.update();
                     else if (arg === 3) $scope.chart3.api.update();
                     else if (arg === 4) $scope.chart4.api.update();
-                });
+                }, 50);
             };
-    
+
             $scope.data = {};
             $scope.data.date = {
                 startDate: moment().subtract(8, 'd'),
                 endDate: moment()
             };
-    
-    
+            $scope.data.role = {
+                title: "who"
+            }
+
             $scope.data.options = {
                 applyClass: 'btn btn-success',
-                locale: {
-                    applyLabel: "Принять",
-                    fromLabel: "From",
-                    format: "YYYY-MM-DD",
-                    toLabel: "To",
-                    cancelLabel: 'Отмена',
-                    customRangeLabel: 'Свой диапазон'
-                },
+                locale: calendarLocale['ru'],
+                opens: "left",
                 ranges: {
                     'Последние 7 дней': [moment().subtract(1, 'w'), moment()],
                     'Последние 30 дней': [moment().subtract(29, 'days'), moment()],
@@ -63,9 +61,9 @@
                     }
                 }
             };
-    
-    
-    
+
+
+
             $scope.chart1.options = {
                 chart: {
                     type: 'discreteBarChart',
@@ -93,7 +91,7 @@
                             return d3.format()(d);
                         },
                     },
-                    // objectequality:true,
+                    noData: "За выбранный диапазон времени нет данных",
                 },
             };
             var sumOfOperationsFilterBydate = function (arr, role) {
@@ -111,7 +109,7 @@
                 });
                 return operation;
             };
-    
+
             $scope.chart1.data = function () {
                 return [
                     {
@@ -130,7 +128,7 @@
                     },
                 ];
             };
-    
+
             $scope.chart2.options = {
                 chart: {
                     type: 'multiBarChart',
@@ -163,12 +161,13 @@
                         }
                     },
                     showControls: false,
-    
+                    noData: "За выбранный диапазон времени нет данных",
+
                 }
             }
-    
+
             $scope.chart2.data = function () {
-    
+
                 var filteredCosts = $scope.costsTransfers.filter(function (item) {
                     if (moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')) {
                         if ($scope.data.role.title == 'Общий') {
@@ -180,7 +179,7 @@
                         }
                     }
                 });
-    
+
                 function unique(arr) {
                     var obj = {};
                     for (var i = 0; i < arr.length; i++) {
@@ -189,18 +188,18 @@
                     }
                     return Object.keys(obj);
                 };
-    
+
                 var categoriesArr = unique(filteredCosts);
-    
+
                 var dataForChart = [];
-    
+
                 for (let i = 0; i < categoriesArr.length; i++) {
                     dataForChart.push({
                         key: categoriesArr[i],
                         values: [],
                     });
                 }
-    
+
                 dataForChart.forEach(function (item) {
                     for (let i = 0, day = moment($scope.data.date.startDate).dayOfYear(); i < moment($scope.data.date.endDate).dayOfYear() - moment($scope.data.date.startDate).dayOfYear() + 1; i++ , day++) {
                         item.values.push({
@@ -212,17 +211,16 @@
                         if (item.key == item2.title) {
                             item.values.forEach(function (itemValues) {
                                 if (itemValues.x == item2.date) {
-                                    // console.log(item2.sum);
                                     itemValues.y += item2.sum;
                                 }
                             })
                         }
                     })
                 })
-    
+
                 return dataForChart;
             }
-    
+
             $scope.chart3.options = {
                 chart: {
                     type: 'pieChart',
@@ -240,13 +238,14 @@
                             bottom: 5,
                             left: 0
                         }
-                    }
+                    },
+                    noData: "За выбранный диапазон времени нет данных",
                 }
             }
-    
+
             $scope.chart3.data = function () {
-    
-    
+
+
                 var filteredCosts = $scope.costsTransfers.filter(function (item) {
                     if (moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')) {
                         if ($scope.data.role.title == 'Общий') {
@@ -258,7 +257,6 @@
                         }
                     }
                 });
-                console.log(filteredCosts)
                 function unique(arr) {
                     var obj = {};
                     for (var i = 0; i < arr.length; i++) {
@@ -267,18 +265,18 @@
                     }
                     return Object.keys(obj);
                 };
-    
+
                 var categoriesArr = unique(filteredCosts);
-    
+
                 var dataForChart = [];
-    
+
                 for (let i = 0; i < categoriesArr.length; i++) {
                     dataForChart.push({
                         key: categoriesArr[i],
                         y: 0
                     })
                 }
-    
+
                 dataForChart.forEach(function (item) {
                     filteredCosts.forEach(function (item2) {
                         if (item.key == item2.title) {
@@ -286,12 +284,11 @@
                         }
                     })
                 });
-                console.log(dataForChart)
                 return dataForChart;
             };
-    
-    
-    
+
+
+
             $scope.chart4.options = {
                 chart: {
                     type: 'pieChart',
@@ -310,18 +307,19 @@
                             bottom: 5,
                             left: 0
                         }
-                    }
+                    },
+                    noData: "За выбранный диапазон времени нет данных",
                 }
             }
-    
+
             $scope.chart4.data = function () {
-          
+
                 var filterIncome = $scope.incomeTransfers.filter(function (item) {
                     if (moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')) {
                         return item.title = item.from.title
                     }
                 });
-    
+
                 function unique(arr) {
                     var obj = {};
                     for (var i = 0; i < arr.length; i++) {
@@ -330,18 +328,18 @@
                     }
                     return Object.keys(obj);
                 };
-    
+
                 var categoriesArr = unique(filterIncome);
-    
+
                 var dataForChart = [];
-    
+
                 for (let i = 0; i < categoriesArr.length; i++) {
                     dataForChart.push({
                         key: categoriesArr[i],
                         y: 0
                     })
                 }
-    
+
                 dataForChart.forEach(function (item) {
                     filterIncome.forEach(function (item2) {
                         if (item.key == item2.title) {

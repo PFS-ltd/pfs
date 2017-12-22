@@ -15,10 +15,11 @@
                     size: 'sm',
                 });
                 modalLogin.result.then(function (result) {
-                    Auth.$signInWithEmailAndPassword(result.email, result.pass)
-                        .then(function (firebaseUser) {
-                            $location.path('/home');
-                        })
+                   
+                            $state.go('home.income');
+                        
+                }).catch(function () {
+                    // Modal dismissed.
                 });
 
             };
@@ -30,8 +31,7 @@
                     size: 'sm',
                 });
                 modalRegister.result.then(function (result) {
-                    // console.log(result);
-
+                    $location.path('/home')
                 }).catch(function () {
                     // Modal dismissed.
                 })

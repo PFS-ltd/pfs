@@ -24,14 +24,15 @@
 //            $transitions.onRetain({ entering: 'home.income' }, function(transition) {
 //                console.log("Now at 'income' state");
 //            });
-        //$transition удалить
+        //$transitions удалить
 
             $scope.signOut = function () {
                
                
                 Auth.$signOut().then(function () {
+                    var asdf = 'Прощай'
                     $state.transitionTo('root');
-                    ngToast.create('Good-bye');
+                    ngToast.create(asdf);
                 })
             }
         });

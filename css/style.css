@@ -1,3 +1,8 @@
+/*
+body {
+    padding-top: 90px;
+}
+*/
 .container,
 .row {
     margin-bottom: 20px;
@@ -8,7 +13,9 @@
     padding: 0;
 }
 
-.panel-title {
+.incomes-panel,
+.costs-panel
+{
     display: inline-block;
 }
 
@@ -34,6 +41,38 @@
     margin-right: 10px;
 }
 
-.fa {
-    font-size: 28px;
+#left-panel .fa {
+    font-size: 30px;
 }
+.spinner {
+    position: absolute;
+    left:50%;
+    font-size: 30px;
+}
+
+#info-window {
+    position: relative;
+    top: 60px;
+}
+
+/*
+#upper-panel {
+    position: fixed;
+    z-index: 900;
+}
+*/
+
+#left-panel {
+    position: fixed;
+    top: 60px;
+}
+
+.tooltip.tooltip-info .tooltip-inner {
+    color: #fff;
+    background-color: #5a5a5a;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  }
+  /* Hide arrow */
+  .tooltip.tooltip-info .tooltip-arrow {
+    display: none;
+  }

@@ -1,5 +1,6 @@
-app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRouterProvider', '$translateProvider',
-    function ($stateProvider, ngToastProvider, $locationProvider, $urlRouterProvider, $translateProvider) {
+app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRouterProvider', '$translateProvider','$provide',
+    function ($stateProvider, ngToastProvider, $locationProvider, $urlRouterProvider, $translateProvider, $provide) {
+        
         $locationProvider.hashPrefix('');
 
         $stateProvider
@@ -21,7 +22,6 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
                 templateUrl: 'app/home/home.html',
                 controller: 'HomeController',
                 resolve: {
-
                     "currentAuth": ["Auth", function (Auth) {
                         return Auth.$requireSignIn();
                     }]
@@ -30,30 +30,44 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
             .state('home.income', {
                 url: "/income",
                 templateUrl: 'app/income/income_page.template.html',
-                controller: 'IncomeController as incomeCtrl'
+                controller: 'IncomeController as incomeCtrl',
+                resolve: {
+
+                    "currentAuth": ["Auth", function (Auth) {
+                        return Auth.$requireSignIn();
+                    }]
+                },
             })
             .state('home.costs', {
                 url: "/costs",
                 templateUrl: "app/costs/costs_page.template.html",
-                controller: "CostsController"
+                controller: "CostsController",
+                
             })
             .state('home.calendar', {
                 url: "/calendar",
-                template: "<h2>Calendar</h2>",
+                templateUrl: "app/calendar/calendar.template.html",
+                controller: "CalendarsController",
             })
             .state('home.statistics', {
                 url: "/statistics",
-                template: "<h2>Statistics</h2>",
+                templateUrl: "app/statistics/statistics_page.template.html",
+                controller: "StatisticsController",
+            })
+            .state('home.settings', {
+                url: "/settings",
+                templateUrl: 'app/settings/settings.html',
+                controller: 'SettingsController as settingsCtrl'
             })
 
 
         $urlRouterProvider.otherwise('home');
 
         ngToastProvider.configure({
-            animation: 'fade',
+            additionalClasses: 'my-animation',
             horizontalPosition: 'middle',
             verticalPosition: 'top',
-            maxNumber: 1,
+            maxNumber: 0,
             combineDuplications: false
         });
 
@@ -68,6 +82,14 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
 
         firebase.initializeApp(configFirebase);
 
+        $provide.decorator('ColorPickerOptions', function($delegate) {
+            var options = angular.copy($delegate);
+            options.round = false;
+            options.alpha = false;
+            options.format = 'rgb';
+            options.inputClass = 'form-control';
+            return options;
+        });
 //        $translateProvider.translations('en', {
 //            "Incomes": "Incomes",
 //            "Costs": "Costs"

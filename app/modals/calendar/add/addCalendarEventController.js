@@ -1,6 +1,6 @@
 (function () {
-    app.controller('addCalendarEventController', ['$uibModalInstance', '$scope', 'date','calendarLocale',
-        function ($uibModalInstance, $scope, date, calendarLocale) {
+    app.controller('addCalendarEventController', ['$uibModalInstance', '$scope', 'date', 'calendarLocale', 'ngToast',
+        function ($uibModalInstance, $scope, date, calendarLocale, ngToast) {
             console.log(date);
             // debugger
             $scope.data = {
@@ -25,14 +25,18 @@
 
             $scope.ok = function (item) {
                 console.log(item);
-                console.log($scope.data.date);
-                // var date = $scope.data.date.startDate == undefined ? $scope.data.date : $scope.data.date.startDate
-                // var color = item.color == undefined ? null : item.color
-                // var description = item.description == undefined ? null : item.description;
-                item.start = $scope.data.date.startDate == undefined ? $scope.data.date.startDate.format() : $scope.data.date.startDate.format();
-                item.color = item.color == undefined ? null : item.color;
-                item.description = item.description == undefined ? null : item.description;
-                $uibModalInstance.close(item);
+                if (!item || item.title == undefined || item.title === "" ) {
+                    ngToast.create({
+                        className: 'warning',
+                        content: 'Название не может быть пустым '
+                    });
+
+                } else {
+                    item.start = $scope.data.date.startDate == undefined ? $scope.data.date.startDate.format() : $scope.data.date.startDate.format();
+                    item.color = item.color == undefined ? null : item.color;
+                    item.description = item.description == undefined ? null : item.description;
+                    $uibModalInstance.close(item);
+                }
             };
         }]);
 })();

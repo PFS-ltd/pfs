@@ -1,6 +1,6 @@
-<!-- <div class="row">
+<div class="row">
     <form class="col-md-12">
-        <div class="input-group" id="costs-form">
+        <div class="input-group" id="costs-form">>
              <div class="col-md-2">
                     <input type="text"
                     class="form-control"
@@ -42,57 +42,14 @@
             </span>
         </div>
     </form>
-</div> -->
-<div class="row">
-    <form class="col-md-12">
-        <div class="input-group" id="costs-form">
-             <div class="col-md-2">
-                    <input type="text"
-                    class="form-control"
-                    placeholder="Дата" 
-                    uib-datepicker-popup="dd.MM.yyyy" 
-                    ng-model="newCosts.date" is-open="popup.opened"
-                    datepicker-options="dateOptions" ng-required="true"
-                    show-button-bar="false"
-                    ng-focus="openPicker()" />
-            </div>
-            <div class="col-md-2 ">
-                <select class="form-control" ng-model='newCosts.who' >
-                    <option value="" disabled selected>Участник</option>
-                    <option ng-repeat="key in rolesArr" ng-value="key">{{key.title}}</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <select class="form-control" ng-model='newCosts.from'>
-                    <option value="" selected disabled>Счет</option>
-                    <option ng-repeat="item in billsCategories" ng-value="item">{{item.title}}</option>
-
-                </select>
-            </div>
-            <div class="col-md-2">
-                <select class="form-control" ng-model='newCosts.to'>
-                    <option value=""  disabled selected >Категория</option>
-                    <option ng-repeat='key in costsCategoriesArr' ng-value="key">{{key.title}}</option>
-                </select>
-            </div>
-            <div class="col-md-1">
-                <input type="number" placeholder="Сумма" min='0' class="form-control" ng-model='newCosts.sum'>
-            </div>
-           
-            <div class="col-md-2">
-                <input type="text" placeholder="Комментарий" class="form-control" ng-model='newCosts.comment'>
-            </div>
-            <span class="input-group-btn pull-left">
-                <button class="btn btn-success" type="submit" ng-click='addNewCosts(newCosts)'>Внести</button>
-            </span>
-        </div>
-    </form>
 </div>
+
+
 
 <div class="col-md-12">
     <div class="panel panel-success">
         <div class="panel-heading clearfix">
-            <h3 class="panel-title costs-panel"> Накопления</h3>
+            <h3 class="panel-title goal-panel"> Накопления</h3>
             <div class="pull-right">
                 <button type="button" class="btn btn-primary btn-sm" ng-click="addNewGoal()()">
                     <span class="glyphicon glyphicon-plus"></span> Добавить цель</button>
@@ -120,3 +77,4 @@
         </div>
     </div>
 </div>
+<div class="modal-window"></div>

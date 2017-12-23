@@ -34,19 +34,27 @@
     };
     $scope.ok = function (result) {
         var valid = $scope.validForm(result);
-        var sameName =  $scope.goalArr.some(function(item) {
-			return (  item.title === result.title); 
-		});
+        // var sameName =  $scope.goalArr.some(function(item){
+		// 	return (  item.title === result.title); 
+		// 	});
+        // console.log('same?',sameName);
         if (valid) {
-            if (sameName){
-                ngToast.create ({
-                    'content' : 'Такое имя уже существует',
-                    "className" : 'danger'
-                });
-            }
-            else {
-                $uibModalInstance.close(result);
-            } 
+            $uibModalInstance.close(result);
+                // if(scope.goalArr === undefined || scope.goalArr === null || cope.goalArr ==='' ) {
+                //     $uibModalInstance.close(result);
+                // }
+                // else {
+                //     if (sameName){
+                //         ngToast.create ({
+                //             'content' : 'Такое имя уже существует',
+                //             "className" : 'danger'
+                //         });
+                //     }
+                //     else {
+                //         $uibModalInstance.close(result);
+                //     } 
+                // }
+           
         }
         
         

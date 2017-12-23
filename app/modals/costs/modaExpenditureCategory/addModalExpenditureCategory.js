@@ -3,10 +3,10 @@ app.controller('AddExpenditureCategory', ['$scope', '$uibModalInstance', 'newExp
 
 	$scope.costsCategoriesArr = costsCategoriesArr;
 	
-	$scope.costsName = [];
-	costsCategoriesArr.forEach(function (item){
-		$scope.costsName.push(item.title)
-	})
+	// $scope.costsName = [];
+	// costsCategoriesArr.forEach(function (item){
+	// 	$scope.costsName.push(item.title)
+	// })
 
     $scope.valid = function (item) {
     	if (item === undefined || item === '' ||  item=== null ) {
@@ -35,7 +35,7 @@ app.controller('AddExpenditureCategory', ['$scope', '$uibModalInstance', 'newExp
 
 	$scope.ok = function(result) {
 		var isValid = $scope.valid(result);   
-		var sameName =  $scope.costsCategoriesArr.some(function(item){
+		var sameName =  $scope.costsCategoriesArr.some(function(item){ 
 			return (  item.title === result.title); 
 			});
 			

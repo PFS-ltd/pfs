@@ -1,6 +1,12 @@
-app.controller('GoalController', function($scope,$uibModal,ngToast, goalsService){
-    $scope.goalArr = goalsService.getGoalsArr();
-    console.log($scope.goalArr);
+app.controller('GoalController', function($scope, $log, $document,$uibModal,ngToast, goalsService,costsService,incomeService, settingsService, uibDateParser, $filter){
+    $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
+    console.log('$scope.costsTransferArrQuery',$scope.costsTransferArrQuery);
+    $scope.billsCategories = incomeService.getIncomeAccounts();
+    console.log($scope.goalArr)
+    $scope.goalArr = goalsService.getRolesArray();
+    console.log('goalArr', $scope.goalArr)
+    $scope.rolesArr = settingsService.getRolesArray();
+    console.log('$scope.rolesArr', $scope.rolesArr);
     $scope.goalInput = {
         who: '',
         from: {
@@ -19,6 +25,31 @@ app.controller('GoalController', function($scope,$uibModal,ngToast, goalsService
         title : '',
         sumMax : 0 , 
         sumValue : 0 ,
+    };
+    $scope.newCosts = {};
+    $scope.newCosts.date = new Date();
+    // добавление даты и календаря в инпут 
+    $scope.today = function () {
+      $scope.newCosts.date = new Date();
+
+    };
+    $scope.today();
+
+    $scope.dateOptions = {
+      format: 'yy',
+      maxDate: new Date(2020,5,22)
+    };
+
+    $scope.openPicker = function () {
+      $scope.popup.opened = true;
+    };
+
+    $scope.setDate = function (year, month, day) {
+      $scope.date = new Date(year, month, day);
+    };
+
+    $scope.popup = {
+      opened: false
     };
 
     $scope.addNewGoal = function () {

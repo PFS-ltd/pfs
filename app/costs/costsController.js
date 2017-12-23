@@ -1,7 +1,7 @@
  app.controller('CostsController',
   function ($uibModal, $log, $document, $scope, costsService, incomeService, settingsService, uibDateParser, $filter, ngToast) {
     $scope.costsCategoriesArr = costsService.getCostsCategoriesArray();
-   console.log('costsCategoriesArr',$scope.costsCategoriesArr);
+  //  console.log('costsCategoriesArr',$scope.costsCategoriesArr);
     $scope.templateCostsArr = costsService.getCostsTemplateArray();
     // console.log('$scope.templateCostsArr',$scope.templateCostsArr);
     $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();

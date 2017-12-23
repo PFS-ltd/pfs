@@ -43,7 +43,34 @@
         </div>
     </form>
 </div>
-Модалочка добавления цели
-<!-- <button type="button" class="btn btn-success" ng-click="createNewGoal()">
-    Press Me Hard
-</button> -->
+<div class="col-md-12">
+    <div class="panel panel-success">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title costs-panel"> Накопления</h3>
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm" ng-click="addNewGoal()()">
+                    <span class="glyphicon glyphicon-plus"></span> Добавить цель</button>
+            </div>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group" >
+                <li class="list-group-item text-left" ng-repeat="key in goalArr">
+                    <span class="category-title">{{key.title}}</span>
+                    <div class="col-md-6" class="list-group-item-heading">
+                        <uib-progressbar animate="true" type="success" max="key.sumMax" value="key.sumValue" >
+                            <i style="color:black; text-align:center;">{{key.sumValue}}/{{key.sumMax}}</i>
+                        </uib-progressbar>
+                    </div>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="editExpenditureCategory(item)">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs" title="Удалить" ng-click="deleteExpenditureCategory(item)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

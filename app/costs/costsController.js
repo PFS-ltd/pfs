@@ -1,4 +1,4 @@
-app.controller('CostsController',
+ app.controller('CostsController',
   function ($uibModal, $log, $document, $scope, costsService, incomeService, settingsService, uibDateParser, $filter, ngToast) {
     $scope.costsCategoriesArr = costsService.getCostsCategoriesArray();
    console.log('costsCategoriesArr',$scope.costsCategoriesArr);
@@ -26,7 +26,7 @@ app.controller('CostsController',
       date: '',
       comment: '',
     };
-
+ 
 
     $scope.ExpenditureCategoryModel = {
       title: 'базовая категория',

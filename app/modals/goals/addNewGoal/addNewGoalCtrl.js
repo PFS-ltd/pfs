@@ -1,9 +1,12 @@
-app.controller('addNewGoalCtrl', function($scope,$uibModalInstance,ngToast){
+ app.controller('addNewGoalCtrl', function($scope,$uibModalInstance,ngToast,newGoal){
 
+     $scope.newGoal = newGoal;
+     console.log($scope.newGoal);
     $scope.cancel = function () {
-        $uibModalInstance.close();
+        $uibModalInstance.dismiss('false');
     };
-    $scope.ok = function () {
-        $uibModalInstance.close();
+    $scope.ok = function (result) {
+        console.log(result);
+        $uibModalInstance.close(result);
     };
 });

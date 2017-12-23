@@ -69,9 +69,9 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
 
         ngToastProvider.configure({
             additionalClasses: 'my-animation',
-            horizontalPosition: 'right',
+            horizontalPosition: 'middle',
             verticalPosition: 'top',
-            maxNumber: 0,
+            maxNumber: 1,
             combineDuplications: false
         });
 

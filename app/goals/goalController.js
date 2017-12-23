@@ -35,8 +35,11 @@ app.controller('GoalController', function($scope,$uibModal,ngToast, goalsService
         },
       });
       modalCreateGoal.result.then(function (result) {
-        // $scope.goalArr.push(result);
         goalsService.addGoal(result);
+        ngToast.create ({
+            'content' : 'Накопление успешно добавлено',
+            'className' : 'success'
+        }) 
         console.log($scope.goalArr);
       }, function() {
         console.log('close');
@@ -44,10 +47,48 @@ app.controller('GoalController', function($scope,$uibModal,ngToast, goalsService
     };
 
 
-    $scope.deleteExpenditureCategory = function(item){
-        goalsService.delGoal(item);
+    $scope.deleteGoalCategory = function(item){
+        var delGoal = $uibModal.open ({
+            templateUrl: 'app/modals/goals/modalDeleteGoal/templateDelete.html',
+            controller: 'ModalController',
+            size: 'md',
+            resolve: {
+                item: function () {
+                    return item;
+                },
+            },
+        });
+        delGoal.result.then(function (result) {
+            goalsService.delGoal(item);
+            ngToast.create ({
+                'content' : 'Накопление успешно удалено',
+                'className' : 'success'
+            }) 
+          }, function() {
+            console.log('close');
+          });
+       
     }
-    $scope.editExpenditureCategory = function(item){
-        goalsService.updGoal(item);
+    $scope.editGoalCategory = function(item){
+        var editGoal = $uibModal.open ({
+            templateUrl: 'app/modals/goals/editGoal/template.html',
+            controller : 'editGoalCtrl',
+            size: 'lg',
+            resolve: {
+                item : function (){
+                    return item;
+                }
+            }
+        });
+        editGoal.result.then (function (result){
+            goalsService.updGoal(item);
+            ngToast.create ({
+                'content': 'Редактирование прошло успешно',
+                'className': 'success'
+            })
+        }, function () {
+            console.log('cancel');
+        });
+        
     }
 });

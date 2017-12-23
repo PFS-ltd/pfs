@@ -1,5 +1,6 @@
-app.controller('GoalController', function($scope,$uibModal,ngToast){
-    $scope.goalArr = [];
+app.controller('GoalController', function($scope,$uibModal,ngToast, goalsService){
+    $scope.goalArr = goalsService.getGoalsArr();
+    console.log($scope.goalArr);
     $scope.goalInput = {
         who: '',
         from: {
@@ -34,7 +35,8 @@ app.controller('GoalController', function($scope,$uibModal,ngToast){
         },
       });
       modalCreateGoal.result.then(function (result) {
-        $scope.goalArr.push(result);
+        // $scope.goalArr.push(result);
+        goalsService.addGoal(result);
         console.log($scope.goalArr);
       }, function() {
         console.log('close');
@@ -42,5 +44,10 @@ app.controller('GoalController', function($scope,$uibModal,ngToast){
     };
 
 
-
+    $scope.deleteExpenditureCategory = function(item){
+        goalsService.delGoal(item);
+    }
+    $scope.editExpenditureCategory = function(item){
+        goalsService.updGoal(item);
+    }
 });

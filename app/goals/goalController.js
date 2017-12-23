@@ -20,7 +20,6 @@ app.controller('GoalController', function($scope,$uibModal,ngToast, goalsService
         sumMax : 0 , 
         sumValue : 0 ,
     };
-    
 
     $scope.addNewGoal = function () {
         newGoal = angular.extend({},$scope.goalCategoryModel);
@@ -31,6 +30,9 @@ app.controller('GoalController', function($scope,$uibModal,ngToast, goalsService
         resolve: {
             newGoal : function () {
                 return newGoal;
+            },
+            goalArr : function () {
+                return $scope.goalArr;
             },
         },
       });
@@ -70,24 +72,31 @@ app.controller('GoalController', function($scope,$uibModal,ngToast, goalsService
        
     }
     $scope.editGoalCategory = function(item){
+    var modItem = angular.extend({},item);
+    var backup = angular.extend({},item);
+    item.title = undefined;
         var editGoal = $uibModal.open ({
             templateUrl: 'app/modals/goals/editGoal/template.html',
             controller : 'editGoalCtrl',
             size: 'lg',
             resolve: {
                 item : function (){
-                    return item;
-                }
+                    return modItem;
+                },
+                goalArr : function () {
+                    return $scope.goalArr;
+                },
             }
         });
         editGoal.result.then (function (result){
+            item  = angular.extend(item,result);
             goalsService.updGoal(item);
             ngToast.create ({
                 'content': 'Редактирование прошло успешно',
                 'className': 'success'
             })
         }, function () {
-            console.log('cancel');
+            item = angular.extend(item,backup);
         });
         
     }

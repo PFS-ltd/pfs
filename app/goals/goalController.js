@@ -1,12 +1,11 @@
 app.controller('GoalController', function($scope, $log, $document,$uibModal,ngToast, goalsService,costsService,incomeService, settingsService, uibDateParser, $filter){
     $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
-    console.log('$scope.costsTransferArrQuery',$scope.costsTransferArrQuery);
+    // console.log('$scope.costsTransferArrQuery',$scope.costsTransferArrQuery);
     $scope.billsCategories = incomeService.getIncomeAccounts();
-    console.log($scope.goalArr)
-    $scope.goalArr = goalsService.getRolesArray();
-    console.log('goalArr', $scope.goalArr)
+    $scope.goalArr = goalsService.getGoalsArr();
+    // console.log('goalArr', $scope.goalArr)
     $scope.rolesArr = settingsService.getRolesArray();
-    console.log('$scope.rolesArr', $scope.rolesArr);
+    // console.log('$scope.rolesArr', $scope.rolesArr);
     $scope.goalInput = {
         who: '',
         from: {
@@ -73,7 +72,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             'content' : 'Накопление успешно добавлено',
             'className' : 'success'
         }) 
-        console.log($scope.goalArr);
+        // console.log($scope.goalArr);
       }, function() {
         console.log('close');
       }); 
@@ -131,4 +130,8 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         });
         
     }
+
+    $scope.addGoalAsCost = function (item) {
+        console.log(item);
+    };
 });

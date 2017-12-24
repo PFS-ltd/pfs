@@ -151,6 +151,7 @@
       console.log(item);
       var bill = $scope.billsCategories.$getRecord(item.from.id);
       var cost = costsService.getItemInCostsCategoriesByKey(item.to.id);
+      console.log(bill);
       console.log(bill.amount);
       if ((bill.amount - item.sum) < 0) {
         ngToast.create({

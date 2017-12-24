@@ -29,6 +29,10 @@ app.service('goalsService', ['$state', 'Auth', "$firebaseObject", "$firebaseArra
             updGoal: function (item) {
                 goalsArr.$save(item);
             },
+            getItemInGoalCategoriesByKey: function (key) {
+                // console.log(key)
+                return goalsArr.$getRecord(key);
+            },
 
         };
     }]);

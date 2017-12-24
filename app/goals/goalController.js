@@ -9,12 +9,12 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     $scope.goalInput = {
         who: '',
         from: {
-            id: '',
-            title : ''
+            id: 'sad34s',
+            title : 'cash'
         },
         to : {
-            id: '',
-            title: ''
+            id: 'dflkm232',
+            title: 'mazda'
         },
         sum : 0,
         date : '',
@@ -50,6 +50,57 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     $scope.popup = {
       opened: false
     };
+
+    $scope.validInput = function (item) {
+        //DATE
+        // console.log(item)
+       if (item.date === undefined) {
+           ngToast.create({
+               "content": "Укажите дату",
+               "className": 'danger'
+           })
+           return false;
+       }
+       
+       //WHO
+       if (item.who === null || item.who === undefined) {
+           ngToast.create({
+               "content": "Укажите участника",
+               "className": 'danger'
+           })
+           return false;
+       }
+       
+       //FROM
+       if (item.from === null || item.from === undefined) {
+           ngToast.create({
+               "content": "Укажите счет",
+               "className": 'danger'
+           })
+           return false;
+       }
+       
+       //TO
+       if (item.to === null || item.to === undefined) {
+           ngToast.create({
+               "content": "Укажите категорию",
+               "className": 'danger'
+           })
+           return false;
+       }
+       
+       //SUM
+       if (item.sumValue === null || item.sumValue === undefined) {
+           ngToast.create({
+               "content": "Укажите сумму",
+               "className": 'danger'
+           })
+           return false;
+       }
+       
+       return true;
+
+};
 
     $scope.addNewGoal = function () {
         newGoal = angular.extend({},$scope.goalCategoryModel);
@@ -131,7 +182,49 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         
     }
 
+    var makeTransfer = function (item) {
+        console.log(item);
+        var bill = $scope.billsCategories.$getRecord(item.from.id);
+        console.log('bill' , bill);
+        console.log('billAmount',bill.amount);
+        var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
+        console.log(bill.amount);
+        if ((bill.amount - item.sumValue) < 0) {
+          ngToast.create({
+            "content": "Недоасточно денег на счету " + bill.title,
+            "className": 'danger'
+          })
+        } else {
+          bill.amount = bill.amount - item.sum;
+          goal.sumValue = goal.sumValue + item.sumValue;
+        //   if (goal.sumValue > cost.limitPayment && cost.limitPayment !=0) {
+        //     ngToast.create({
+        //       "content": "Вы превысили запланированный лимит по категории " + cost.title,
+        //       "className": 'warning'
+        //     })
+        //   }
+          $scope.billsCategories.$save(bill);
+        //   costsService.updateItemInCostsCategories(cost);
+        //   costsService.addItemInQueryCostsTransfer(item);
+
+          goalsService.updGoal(goal);
+          costsService.addItemInQueryCostsTransfer(item);
+        }
+      }
+
+
     $scope.addGoalAsCost = function (item) {
         console.log(item);
+        var isValid = $scope.validInput(item);
+        if(isValid) {
+            item.from.id = item.from.$id;
+            item.to.id = item.to.$id;
+            item.date = $filter('date')(item.date, 'yyyy-MM-dd');
+            
+
+            makeTransfer(item);
+            $scope.newCosts = {comment: ''};
+            $scope.today();
+        }
     };
 });

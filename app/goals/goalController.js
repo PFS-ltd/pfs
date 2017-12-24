@@ -195,7 +195,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             "className": 'danger'
           })
         } else {
-          bill.amount = bill.amount - item.sum;
+          bill.amount = bill.amount - item.sumValue;
           goal.sumValue = goal.sumValue + item.sumValue;
         //   if (goal.sumValue > cost.limitPayment && cost.limitPayment !=0) {
         //     ngToast.create({

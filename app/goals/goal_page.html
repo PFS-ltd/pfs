@@ -31,7 +31,7 @@
                 </select>
             </div>
             <div class="col-md-1">
-                <input type="number" placeholder="Сумма" min='0' class="form-control" ng-model='newCosts.sumValue'>
+                <input type="number" placeholder="Сумма" min='0' class="form-control" ng-model='newCosts.sum'>
             </div>
            
             <div class="col-md-2">
@@ -58,13 +58,14 @@
         <div class="panel-body">
             <ul class="list-group" >
                 <li class="list-group-item text-left" ng-repeat="key in goalArr">
-                    <span class="category-title">{{key.title}}</span>
+                    <span class="category-title" >{{key.title}}</span>
                     <div class="col-md-6" class="list-group-item-heading">
-                        <uib-progressbar animate="true" type="success" max="key.sumMax" value="key.sumValue" >
-                            <i style="color:black; text-align:center;">{{key.sumValue}}/{{key.sumMax}}</i>
+                        <uib-progressbar animate="true" type="success" max="key.sumMax" value="key.sum" >
+                            <i style="color:black; text-align:center;">{{key.sum}}/{{key.sumMax}}</i>
                         </uib-progressbar>
                     </div>
                     <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-warning btn-xs" ng-click="isCollapsed = !isCollapsed" >More Info</button>
                         <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="editGoalCategory(key)">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
@@ -72,7 +73,37 @@
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </div>
+                <hr> 
+                    <div class="horizontal-collapse" uib-collapse="isCollapsed">
+                            <table class="table table-hover well well-lg ">
+                                    <thead>
+                                            <th>#</th>
+                                            <th>Сумма</th>
+                                            <th>Откуда/Куда</th>
+                                            <th>Кто</th>
+                                            <th>Дата</th>
+                                            <th>Комментарий</th>
+                                            <th>Отменить</th>
+                                        </thead>
+                                <tbody ng-repeat='item in costsTransferArrQuery | filter : key.title '>
+                                    <tr>
+                                        <td>{{$index+1}}</td>
+                                        <td>{{item.sum}}  {{item.sumValue}}</td>
+                                        <td>Из {{item.from.title}} в {{item.to.title}}</td>
+                                        <td>{{item.who.title}}</td>
+                                        <td>{{item.date| date:'dd.MM.yyyy'}}</td>
+                                        <td>{{item.comment}}</td>
+                                        <td>
+                                            <button class="btn btn-danger btn-xs" title="Удалить" ng-click='deleteTransfer(item)'>
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
                 </li>
+               
             </ul>
         </div>
     </div>

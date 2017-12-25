@@ -1,11 +1,17 @@
 app.controller('GoalController', function($scope, $log, $document,$uibModal,ngToast, goalsService,costsService,incomeService, settingsService, uibDateParser, $filter){
     $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
-    // console.log('$scope.costsTransferArrQuery',$scope.costsTransferArrQuery);
+    console.log('$scope.costsTransferArrQuery',$scope.costsTransferArrQuery);
     $scope.billsCategories = incomeService.getIncomeAccounts();
     $scope.goalArr = goalsService.getGoalsArr();
     // console.log('goalArr', $scope.goalArr)
     $scope.rolesArr = settingsService.getRolesArray();
     // console.log('$scope.rolesArr', $scope.rolesArr);
+    $scope.isCollapsed = true;
+    // $scope.openDoor = function () {
+    //     $scope.isCollapsed = !$scope.isCollapsed;
+    // }
+  
+
     $scope.goalInput = {
         who: '',
         from: {
@@ -23,7 +29,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     $scope.goalCategoryModel = {
         title : '',
         sumMax : 0 , 
-        sumValue : 0 ,
+        sum : 0 ,
     };
     $scope.newCosts = {};
     $scope.newCosts.date = new Date();
@@ -90,7 +96,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
        }
        
        //SUM
-       if (item.sumValue === null || item.sumValue === undefined) {
+       if (item.sum === null || item.sum === undefined) {
            ngToast.create({
                "content": "Укажите сумму",
                "className": 'danger'
@@ -181,36 +187,62 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         });
         
     }
-
     var makeTransfer = function (item) {
-        console.log(item);
         var bill = $scope.billsCategories.$getRecord(item.from.id);
-        console.log('bill' , bill);
-        console.log('billAmount',bill.amount);
+        // var cost = costsService.getItemInCostsCategoriesByKey(item.to.id);
         var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
-        console.log(bill.amount);
-        if ((bill.amount - item.sumValue) < 0) {
+  
+        if ((bill.amount - item.sum) < 0) {
           ngToast.create({
             "content": "Недоасточно денег на счету " + bill.title,
             "className": 'danger'
           })
         } else {
-          bill.amount = bill.amount - item.sumValue;
-          goal.sumValue = goal.sumValue + item.sumValue;
-        //   if (goal.sumValue > cost.limitPayment && cost.limitPayment !=0) {
+          bill.amount = bill.amount - item.sum;
+          goal.sum = goal.sum + item.sum;
+        //   if (cost.sum > cost.limitPayment && cost.limitPayment !=0) {
         //     ngToast.create({
         //       "content": "Вы превысили запланированный лимит по категории " + cost.title,
         //       "className": 'warning'
         //     })
         //   }
           $scope.billsCategories.$save(bill);
-        //   costsService.updateItemInCostsCategories(cost);
-        //   costsService.addItemInQueryCostsTransfer(item);
-
-          goalsService.updGoal(goal);
           costsService.addItemInQueryCostsTransfer(item);
+          goalsService.updGoal(goal);
+          
         }
       }
+
+
+    // var makeTransfer = function (item) {
+    //     console.log(item);
+    //     var bill = $scope.billsCategories.$getRecord(item.from.id);
+    //     console.log('bill' , bill);
+    //     console.log('billAmount',bill.amount);
+    //     var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
+    //     console.log(bill.amount);
+    //     if ((bill.amount - item.sumValue) < 0) {
+    //       ngToast.create({
+    //         "content": "Недоасточно денег на счету " + bill.title,
+    //         "className": 'danger'
+    //       })
+    //     } else {
+    //       bill.amount = bill.amount - item.sumValue;
+    //       goal.sumValue = goal.sumValue + item.sumValue;
+    //     //   if (goal.sumValue > cost.limitPayment && cost.limitPayment !=0) {
+    //     //     ngToast.create({
+    //     //       "content": "Вы превысили запланированный лимит по категории " + cost.title,
+    //     //       "className": 'warning'
+    //     //     })
+    //     //   }
+    //       $scope.billsCategories.$save(bill);
+    //     //   costsService.updateItemInCostsCategories(cost);
+    //     //   costsService.addItemInQueryCostsTransfer(item);
+
+    //       goalsService.updGoal(goal);
+    //       costsService.addItemInQueryCostsTransfer(item);
+    //     }
+    //   }
 
 
     $scope.addGoalAsCost = function (item) {

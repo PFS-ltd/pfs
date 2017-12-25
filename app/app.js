@@ -15,7 +15,7 @@ var app = angular.module('application',
 
     
 app.run(["$transitions", "$state", "ngToast", '$rootScope', '$stateParams', 
- function ($transitions, $state, ngToast, $rootScope, $stateParams) {
+ function ($transitions, $state, ngToast, $rootScope, $stateParams ) {
     $transitions.onError({}, function (result) {
         if (result._error.detail === "AUTH_REQUIRED") {
             ngToast.create({

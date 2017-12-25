@@ -212,6 +212,63 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
           
         }
       }
+      var makeReverseTransfer = function (item) {
+        var bill = $scope.billsCategories.$getRecord(item.from.id);
+        var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
+        
+          bill.amount = bill.amount + item.sum;
+          goal.sum = goal.sum - item.sum;
+          
+          $scope.billsCategories.$save(bill);
+          goalsService.updGoal(goal);
+
+          // costsService.addItemInCostsTransfer(item);
+        }
+        $scope.deleteTransfer = function (item) {
+            var delGoal = $uibModal.open ({
+                templateUrl: 'app/modals/goals/modalDeleteGoal/templateDelete.html',
+                controller: 'ModalController',
+                size: 'md',
+                resolve: {
+                    item: function () {
+                        return item;
+                    },
+                },
+            });
+            delGoal.result.then(function (result) {
+                costsService.delItemInQueryCostsTransferLast(item);
+          console.log(item)
+          makeReverseTransfer(item);
+                ngToast.create ({
+                    'content' : 'Накопление успешно удалено',
+                    'className' : 'success'
+                }) 
+              }, function() {
+                console.log('close');
+              }); 
+        }
+        $scope.deleteGoalCategory = function(item){
+            var delGoal = $uibModal.open ({
+                templateUrl: 'app/modals/goals/modalDeleteGoal/templateDelete.html',
+                controller: 'ModalController',
+                size: 'md',
+                resolve: {
+                    item: function () {
+                        return item;
+                    },
+                },
+            });
+            delGoal.result.then(function (result) {
+                goalsService.delGoal(item);
+                ngToast.create ({
+                    'content' : 'Накопление успешно удалено',
+                    'className' : 'success'
+                }) 
+              }, function() {
+                console.log('close');
+              });
+           
+        }
 
 
     // var makeTransfer = function (item) {
@@ -259,4 +316,5 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             $scope.today();
         }
     };
+
 });

@@ -65,7 +65,12 @@
                         </uib-progressbar>
                     </div>
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-warning btn-xs" ng-click="isCollapsed = !isCollapsed" >More Info</button>
+                        <button type="button" class="btn btn-info btn-xs" ng-click="isCollapsed = !isCollapsed" >
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <button type="button" class="btn btn-warning btn-xs" ng-click="click()">
+                            <span class="glyphicon glyphicon-usd"></span>
+                        </button>
                         <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="editGoalCategory(key)">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>

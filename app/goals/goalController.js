@@ -1,6 +1,6 @@
 app.controller('GoalController', function($scope, $log, $document,$uibModal,ngToast, goalsService,costsService,incomeService, settingsService, uibDateParser, $filter){
     $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
-    console.log('$scope.costsTransferArrQuery',$scope.costsTransferArrQuery);
+    // console.log('$scope.costsTransferArrQuery',$scope.costsTransferArrQuery);
     $scope.billsCategories = incomeService.getIncomeAccounts();
     $scope.goalArr = goalsService.getGoalsArr();
     // console.log('goalArr', $scope.goalArr)

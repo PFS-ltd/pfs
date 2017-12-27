@@ -317,4 +317,57 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         }
     };
 
+
+    $scope.transferGoalToBill = function (item) {
+        var goalToBill = $uibModal.open ({
+            templateUrl: 'app/modals/goals/transferGoalToBill/template.html',
+            controller: 'transferCtrl',
+            size: 'md',
+            resolve : {
+                item : function () {
+                    return item;
+                },
+                billsCategories : function () {
+                    return $scope.billsCategories;
+                },
+                goalArr : function () {
+                    return $scope.goalArr;
+                },
+                rolesArr : function () {
+                    return $scope.rolesArr;
+                },
+            },
+        }); 
+        goalToBill.result.then(function (result) {
+            console.log(result);
+            result.from.id = result.from.$id;
+            result.to.id = result.to.$id;
+            result.who = result.who.title;
+            $scope.makeIncomeTransfer(result);
+            incomeService.addIncomeTransfer(result);
+            
+             
+          }, function() {
+            console.log('close');
+          });
+    };
+    $scope.makeIncomeTransfer = function (item) {
+        var goal = goalsService.getItemInGoalCategoriesByKey(item.from.id);
+        // var bill = $scope.billsCategories.$getRecord(item.from.id);
+        item.date = $filter('date')(item.date, 'yyyy-MM-dd');
+        console.log(item);
+        var account = incomeService.getItemInIncomeAccounts(item.to.id);
+        account.amount = account.amount + item.sum;
+        goal.sum = goal.sum - item.sum;
+        incomeService.updItemInIncomeAccounts(account);
+        goalsService.updGoal(goal);
+        // console.log(account);
+        // incomeService.addIncomeTransfer(item);
+    }
+    // $scope.addIncomeTransfer = function (item) {
+    //         $scope.makeIncomeTransfer(item);
+    //         incomeService.addIncomeTransfer(item);
+        
+    // }
+
 });

@@ -1,6 +1,6 @@
 (function () {
     var homeController = app.controller('HomeController',
-        function ($scope, Auth, ngToast, $state, currentAuth, $transitions, $location) {
+        function ($scope, Auth, ngToast, $state, currentAuth, $transitions, $location, settingsService) {
             if (currentAuth == null) {
                 $state.transitionTo('root')
             } 
@@ -19,23 +19,15 @@
                 })
             }
         
-        
-//        console.log($location.$$path);
-//            $transitions.onRetain({ entering: 'home.income' }, function(transition) {
-//                console.log("Now at 'income' state");
-//            });
-        //$transitions удалить
-
-            $scope.signOut = function () {
-               
-               
+            $scope.signOut = function (pass) {
                 Auth.$signOut().then(function () {
                     var asdf = 'Прощай'
                     $state.transitionTo('root');
                     ngToast.create(asdf);
+                    
                 })
             }
         });
 
-    homeController.$inject = ['$scope', 'Auth', 'ngToast', '$state', 'currentAuth', '$transitions', '$location']
+    homeController.$inject = ['$scope', 'Auth', 'ngToast', '$state', 'currentAuth', '$transitions', '$location', 'settingsService']
 })();

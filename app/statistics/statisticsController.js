@@ -296,7 +296,7 @@
                     donut: false,
                     x: function (d) { return d.key; },
                     y: function (d) { return d.y; },
-                    showLabels: false,
+                    showLabels: true,
                     duration: 500,
                     labelThreshold: 0.01,
                     labelSunbeamLayout: true,

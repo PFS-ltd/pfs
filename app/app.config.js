@@ -25,7 +25,7 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
                     "currentAuth": ["Auth", function (Auth) {
                         return Auth.$requireSignIn();
                     }]
-                },
+                }
             })
             .state('home.income', {
                 url: "/income",
@@ -57,7 +57,8 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
             .state('home.settings', {
                 url: "/settings",
                 templateUrl: 'app/settings/settings.html',
-                controller: 'SettingsController as settingsCtrl'
+                controller: 'SettingsController',
+                controllerAs: 'settingsCtrl',
             })
             .state('home.goals',{
                 url: "/goals",
@@ -108,8 +109,15 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
             prefix: '/i18n/',
             suffix: '.json'
         });
+        
+        var lang = localStorage.getItem('preferredLanguage');
+        
+        if (lang === null) {
+            lang = 'ru';
+            localStorage.setItem('preferredLanguage', 'ru');
+        }
 
-        $translateProvider.preferredLanguage('ru');
+        $translateProvider.preferredLanguage(lang);
 
     }]);
 

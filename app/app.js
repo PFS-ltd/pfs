@@ -17,15 +17,9 @@ var app = angular.module('application',
         // 'colorpicker.module',
         'color.picker'
     ]);
-
     
-<<<<<<< HEAD
 app.run(["$transitions", "$state", "ngToast", '$rootScope', '$stateParams', 'editableOptions',
  function ($transitions, $state, ngToast, $rootScope, $stateParams, editableOptions) {
-=======
-app.run(["$transitions", "$state", "ngToast", '$rootScope', '$stateParams', 
- function ($transitions, $state, ngToast, $rootScope, $stateParams ) {
->>>>>>> goal
     $transitions.onError({}, function (result) {
         if (result._error.detail === "AUTH_REQUIRED") {
             ngToast.create({
@@ -37,5 +31,21 @@ app.run(["$transitions", "$state", "ngToast", '$rootScope', '$stateParams',
     });
     editableOptions.theme = 'bs3';
 }]);
+
+app.value('styleLinks', ["node_modules/bootstrap/dist/css/bootstrap.css", 
+                        "https://bootswatch.com/3/darkly/bootstrap.min.css",
+                        "https://bootswatch.com/3/united/bootstrap.min.css",
+                        "https://bootswatch.com/3/spacelab/bootstrap.min.css",
+                        "https://bootswatch.com/3/simplex/bootstrap.min.css"]);
+
+app.controller('MainCtrl', ['$scope', 'styleLinks', function($scope, styleLinks) {
+    $scope.selected = localStorage.getItem("preferredStyle") || 0;
+    $scope.styleLinks = styleLinks;
+    $scope.style = $scope.styleLinks[$scope.selected];
+    $scope.$on('styleChanged', function(event, index) {
+//        $scope.selected = localStorage.getItem("preferredStyle");
+        $scope.style = $scope.styleLinks[index];
+    })
+}])
 
 

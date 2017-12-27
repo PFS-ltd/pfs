@@ -1,25 +1,40 @@
-<h2>Настройки пользователя</h2>
+<h2>{{'User settings' | translate}}</h2>
 
 <uib-accordion close-others="false">
-    <div uib-accordion-group class="panel-default" heading="Профиль пользователя">
+    <div uib-accordion-group class="panel-default" heading="{{'User profile' | translate}}">
         email
         pass
     </div>
-    <div uib-accordion-group class="panel-default" heading="Выбор цветовой темы">
-      radio button || checkbox || select
+    <div uib-accordion-group class="panel-default" heading="{{'Color themes' | translate}}">
+        <label class="radio-inline"><input type="radio" name="theme" value="0" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">{{'Standart' | translate}}</label>
+        <label class="radio-inline"><input type="radio" name="theme" value="1" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">Тема 1</label>
+        <label class="radio-inline"><input type="radio" name="theme" value="2" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">Тема 2</label>
+        <label class="radio-inline"><input type="radio" name="theme" value="3" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">Тема 3</label>
+        <label class="radio-inline"><input type="radio" name="theme" value="4" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">Тема 4</label>
     </div>
-    <div uib-accordion-group class="panel-default" heading="Выбор языка интерфейса">
-        рус
-        eng
+    <div uib-accordion-group class="panel-default" heading="{{'Interface language' | translate}}">
+        <label class="radio-inline"><input type="radio" name="language" value="ru" ng-model="settingsCtrl.lang" ng-click="settingsCtrl.changeLanguage(settingsCtrl.lang)">Русский</label>
+        <label class="radio-inline"><input type="radio" name="language" value="en" ng-model="settingsCtrl.lang" ng-click="settingsCtrl.changeLanguage(settingsCtrl.lang)">English</label>
+
+<!--        <button class="btn btn-primary" ng-click="saveSettings(lang)">Сохранить</button>-->
     </div>
-    <div uib-accordion-group class="panel-default" heading="Добавить\редактировать участника бюджета">
-      <p>xeditable поле для редактирования</p>
-      <button type="button" class="btn btn-default btn-sm" ng-click="addItem()">Добавить участника</button>
-      <div ng-repeat="item in items">{{item}}</div>
+    <div uib-accordion-group class="panel-default" heading="{{'Add \u002F Edit participant' | translate}}">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="item in settingsCtrl.roles">
+                <a href="#" editable-text="item.title">{{ item.title || 'empty' }}</a>
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-xs-4">
+                <input type="text" class="form-control" maxlength="25" ng-model="settingsCtrl.newRole">
+            </div>
+            <button type="button" class="btn btn-default" ng-click="settingsCtrl.addRole()">Добавить участника</button>
+        </div>
+        <button class="btn btn-primary" ng-click="settingsCtrl.applyRoles()">Применить изменения</button>
     </div>
-    <div uib-accordion-group class="panel-danger" heading="Удалить аккаунт">
-      <p>Нажмите на кнопку для удаления аккаунта</p>
-      <button class="btn btn-danger">Удалить</button>
+    <div uib-accordion-group class="panel-danger" heading="{{'Delete account' | translate}}">
+        <p>Нажмите на кнопку для удаления аккаунта</p>
+        <button class="btn btn-danger">{{'Delete' | translate}}</button>
     </div>
-    
-  </uib-accordion>
+</uib-accordion>
+<button class="btn btn-primary" ng-click="settingsCtrl.saveSettings()">Сохранить</button>

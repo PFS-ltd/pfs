@@ -21,8 +21,6 @@ body {
     display: inline-block;
 }
 
-.category-title,
-.count-title,
 .table-th-cursor
 {
     cursor: pointer;
@@ -31,6 +29,7 @@ body {
 .badge-success {
     background-color: #468847;
 }
+
 .badge-success:hover {
     background-color: #356635;
 }
@@ -39,8 +38,9 @@ body {
     outline: none;
 }
 
-.navbar-btn {
-    margin-right: 10px;
+#left-panel {
+    position: fixed;
+    top: 85px;
 }
 
 #left-panel .fa {
@@ -48,25 +48,18 @@ body {
 }
 .spinner {
     position: absolute;
-    left:50%;
+    left: 50%;
     font-size: 30px;
 }
 
 #info-window {
     position: relative;
-    top: 60px;
+    top: 85px;
 }
-
-/*
-#upper-panel {
-    position: fixed;
-    z-index: 900;
-}
-*/
 
 #left-panel {
     position: fixed;
-    top: 60px;
+    top: 85px;
 }
 
 .tooltip.tooltip-info .tooltip-inner {
@@ -78,3 +71,28 @@ body {
   .tooltip.tooltip-info .tooltip-arrow {
     display: none;
   }
+/*HEADER*/
+#rates div{
+    display: inline-block;
+    width: 70%;
+}
+
+/*
+#converter {
+    width: 25%;
+}
+*/
+
+#converter input {
+    display: inline-block;
+    width: 25%;
+}
+
+.navbar-btn {
+    margin-right: 10px;
+}
+
+.navbar-header {
+    padding-bottom: 5px;
+}
+/*--------*/

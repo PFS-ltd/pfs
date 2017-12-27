@@ -33,7 +33,11 @@
                     else if (arg === 2) $scope.chart2.api.update();
                     else if (arg === 3) $scope.chart3.api.update();
                     else if (arg === 4) $scope.chart4.api.update();
+<<<<<<< HEAD
                 }, 50);
+=======
+                }, 100);
+>>>>>>> goal
             };
 
             $scope.data = {};

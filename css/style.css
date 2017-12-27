@@ -9,12 +9,14 @@ body {
 }
 
 #income-form div,
-#costs-form div { /*слипание блоков инпута*/
+#costs-form div ,
+#goal-form div{ /*слипание блоков инпута*/
     padding: 0;
 }
 
 .incomes-panel,
-.costs-panel
+.costs-panel,
+.goal-panel
 {
     display: inline-block;
 }

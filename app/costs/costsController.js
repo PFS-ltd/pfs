@@ -1,7 +1,7 @@
-app.controller('CostsController',
+ app.controller('CostsController',
   function ($uibModal, $log, $document, $scope, costsService, incomeService, settingsService, uibDateParser, $filter, ngToast) {
     $scope.costsCategoriesArr = costsService.getCostsCategoriesArray();
-   console.log('costsCategoriesArr',$scope.costsCategoriesArr);
+  //  console.log('costsCategoriesArr',$scope.costsCategoriesArr);
     $scope.templateCostsArr = costsService.getCostsTemplateArray();
     // console.log('$scope.templateCostsArr',$scope.templateCostsArr);
     $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
@@ -26,7 +26,7 @@ app.controller('CostsController',
       date: '',
       comment: '',
     };
-
+ 
 
     $scope.ExpenditureCategoryModel = {
       title: 'базовая категория',
@@ -151,6 +151,7 @@ app.controller('CostsController',
       console.log(item);
       var bill = $scope.billsCategories.$getRecord(item.from.id);
       var cost = costsService.getItemInCostsCategoriesByKey(item.to.id);
+      console.log(bill);
       console.log(bill.amount);
       if ((bill.amount - item.sum) < 0) {
         ngToast.create({

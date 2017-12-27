@@ -58,16 +58,17 @@
         //modals
 //            this.categoryModel = { title: '' };
         
-        $transitions.onExit({exiting: 'home.income'}, function(transition) {
-            localStorage.setItem('tempIncome', JSON.stringify(incomeCtrl.tmpIncome));
-            console.log(localStorage.getItem('tempIncome'));
-        });
-        
-        $transitions.onBefore({entering: 'home.income'}, function(transition) {
-//            incomeCtrl.tmpIncome = angular.extend({}, JSON.parse(localStorage.getItem('tempIncome')));
-            incomeCtrl.tmpIncome = JSON.parse(localStorage.getItem('tempIncome'));
-            console.log(incomeCtrl.tmpIncome);
-        });
+//        $transitions.onExit({exiting: 'home.income'}, function(transition) {
+//            localStorage.setItem('tempIncome', JSON.stringify(incomeCtrl.tmpIncome));
+//            console.log(localStorage.getItem('tempIncome'));
+//        });
+//        
+//        $transitions.onBefore({entering: 'home.income'}, function(transition) {
+////            incomeCtrl.tmpIncome = angular.extend({}, JSON.parse(localStorage.getItem('tempIncome')));
+//            incomeCtrl.tmpIncome = JSON.parse(localStorage.getItem('tempIncome'));
+////            console.log(incomeCtrl);
+////            $scope.$digest();
+//        });
         
         this.validateInput = function(item) {
             //DATE
@@ -75,7 +76,7 @@
             if (item.date === undefined) {
                 ngToast.create({
                     "content": "Укажите дату",
-                    "className": 'warning'
+                    "className": 'danger'
                 });
                 return false;
             }
@@ -84,7 +85,7 @@
             if (item.who === null || item.who === undefined) {
                 ngToast.create({
                     "content": "Укажите участника",
-                    "className": 'warning'
+                    "className": 'danger'
                 });
                 return false;
             }
@@ -93,7 +94,7 @@
             if (item.from === null || item.from === undefined) {
                 ngToast.create({
                     "content": "Укажите источник",
-                    "className": 'warning'
+                    "className": 'danger'
                 });
                 return false;
             }
@@ -102,7 +103,7 @@
             if (item.to === null || item.to === undefined) {
                 ngToast.create({
                     "content": "Укажите счет",
-                    "className": 'warning'
+                    "className": 'danger'
                 });
                 return false;
             }
@@ -111,7 +112,7 @@
             if (item.sum === null || item.sum === undefined) {
                 ngToast.create({
                     "content": "Укажите сумму",
-                    "className": 'warning'
+                    "className": 'danger'
                 });
                 return false;
             }
@@ -136,7 +137,7 @@
             if ((account.amount - item.sum) < 0) {
                 ngToast.create({
                     "content": "Невозможно отменить операцию, т.к. на счету " + account.title + " будет отрицательная сумма",
-                    "className": 'warning'
+                    "className": 'danger'
                 });
             } else {
                 account.amount = account.amount - item.sum;

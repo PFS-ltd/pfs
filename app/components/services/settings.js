@@ -12,7 +12,9 @@ function ($state, Auth, $firebaseObject, $firebaseArray) {
     var userNameRef = firebase.database().ref('users/' + uId + '/settings/username');
     var userNameRef = $firebaseObject(userNameRef);
 
-
+    var langRef = firebase.database().ref('users/' + uId + '/settings/locals');
+    var prefLang = $firebaseObject(langRef);
+    
     return {
         getRolesArray: function () {
             return rolesArr;
@@ -30,8 +32,12 @@ function ($state, Auth, $firebaseObject, $firebaseArray) {
             // console.log(key)
             return rolesArr.$getRecord(key);
         },
-
-
+        getPrefLang: function () {
+            return prefLang;
+        },
+        updatePrefLang: function (item) {
+            prefLang.$save(item);
+        }
 
         // getCostsTemplateArray: function () {
         //     return costsTemplate;

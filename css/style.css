@@ -36,12 +36,13 @@ body {
     outline: none;
 }
 
-.navbar-btn {
-    margin-right: 10px;
+#left-panel {
+    position: fixed;
+    top: 85px;
 }
 
 #left-panel .fa {
-    font-size: 28px;
+    font-size: 30px;
 }
 
 .spinner {
@@ -52,17 +53,38 @@ body {
 
 #info-window {
     position: relative;
-    top: 60px;
+    top: 85px;
 }
 
+/*HEADER*/
+
 /*
-#upper-panel {
-    position: fixed;
-    z-index: 900;
+#rates {
+    width: 15%;
 }
 */
 
-#left-panel {
-    position: fixed;
-    top: 60px;
+#rates div{
+    display: inline-block;
+    width: 70%;
 }
+
+/*
+#converter {
+    width: 25%;
+}
+*/
+
+#converter input {
+    display: inline-block;
+    width: 25%;
+}
+
+.navbar-btn {
+    margin-right: 10px;
+}
+
+.navbar-header {
+    padding-bottom: 5px;
+}
+/*--------*/

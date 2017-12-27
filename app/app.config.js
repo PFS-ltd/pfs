@@ -1,4 +1,4 @@
-app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRouterProvider', '$translateProvider',
+app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRouterProvider', '$translateProvider', 
     function ($stateProvider, ngToastProvider, $locationProvider, $urlRouterProvider, $translateProvider) {
         
         $locationProvider.hashPrefix('');
@@ -56,7 +56,9 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
             .state('home.settings', {
                 url: "/settings",
                 templateUrl: 'app/settings/settings.html',
-                controller: 'SettingsController as settingsCtrl'
+                controller: 'SettingsController',
+                controllerAs: 'settingsCtrl',
+                params: {reload: false}
             });
 
 
@@ -64,9 +66,9 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
 
         ngToastProvider.configure({
             additionalClasses: 'my-animation',
-            horizontalPosition: 'right',
+            horizontalPosition: 'middle',
             verticalPosition: 'top',
-            maxNumber: 0,
+            maxNumber: 1,
             combineDuplications: false
         });
 
@@ -94,8 +96,15 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
             prefix: '/i18n/',
             suffix: '.json'
         });
+        
+        var lang = localStorage.getItem('preferredLanguage');
+        
+        if (lang === null) {
+            lang = 'ru';
+            localStorage.setItem('preferredLanguage', 'ru');
+        }
 
-        $translateProvider.preferredLanguage('ru');
+        $translateProvider.preferredLanguage(lang);
 
     }]);
 

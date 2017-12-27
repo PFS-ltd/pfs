@@ -1,11 +1,12 @@
 <div class="row">
     <form class="col-md-12">
         <div class="input-group" id="income-form">
+<!--            tmpIncome {{incomeCtrl.tmpIncome.date}}-->
             <div class="col-md-2">
                 
                     <input type="text" 
                     class="form-control"
-                    placeholder="Дата"
+                    placeholder="{{'Date' | translate}}"
                     uib-datepicker-popup="dd.MM.yyyy"
                     ng-model="incomeCtrl.tmpIncome.date" is-open="incomeCtrl.popup.opened" 
                     datepicker-options="incomeCtrl.dateOptions"
@@ -17,24 +18,24 @@
                         <!-- <option value="" disabled selected>Участник</option> ng-options="role.title for role in incomeCtrl.rolesArr"-->
                         <!-- <select class="form-control" ng-model='newCosts.who' > -->
                         <!-- </select> -->
-                        <option value="" disabled selected>Участник</option>
+                        <option value="" disabled selected>{{'Participant' | translate}}</option>
                         <option ng-repeat="item in incomeCtrl.rolesArr">{{item.title}}</option>
                     </select>
             </div>
             <div class="col-md-2">
                 <select class="form-control" ng-model="incomeCtrl.tmpIncome.from">
-                    <option value="" disabled selected>Источник</option>
+                    <option value="" disabled selected>{{'Source' | translate}}</option>
                     <option ng-repeat="item in incomeCtrl.incomeSourceArr" ng-value="item" ng-init>{{item.title}}</option>
                 </select>
             </div>
             <div class="col-md-2">
                 <select class="form-control" ng-model="incomeCtrl.tmpIncome.to">
-                    <option value="" disabled selected>Счет</option>
+                    <option value="" disabled selected>{{'Account' | translate}}</option>
                     <option ng-repeat="item in incomeCtrl.incomeAccountsArr" ng-value="item">{{item.title}}</option>
                 </select>
             </div>
             <div class="col-md-1">
-                <input type="number" placeholder="Сумма" min='0' class="form-control" ng-model="incomeCtrl.tmpIncome.sum">
+                <input type="number" placeholder="{{'Sum' | translate}}" min='0' class="form-control" ng-model="incomeCtrl.tmpIncome.sum">
             </div>
 <!--
             <div class="col-md-2">
@@ -53,10 +54,10 @@
             </div>
 -->
             <div class="col-md-2">
-                <input type="text" placeholder="Комментарий" class="form-control" ng-model="incomeCtrl.tmpIncome.comment">
+                <input type="text" placeholder="{{'Comment' | translate}}" class="form-control" ng-model="incomeCtrl.tmpIncome.comment">
             </div>
             <span class="input-group-btn pull-left">
-                <button class="btn btn-success" type="submit" ng-click="incomeCtrl.addIncomeTransfer(incomeCtrl.tmpIncome)">Внести</button>
+                <button class="btn btn-success" type="submit" ng-click="incomeCtrl.addIncomeTransfer(incomeCtrl.tmpIncome)">{{'Transfer' | translate}}</button>
             </span>
         </div>
     </form>
@@ -65,11 +66,11 @@
 <div class="col-md-6">
     <div class="panel panel-success">
         <div class="panel-heading clearfix">
-            <h3 class="panel-title incomes-panel">Источники доходов</h3>
+            <h3 class="panel-title incomes-panel">{{'Income sources' | translate}}</h3>
             <div class="pull-right">
                 <button type="button" class="btn btn-success btn-sm" 
         ng-click="incomeCtrl.addIncomeSource()">
-                    <span class="glyphicon glyphicon-plus"></span> Добавить категорию
+                    <span class="glyphicon glyphicon-plus"></span> {{'Add category' | translate}}
                 </button>
             </div>
         </div>
@@ -78,11 +79,11 @@
                 <li class="list-group-item" ng-repeat='item in incomeCtrl.incomeSourceArr'>
                     <span>{{item.title}}</span>
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-primary btn-xs" title="Редактировать" 
+                        <button type="button" class="btn btn-primary btn-xs" title="{{'Edit' | translate}}" 
         ng-click="incomeCtrl.editIncomeSource(item)">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
-                        <button type="button" class="btn btn-danger btn-xs" title="Удалить" 
+                        <button type="button" class="btn btn-danger btn-xs" title="{{'Delete' | translate}}" 
         ng-click="incomeCtrl.delIncomeSource(item)">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
@@ -95,23 +96,23 @@
 <div class="col-md-6">
     <div class="panel panel-warning">
         <div class="panel-heading clearfix">
-            <h3 class="panel-title incomes-panel">Ваши счета</h3>
+            <h3 class="panel-title incomes-panel">{{'Your accounts' | translate}}</h3>
             <div class="pull-right">
                 <button type="button" class="btn btn-warning btn-sm" 
         ng-click="incomeCtrl.addIncomeAccount()">
-                    <span class="glyphicon glyphicon-plus"></span> Добавить счет
+                    <span class="glyphicon glyphicon-plus"></span> {{'Add account' | translate}}
                 </button>
             </div>
         </div>
         <div class="panel-body">
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat='item in incomeCtrl.incomeAccountsArr'>
-                    <span>{{item.title}} <span class="badge badge-success" title="Доступны">{{item.amount}}</span></span>
+                    <span>{{item.title}} <span class="badge badge-success" title="{{'Available' | translate}}">{{item.amount}}</span></span>
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="incomeCtrl.editIncomeAccount(item)">
+                        <button type="button" class="btn btn-primary btn-xs" title="{{'Edit' | translate}}" ng-click="incomeCtrl.editIncomeAccount(item)">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
-                        <button type="button" class="btn btn-danger btn-xs" title="Удалить" 
+                        <button type="button" class="btn btn-danger btn-xs" title="{{'Delete' | translate}}" 
             ng-click="incomeCtrl.delIncomeAccount(item)">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
@@ -121,10 +122,10 @@
         </div>
     </div>
 </div>
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-12">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Последние внесенные доходы</h3>
+            <h3 class="panel-title">{{'Recent incomes' | translate}}</h3>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
@@ -136,37 +137,37 @@
 -->
                         #
                     </th>
-                    <th ng-click="sortBy('sum')" class="table-th-cursor" title="Сортировать">
+                    <th ng-click="sortBy('sum')" class="table-th-cursor" title="{{'Sort' | translate}}">
                         <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'sum', 'glyphicon-menu-down': sortField === '-sum'}"></i>
-                        Сумма
+                        {{'Sum' | translate}}
                     </th>
                     <th>
 <!--
                     <th ng-click="sortBy('categories')">
                         <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'categories', 'glyphicon-menu-down': sortField === '-categories'}"></i>
 -->
-                        Откуда/Куда
+                        {{'From/To' | translate}}
                     </th>
-                    <th ng-click="sortBy('who')" class="table-th-cursor" title="Сортировать">
+                    <th ng-click="sortBy('who')" class="table-th-cursor" title="{{'Sort' | translate}}">
                         <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'who', 'glyphicon-menu-down': sortField === '-who'}"></i>
-                        Кто
+                        {{'Participant' | translate}}
                     </th>
-                    <th ng-click="sortBy('date')" class="table-th-cursor" title="Сортировать">
+                    <th ng-click="sortBy('date')" class="table-th-cursor" title="{{'Sort' | translate}}">
                         <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'date', 'glyphicon-menu-down': sortField === '-date'}"></i>
-                        Дата
+                        {{'Date' | translate}}
                     </th>
-                    <th>Комментарий</th>
-                    <th>Удалить</th>
+                    <th>{{'Comment' | translate}}</th>
+                    <th>{{'Delete' | translate}}</th>
                 </thead>
                 <tbody>
                     <tr ng-repeat='item in incomeCtrl.incomeTransfers | orderBy: sortField'>
                         <td>{{$index+1}}</td>
                         <td>{{item.sum}}</td>
-                        <td>Из "{{item.from.title}}" в "{{item.to.title}}"</td>
+                        <td>{{'From' | translate}} "{{item.from.title}}" {{'to' | translate}} "{{item.to.title}}"</td>
                         <td>{{item.who}}</td>
                         <td>{{item.date | date : "dd.MM.yyyy"}}</td>
                         <td>{{item.comment}}</td>
-                        <td><button class="btn btn-danger btn-xs" title="Удалить" 
+                        <td><button class="btn btn-danger btn-xs" title="{{'Delete' | translate}}" 
         ng-click="incomeCtrl.delIncomeTransfer(item)"><span class="glyphicon glyphicon-remove"></span></button></td>
                     </tr>
                 </tbody>

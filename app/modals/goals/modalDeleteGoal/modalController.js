@@ -1,4 +1,5 @@
-app.controller('ModalController', function ($scope, $uibModalInstance, item){
+app.controller('ModalController', function ($scope, $uibModalInstance, item,ngToast){
+	console.log('item delete',item);
 	$scope.item = item ;
 	console.log(item.comment);
 	$scope.cancel = function() {
@@ -7,7 +8,17 @@ app.controller('ModalController', function ($scope, $uibModalInstance, item){
 	};
 
 	$scope.ok = function() {
-		$uibModalInstance.close(true);
+		if (item.sum > 0){
+			ngToast.create ({
+				'content' : 'Переведите деньги на счет',
+				'className' : 'danger'
+			});	
+			$uibModalInstance.dismiss(false);
+		}
+		else {
+			$uibModalInstance.close(true);
+		}
+		
 	};
 });
 

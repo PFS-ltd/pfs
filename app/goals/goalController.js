@@ -11,7 +11,9 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     //     $scope.isCollapsed = !$scope.isCollapsed;
     // }
   
-
+    $scope.MyFilter = function (key) {
+        return key.title;
+    }
     $scope.goalInput = {
         who: '',
         from: {
@@ -140,7 +142,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         var delGoal = $uibModal.open ({
             templateUrl: 'app/modals/goals/modalDeleteGoal/templateDelete.html',
             controller: 'ModalController',
-            size: 'md',
+            size: 'sm',
             resolve: {
                 item: function () {
                     return item;
@@ -148,6 +150,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             },
         });
         delGoal.result.then(function (result) {
+            
             goalsService.delGoal(item);
             ngToast.create ({
                 'content' : 'Накопление успешно удалено',
@@ -345,6 +348,10 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             result.who = result.who.title;
             $scope.makeIncomeTransfer(result);
             incomeService.addIncomeTransfer(result);
+            ngToast.create ({
+                'content':'Недостаточно средств, укажите другую сумму',
+                "className": 'success'
+            })
             
              
           }, function() {

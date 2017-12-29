@@ -9,9 +9,19 @@
 	};
 
 	$scope.ok = function(result) {
-		result.date = new Date ();
+		console.log('result', result);
+		if (result.sum > result.from.sum) {
+			ngToast.create ({
+				"content": 'Недостаточно средств, укажите другую сумму',
+        "className": 'danger'
+			});
+		}
+		 else {
+			result.date = new Date ();
 		console.log(result);
 		$uibModalInstance.close(result);	
+		}
+		
 	};
 	
 

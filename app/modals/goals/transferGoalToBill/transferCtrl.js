@@ -10,7 +10,7 @@
 
 	$scope.ok = function(result) {
 		console.log('result', result);
-		if (result.sum > result.from.sum) {
+		if( (result.from.sum -result.sum ) < 0 ) {
 			ngToast.create ({
 				"content": 'Недостаточно средств, укажите другую сумму',
         "className": 'danger'

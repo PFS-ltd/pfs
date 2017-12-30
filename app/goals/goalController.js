@@ -1,15 +1,15 @@
 app.controller('GoalController', function($scope, $log, $document,$uibModal,ngToast, goalsService,costsService,incomeService, settingsService, uibDateParser, $filter){
     $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
     // console.log('$scope.costsTransferArrQuery',$scope.costsTransferArrQuery);
+    $scope.incomeTransfers = incomeService.getIncomeTransfersLast();
+    console.log('incomeTransfer', $scope.incomeTransfers);
     $scope.billsCategories = incomeService.getIncomeAccounts();
+    // console.log('billCat', $scope.billsCategories);
     $scope.goalArr = goalsService.getGoalsArr();
     // console.log('goalArr', $scope.goalArr)
     $scope.rolesArr = settingsService.getRolesArray();
     // console.log('$scope.rolesArr', $scope.rolesArr);
     $scope.isCollapsed = true;
-    // $scope.openDoor = function () {
-    //     $scope.isCollapsed = !$scope.isCollapsed;
-    // }
   
     $scope.MyFilter = function (key) {
         return key.title;
@@ -115,7 +115,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         var modalCreateGoal = $uibModal.open({
         templateUrl: 'app/modals/goals/addNewGoal/template.html',
         controller: 'addNewGoalCtrl',
-        size: 'lg',
+        size: 'md',
         resolve: {
             newGoal : function () {
                 return newGoal;
@@ -168,7 +168,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         var editGoal = $uibModal.open ({
             templateUrl: 'app/modals/goals/editGoal/template.html',
             controller : 'editGoalCtrl',
-            size: 'lg',
+            size: 'md',
             resolve: {
                 item : function (){
                     return modItem;
@@ -230,7 +230,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         $scope.deleteTransfer = function (item) {
             var delGoal = $uibModal.open ({
                 templateUrl: 'app/modals/goals/modalDeleteGoal/templateDelete.html',
-                controller: 'ModalController',
+                controller: 'ModalTablController',
                 size: 'md',
                 resolve: {
                     item: function () {
@@ -349,7 +349,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             $scope.makeIncomeTransfer(result);
             incomeService.addIncomeTransfer(result);
             ngToast.create ({
-                'content':'Недостаточно средств, укажите другую сумму',
+                'content':'Перевод прошел успешно',
                 "className": 'success'
             })
             

@@ -2,9 +2,11 @@ app.service('goalsService', ['$state', 'Auth', "$firebaseObject", "$firebaseArra
     function ($state, Auth, $firebaseObject, $firebaseArray) {
         var uId = Auth.$getAuth().uid;
 
-        var goalsRef = firebase.database().ref('users/' + uId + '/goals');
+        var goalsRef = firebase.database().ref('users/' + uId + '/goals/listOfGoals');
         var goalsArr = $firebaseArray(goalsRef);
 
+        var goalsTransferRef = firebase.database().ref('users/' + uId + '/goals/transferGoals');
+        var goalsTransferArr = $firebaseArray(goalsTransferRef);
         // var costsTemplateRef = firebase.database().ref('users/' + uId + '/costs/templateCosts');
         // var costsTemplate = $firebaseArray(costsTemplateRef);
 
@@ -32,6 +34,22 @@ app.service('goalsService', ['$state', 'Auth', "$firebaseObject", "$firebaseArra
             getItemInGoalCategoriesByKey: function (key) {
                 // console.log(key)
                 return goalsArr.$getRecord(key);
+            },
+            getGoalsTransferArr: function () {
+                return goalsTransferArr;
+            },
+            addGoalsTransferArr: function (item) {
+                goalsTransferArr.$add(item);
+            },
+            delGoalsTransferArr: function (item) {
+                goalsTransferArr.$remove(item);
+            },
+            updGoalsTransferArr: function (item) {
+                goalsTransferArr.$save(item);
+            },
+            getItemInGoalsTransferByKey: function (key) {
+                // console.log(key)
+                return goalsTransferArr.$getRecord(key);
             },
 
         };

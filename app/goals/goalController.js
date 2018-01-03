@@ -1,16 +1,23 @@
-app.controller('GoalController', function($scope, $log, $document,$uibModal,ngToast, goalsService,costsService,incomeService, settingsService, uibDateParser, $filter){
+app.controller('GoalController', function($scope, $log, $document,$uibModal,ngToast, goalsService,costsService,incomeService, settingsService, uibDateParser, $filter, $translate){
     $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
     // console.log('$scope.costsTransferArrQuery',$scope.costsTransferArrQuery);
     $scope.incomeTransfers = incomeService.getIncomeTransfersLast();
-    console.log('incomeTransfer', $scope.incomeTransfers);
+    // console.log('incomeTransfer', $scope.incomeTransfers);
     $scope.billsCategories = incomeService.getIncomeAccounts();
     // console.log('billCat', $scope.billsCategories);
     $scope.goalArr = goalsService.getGoalsArr();
+    $scope.goalsTransferArr = goalsService.getGoalsTransferArr();
+   
     // console.log('goalArr', $scope.goalArr)
     $scope.rolesArr = settingsService.getRolesArray();
     // console.log('$scope.rolesArr', $scope.rolesArr);
     $scope.isCollapsed = true;
-  
+    $scope.openTable = function () {
+        // console.log($scope.isCollapsed );
+        return $scope.isCollapsed = !$scope.isCollapsed;
+        
+    };
+    
     $scope.MyFilter = function (key) {
         return key.title;
     }
@@ -27,13 +34,15 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         sum : 0,
         date : '',
         comment: '',
+        type:'cost'
     };
     $scope.goalCategoryModel = {
         title : '',
         sumMax : 0 , 
         sum : 0 ,
     };
-    $scope.newCosts = {};
+
+    $scope.newCosts = angular.extend({},$scope.goalInput);
     $scope.newCosts.date = new Date();
     // добавление даты и календаря в инпут 
     $scope.today = function () {
@@ -62,6 +71,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     $scope.validInput = function (item) {
         //DATE
         // console.log(item)
+
        if (item.date === undefined) {
            ngToast.create({
                "content": "Укажите дату",
@@ -141,7 +151,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     $scope.deleteGoalCategory = function(item){
         var delGoal = $uibModal.open ({
             templateUrl: 'app/modals/goals/modalDeleteGoal/templateDelete.html',
-            controller: 'ModalController',
+            controller: 'ModalGoalController',
             size: 'sm',
             resolve: {
                 item: function () {
@@ -162,6 +172,10 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
        
     }
     $scope.editGoalCategory = function(item){
+        if($scope.isCollapsed === false){
+            $scope.openTable();
+        }
+        
     var modItem = angular.extend({},item);
     var backup = angular.extend({},item);
     item.title = undefined;
@@ -192,9 +206,10 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     }
     var makeTransfer = function (item) {
         var bill = $scope.billsCategories.$getRecord(item.from.id);
+        console.log('bill',bill)
         // var cost = costsService.getItemInCostsCategoriesByKey(item.to.id);
         var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
-  
+        console.log('goal', goal)
         if ((bill.amount - item.sum) < 0) {
           ngToast.create({
             "content": "Недоасточно денег на счету " + bill.title,
@@ -209,25 +224,50 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         //       "className": 'warning'
         //     })
         //   }
-          $scope.billsCategories.$save(bill);
-          costsService.addItemInQueryCostsTransfer(item);
-          goalsService.updGoal(goal);
+        //   $scope.billsCategories.$save(bill);
+        //   costsService.addItemInQueryCostsTransfer(item);
+        $scope.billsCategories.$save(bill);
+        goalsService.addGoalsTransferArr(item);
+        goalsService.updGoal(goal);
           
         }
       }
       var makeReverseTransfer = function (item) {
-        var bill = $scope.billsCategories.$getRecord(item.from.id);
-        var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
-        
-          bill.amount = bill.amount + item.sum;
-          goal.sum = goal.sum - item.sum;
-          
-          $scope.billsCategories.$save(bill);
-          goalsService.updGoal(goal);
+        // console.log(item);
+        if (item.type === 'cost') {
+            var bill = $scope.billsCategories.$getRecord(item.from.id);
+            var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
+            // console.log('bill',bill);
+            // console.log('goal',goal);
+            
+              bill.amount = bill.amount + item.sum;
+              goal.sum = goal.sum - item.sum;
+              
+              $scope.billsCategories.$save(bill);
+              goalsService.updGoal(goal);
+              goalsService.delGoalsTransferArr(item);
+              goalsService.updGoalsTransferArr();
+        }
+        else {
+            var bill = $scope.billsCategories.$getRecord(item.to.id);
+            var goal = goalsService.getItemInGoalCategoriesByKey(item.from.id);
+            // console.log('bill',bill);
+            // console.log('goal',goal);
+            
+              bill.amount = bill.amount - item.sum;
+              goal.sum = goal.sum + item.sum;
+              
+              $scope.billsCategories.$save(bill);
+              goalsService.updGoal(goal);
+              goalsService.delGoalsTransferArr(item);
+              goalsService.updGoalsTransferArr();
+        }
+       
 
           // costsService.addItemInCostsTransfer(item);
         }
         $scope.deleteTransfer = function (item) {
+            console.log(item);
             var delGoal = $uibModal.open ({
                 templateUrl: 'app/modals/goals/modalDeleteGoal/templateDelete.html',
                 controller: 'ModalTablController',
@@ -239,9 +279,9 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
                 },
             });
             delGoal.result.then(function (result) {
-                costsService.delItemInQueryCostsTransferLast(item);
-          console.log(item)
           makeReverseTransfer(item);
+          
+          
                 ngToast.create ({
                     'content' : 'Накопление успешно удалено',
                     'className' : 'success'
@@ -306,14 +346,14 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
 
 
     $scope.addGoalAsCost = function (item) {
-        console.log(item);
+        // console.log(item);
         var isValid = $scope.validInput(item);
         if(isValid) {
+            // console.log('item', item)
             item.from.id = item.from.$id;
             item.to.id = item.to.$id;
+            // console.log('item.to.id',item.to.id )
             item.date = $filter('date')(item.date, 'yyyy-MM-dd');
-            
-
             makeTransfer(item);
             $scope.newCosts = {comment: ''};
             $scope.today();
@@ -342,16 +382,22 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             },
         }); 
         goalToBill.result.then(function (result) {
-            console.log(result);
+            // console.log(result);
             result.from.id = result.from.$id;
             result.to.id = result.to.$id;
-            result.who = result.who.title;
+            // result.who = result.who.title;
+            result.type = 'income';
             $scope.makeIncomeTransfer(result);
-            incomeService.addIncomeTransfer(result);
-            ngToast.create ({
-                'content':'Перевод прошел успешно',
-                "className": 'success'
+            // incomeService.addIncomeTransfer(result);
+            goalsService. addGoalsTransferArr(result);
+            // console.log('goalsTransfer',$scope.goalsTransferArr );
+            $translate('Sale').then(function(tranlsation){
+                ngToast.create ({
+                    'content':tranlsation,
+                    "className": 'success'
+                })
             })
+           
             
              
           }, function() {
@@ -362,7 +408,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         var goal = goalsService.getItemInGoalCategoriesByKey(item.from.id);
         // var bill = $scope.billsCategories.$getRecord(item.from.id);
         item.date = $filter('date')(item.date, 'yyyy-MM-dd');
-        console.log(item);
+        // console.log(item);
         var account = incomeService.getItemInIncomeAccounts(item.to.id);
         account.amount = account.amount + item.sum;
         goal.sum = goal.sum - item.sum;

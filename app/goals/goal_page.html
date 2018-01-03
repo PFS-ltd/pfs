@@ -69,13 +69,13 @@
                         </uib-progressbar>
                     </div>
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-info btn-xs" ng-click="isCollapsed = !isCollapsed" >
+                        <button type="button" class="btn btn-info btn-xs" ng-click="openTable()" >
                             <span class="glyphicon glyphicon-chevron-down"></span>
                         </button>
                         <!-- <button type="button" class="btn btn-warning btn-xs" ng-click="transferGoalToBill(key)">
                             <span class="glyphicon glyphicon-usd"></span>
                         </button> -->
-                        <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="editGoalCategory(key)" ng-disabled="!isCollapsed">
+                        <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="editGoalCategory(key)" >
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
                         <button type="button" class="btn btn-danger btn-xs" title="Удалить" ng-click="deleteGoalCategory(key)">
@@ -88,17 +88,18 @@
                                     <thead>
                                             <th>#</th>
                                             <th>Сумма</th>
-                                            <th>Откуда/Куда</th>
+                                            <th>Откуда</th>
                                             <th>Кто</th>
                                             <th>Дата</th>
                                             <th>Комментарий</th>
                                             <th>Отменить</th>
                                         </thead>
-                                <tbody ng-repeat='item in costsTransferArrQuery.concat(incomeTransfers) | filter : MyFilter(key) '>
+                                <tbody ng-class="item.type === 'cost' ? 'green' : 'red' " ng-repeat='item in goalsTransferArr | filter : MyFilter(key) '>
                                     <tr>
                                         <td>{{$index+1}}</td>
                                         <td>{{item.sum}}</td>
-                                        <td ng-class="red" >Из {{item.from.title}} в {{item.to.title}}</td>
+                                        <td ng-if=" item.type ==='income' " > {{item.to.title}}</td>
+                                        <td ng-if=" item.type ==='cost' " > {{item.from.title}}</td>
                                         <td>{{item.who.title}}</td>
                                         <td>{{item.date| date:'dd.MM.yyyy'}}</td>
                                         <td>{{item.comment}}</td>
@@ -109,6 +110,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                                
                             </table>
                         </div> 
                 </li>

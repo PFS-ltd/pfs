@@ -8,7 +8,7 @@
         this.rolesArr = settingsService.getRolesArray();
 
         // console.log(this.incomeSourceArr);
-        // console.log(this.incomeAccountsArr);
+        console.log(this.incomeAccountsArr);
         // console.log(this.incomeTransfers);
         // console.log(this.rolesArr);
 
@@ -20,7 +20,18 @@
 //                incomeCtrl.tmpIncome.date = new Date();
 //            };
 //            
+// this.incomeAccountsArr.$loaded().then(function(){
+//     var amount = function(){
+//         var amount = 0;
+//         this.incomeAccountsArr.forEach(function(item){
+//             console.log(item)
+//             amount += item.amount;
+//         })
+//     }
 
+//     this.amount1 = amount();
+// })
+       
         this.dateOptions = {
             format: 'yy',
             maxDate: new Date(2020, 5, 22)

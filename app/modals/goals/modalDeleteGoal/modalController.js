@@ -1,4 +1,4 @@
-app.controller('ModalController', function ($scope, $uibModalInstance, item,ngToast){
+app.controller('ModalGoalController', function ($scope, $uibModalInstance, item,ngToast){
 	console.log('item delete',item);
 	$scope.item = item ;
 	console.log(item.comment);

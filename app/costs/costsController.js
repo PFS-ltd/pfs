@@ -5,6 +5,8 @@
     $scope.templateCostsArr = costsService.getCostsTemplateArray();
     // console.log('$scope.templateCostsArr',$scope.templateCostsArr);
     $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
+    
+    $scope.costsTransfers = costsService.getCostsTransferArray();
     // console.log('$scope.costsTransferArrQuery',$scope.costsTransferArrQuery);
     // $scope.costsTransferArr = costsService.getCostsTransferArray();
     $scope.billsCategories = incomeService.getIncomeAccounts();
@@ -436,5 +438,46 @@
 
       });
     }
+    $scope.type = function (item) {
+      var value = ((item.sum / item.limitPayment) * 100);
+      if (value < 25) {
+        return 'success';
+      } else if (value < 50) {
+        return 'info';
+      } else if (value < 95) {
+        return 'warning';
+      } else {
+        return "danger";
+      }
+    }
+
+    function calculateSumOfCosts(arr) {
+      var date = new Date();
+      var startDate = moment(date).startOf('month');
+      var endDate = moment(date).endOf('month');
+      var filteredCosts = arr.filter(function (item) {
+        if (moment(item.date).isBetween(startDate, endDate, null, '[]')) {
+          return item;
+        }
+      });
+      $scope.costsCategoriesArr.forEach(function (item) {
+        item.sum = 0;
+      });
+      $scope.costsCategoriesArr.forEach(function (item) {
+        filteredCosts.forEach(function (cost) {
+          if (cost.to.title === item.title) {
+            item.sum += cost.sum;
+          }
+        })
+      })
+    };
+
+    $scope.costsTransfers.$loaded(
+      function (arr) {
+        calculateSumOfCosts(arr);
+        // console.log(arr);
+        // console.log($scope.costsCategoriesArr);
+      }
+    )
 
   });

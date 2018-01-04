@@ -244,20 +244,22 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         }
       }
       var makeReverseTransfer = function (item) {
-        // console.log(item);
         if (item.type === 'cost') {
             var bill = $scope.billsCategories.$getRecord(item.from.id);
             var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
             // console.log('bill',bill);
             // console.log('goal',goal);
-            
-              bill.amount = bill.amount + item.sum;
-              goal.sum = goal.sum - item.sum;
+               
+                    bill.amount = bill.amount + item.sum;
+                    goal.sum = goal.sum - item.sum;
               
-              $scope.billsCategories.$save(bill);
-              goalsService.updGoal(goal);
-              goalsService.delGoalsTransferArr(item);
-              goalsService.updGoalsTransferArr();
+                    $scope.billsCategories.$save(bill);
+                    goalsService.updGoal(goal);
+                    goalsService.delGoalsTransferArr(item);
+                    goalsService.updGoalsTransferArr();
+                
+            
+              
         }
         else {
             var bill = $scope.billsCategories.$getRecord(item.to.id);
@@ -287,13 +289,15 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
                     item: function () {
                         return item;
                     },
+                    billsCategories : function () {
+                        return $scope.billsCategories;
+                    }
                 },
             });
             delGoal.result.then(function (result) {
-          makeReverseTransfer(item);
-          
-          
-          $translate("Accumulation Successfully Deleted").then(function(translation){
+            
+            makeReverseTransfer(item);
+            $translate("Accumulation Successfully Deleted").then(function(translation){
             ngToast.create ({
                 'content':translation,
                 "className": 'success'
@@ -398,6 +402,4 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         goalsService.updGoal(goal);
 
     }
- 
-
 });

@@ -61,11 +61,16 @@
                 <li class="list-group-item text-left" ng-repeat='item in costsCategoriesArr'>
                     <span class="category-title">{{item.title}}</span>
                     <div class="col-xs-4" class="list-group-item-heading" ng-if="item.limit!=0">
-                        <uib-progressbar animate="false" type="success" max="item.limitPayment" value="item.sum" >
+                        <uib-progressbar animate="false" type="{{type(item)}}" max="item.limitPayment" value="item.sum" ng-if="item.limitPayment">
                             <!-- <i style="color:black;">{{item.sum}}</i> <i style ng-hide="item.limitPayment ==0"> / {{item.limitPayment}}</i> -->
                             <i style="color:black; text-align:center;">{{item.sum}}/{{item.limitPayment}}</i>
                         </uib-progressbar>
+                        <uib-progressbar animate="false" type="success" max="item.limitPayment" value="item.sum" ng-if="!item.limitPayment">
+                            <!-- <i style="color:black;">{{item.sum}}</i> <i style ng-hide="item.limitPayment ==0"> / {{item.limitPayment}}</i> -->
+                            <i style="color:black; text-align:center;">{{item.sum}}</i>
+                        </uib-progressbar>
                     </div>
+                    
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-primary btn-xs" title='{{"Edit" | translate}}' ng-click="editExpenditureCategory(item)">
                             <span class="glyphicon glyphicon-pencil"></span>

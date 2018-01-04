@@ -1,5 +1,5 @@
  app.controller('CostsController',
-  function ($uibModal, $log, $document, $scope, costsService, incomeService, settingsService, uibDateParser, $filter, ngToast) {
+  function ($uibModal, $log, $document, $scope, costsService, incomeService, settingsService, uibDateParser, $filter, ngToast,$translate) {
     $scope.costsCategoriesArr = costsService.getCostsCategoriesArray();
   //  console.log('costsCategoriesArr',$scope.costsCategoriesArr);
     $scope.templateCostsArr = costsService.getCostsTemplateArray();
@@ -56,10 +56,12 @@
     }
     $scope.valid = function (item) {
       if (item.title === undefined || item.title === null) {
+        $translate('Indicate the participant').then(function(tranlsation){
             ngToast.create({
-                "content": "Укажите участника",
+                "content": "tranlsation",
                 "className": 'danger'
                 })
+              });
             return false;
         }
     return true;
@@ -69,51 +71,62 @@
                  //DATE
                  // console.log(item)
                 if (item.date === undefined) {
-                    ngToast.create({
-                        "content": "Укажите дату",
+                  $translate('Indicate the date').then(function(translation){
+                    ngToast.create ({
+                        'content':translation,
                         "className": 'danger'
                     })
+                  })
                     return false;
                 }
                 
                 //WHO
                 if (item.who === null || item.who === undefined) {
-                    ngToast.create({
-                        "content": "Укажите участника",
+                  $translate('Indicate the participant').then(function(translation){
+                    ngToast.create ({
+                        'content':translation,
                         "className": 'danger'
                     })
+                  })
+
                     return false;
                 }
                 
                 //FROM
                 if (item.from === null || item.from === undefined) {
-                    ngToast.create({
-                        "content": "Укажите счет",
+                  $translate("Indicate the account").then(function(translation){
+                    ngToast.create ({
+                        'content':translation,
                         "className": 'danger'
                     })
+                  })
                     return false;
                 }
                 
                 //TO
                 if (item.to === null || item.to === undefined) {
-                    ngToast.create({
-                        "content": "Укажите категорию",
+                  $translate("Indicate the category").then(function(translation){
+                    ngToast.create ({
+                        'content':translation,
                         "className": 'danger'
                     })
+                  })
                     return false;
                 }
                 
                 //SUM
                 if (item.sum === null || item.sum === undefined) {
-                    ngToast.create({
-                        "content": "Укажите сумму",
+                  $translate("Indicate the sum").then(function(translation){
+                    ngToast.create ({
+                        'content':translation,
                         "className": 'danger'
                     })
+                  })
                     return false;
                 }
                 
                 return true;
-
+ 
     };
     //независимые копии моделей 
     // $scope.newCosts = angular.extend({}, $scope.costsModel);
@@ -419,117 +432,9 @@
           console.log(item)
           makeReverseTransfer(item);
         }
-        // if (result)
-        //   storageFactory.allCosts.splice($index, 1);
+        
 
       });
     }
 
   });
-/*
-  $scope.addTemplateCosts = function () {
-    var modalAddTemplate = $uibModal.open({
-      templateUrl: 'app/modals/modalAddTemplate/template.html',
-      controller: 'addTemplateCosts',
-      size: 'lg',
-      resolve: {
-        newTemplateModel: function () {
-          return $scope.newTemplateModel;
-        }
-      },
-    });
-    modalAddTemplate.result.then(function (result) {
-      storageFactory.templateCosts.push(result);
-      $scope.newTemplateModel = angular.extend({}, $scope.templateModel);
-    });
-  };
-
-  // создания модального окна на добавления категории расходов
-  $scope.addExpenditureCategory = function () {
-    var modalExpenditureCategory = $uibModal.open({
-      templateUrl: 'app/modals/modaExpenditureCategory/template.html',
-      controller: 'AddExpenditureCategory',
-      size: 'lg',
-      resolve: {
-        newExpenditureCategoryModel: function () {
-          return $scope.newExpenditureCategoryModel;
-        }
-      },
-    });
-    modalExpenditureCategory.result.then(function (result) {
-
-      storageFactory.ExpenditureCategory.push(result)
-
-      $scope.newExpenditureCategoryModel = angular.extend({}, $scope.ExpenditureCategoryModel);
-    });
-  };
-
-
-  $scope.addCostsTemplate = function (item) {
-    var obj = $scope.storageFactory.income.$getRecord(item.from.id);
-    obj.amount = obj.amount - item.sum;
-    $scope.storageFactory.income.$save(obj);
-  };
-
-  // создания модального окна для удаления расходов
-  $scope.deleteCosts = function ($index) {
-    var modalDelete = $uibModal.open({
-      templateUrl: 'app/modals/modalDelete/templateDelete.html',
-      controller: 'ModalController',
-      size: 'md'
-    });
-    modalDelete.result.then(function (result) {
-      console.log('result', result);
-      if (result)
-        storageFactory.allCosts.splice($index, 1);
-
-    });
-
-  };
-  $scope.deleteTemplate = function ($index) {
-    var modalDelteTemplate = $uibModal.open({
-      templateUrl: 'app/modals/modalDeleteTemplate/templateDelete.html',
-      controller: 'deleteTemplate',
-      size: 'md'
-    });
-    modalDelteTemplate.result.then(function (result) {
-      if (result)
-        storageFactory.templateCosts.splice($index, 1);
-    });
-  };
-  //создание модального окна удаления категории расходов
-  $scope.deleteExpenditureCategory = function ($index) {
-    var modalDeleteCategory = $uibModal.open({
-      templateUrl: 'app/modals/modalDeleteExpenditureCategory/templateDelete.html',
-      controller: 'modalDeleteExpenditureCategory',
-      size: 'md'
-    });
-    modalDeleteCategory.result.then(function (result) {
-      if (result)
-        storageFactory.ExpenditureCategory.splice($index, 1);
-
-    });
-  };
-
-
-  // создание модального окна на редактирование категории расхода
-  $scope.editExpenditureCategory = function ($index) {
-    var modalEditExpenditureCategory = $uibModal.open({
-      templateUrl: 'app/modals/modalEditExpenditureCategory/template.html',
-      controller: 'EditExpenditureCategory',
-      size: 'lg',
-      resolve: {
-        correctCategory: function () {
-          return $scope.storageFactory.ExpenditureCategory[$index];
-        }
-      },
-    });
-    modalEditExpenditureCategory.result.then(function (result) {
-
-      $scope.storageFactory.ExpenditureCategory[$index] = result;
-    });
-  };
-
-
-});
-*/

@@ -17,7 +17,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         return $scope.isCollapsed = !$scope.isCollapsed;
         
     };
-    
+     
     $scope.MyFilter = function (key) {
         return key.title;
     }
@@ -73,46 +73,56 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         // console.log(item)
 
        if (item.date === undefined) {
-           ngToast.create({
-               "content": "Укажите дату",
-               "className": 'danger'
-           })
+        $translate('Indicate the date').then(function(translation){
+            ngToast.create ({
+                'content':translation,
+                "className": 'danger'
+            })
+          })
            return false;
        }
        
        //WHO
        if (item.who === null || item.who === undefined) {
-           ngToast.create({
-               "content": "Укажите участника",
-               "className": 'danger'
-           })
+        $translate('Indicate the participant').then(function(translation){
+            ngToast.create ({
+                'content':translation,
+                "className": 'danger'
+            })
+          })
            return false;
        }
        
        //FROM
        if (item.from === null || item.from === undefined) {
-           ngToast.create({
-               "content": "Укажите счет",
-               "className": 'danger'
-           })
+        $translate("Indicate the account").then(function(translation){
+            ngToast.create ({
+                'content':translation,
+                "className": 'danger'
+            })
+          })
            return false;
        }
        
        //TO
        if (item.to === null || item.to === undefined) {
-           ngToast.create({
-               "content": "Укажите категорию",
-               "className": 'danger'
-           })
+        $translate("Indicate the category").then(function(translation){
+            ngToast.create ({
+                'content':translation,
+                "className": 'danger'
+            })
+          })
            return false;
        }
        
        //SUM
        if (item.sum === null || item.sum === undefined) {
-           ngToast.create({
-               "content": "Укажите сумму",
-               "className": 'danger'
-           })
+        $translate("Indicate the sum").then(function(translation){
+            ngToast.create ({
+                'content':translation,
+                "className": 'danger'
+            })
+          })
            return false;
        }
        
@@ -137,10 +147,13 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
       });
       modalCreateGoal.result.then(function (result) {
         goalsService.addGoal(result);
-        ngToast.create ({
-            'content' : 'Накопление успешно добавлено',
-            'className' : 'success'
-        }) 
+        $translate("Accumulation Successfully Added").then(function(translation){
+            ngToast.create ({
+                'content':translation,
+                "className": 'success'
+            })
+          })
+        
         // console.log($scope.goalArr);
       }, function() {
         console.log('close');
@@ -162,10 +175,12 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         delGoal.result.then(function (result) {
             
             goalsService.delGoal(item);
-            ngToast.create ({
-                'content' : 'Накопление успешно удалено',
-                'className' : 'success'
-            }) 
+            $translate("Accumulation Successfully Deleted").then(function(translation){
+                ngToast.create ({
+                    'content':translation,
+                    "className": 'success'
+                })
+              }) 
           }, function() {
             console.log('close');
           });
@@ -195,10 +210,12 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         editGoal.result.then (function (result){
             item  = angular.extend(item,result);
             goalsService.updGoal(item);
-            ngToast.create ({
-                'content': 'Редактирование прошло успешно',
-                'className': 'success'
-            })
+            $translate("Editing was successful").then(function(translation){
+                ngToast.create ({
+                    'content':translation,
+                    "className": 'success'
+                })
+              }) 
         }, function () {
             item = angular.extend(item,backup);
         });
@@ -211,24 +228,18 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
         console.log('goal', goal)
         if ((bill.amount - item.sum) < 0) {
-          ngToast.create({
-            "content": "Недоасточно денег на счету " + bill.title,
-            "className": 'danger'
-          })
+            $translate("It's not enough money on the account").then(function(translation){
+                ngToast.create ({
+                    'content':translation,
+                    "className": 'danger'
+                })
+              }) 
         } else {
-          bill.amount = bill.amount - item.sum;
-          goal.sum = goal.sum + item.sum;
-        //   if (cost.sum > cost.limitPayment && cost.limitPayment !=0) {
-        //     ngToast.create({
-        //       "content": "Вы превысили запланированный лимит по категории " + cost.title,
-        //       "className": 'warning'
-        //     })
-        //   }
-        //   $scope.billsCategories.$save(bill);
-        //   costsService.addItemInQueryCostsTransfer(item);
-        $scope.billsCategories.$save(bill);
-        goalsService.addGoalsTransferArr(item);
-        goalsService.updGoal(goal);
+            bill.amount = bill.amount - item.sum;
+            goal.sum = goal.sum + item.sum;
+            $scope.billsCategories.$save(bill);
+            goalsService.addGoalsTransferArr(item);
+            goalsService.updGoal(goal);
           
         }
       }
@@ -282,10 +293,12 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
           makeReverseTransfer(item);
           
           
-                ngToast.create ({
-                    'content' : 'Накопление успешно удалено',
-                    'className' : 'success'
-                }) 
+          $translate("Accumulation Successfully Deleted").then(function(translation){
+            ngToast.create ({
+                'content':translation,
+                "className": 'success'
+            })
+          }) 
               }, function() {
                 console.log('close');
               }); 
@@ -303,48 +316,17 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             });
             delGoal.result.then(function (result) {
                 goalsService.delGoal(item);
-                ngToast.create ({
-                    'content' : 'Накопление успешно удалено',
-                    'className' : 'success'
-                }) 
+                $translate("Accumulation Successfully Deleted").then(function(translation){
+                    ngToast.create ({
+                        'content':translation,
+                        "className": 'success'
+                    })
+                  })  
               }, function() {
                 console.log('close');
               });
            
         }
-
-
-    // var makeTransfer = function (item) {
-    //     console.log(item);
-    //     var bill = $scope.billsCategories.$getRecord(item.from.id);
-    //     console.log('bill' , bill);
-    //     console.log('billAmount',bill.amount);
-    //     var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
-    //     console.log(bill.amount);
-    //     if ((bill.amount - item.sumValue) < 0) {
-    //       ngToast.create({
-    //         "content": "Недоасточно денег на счету " + bill.title,
-    //         "className": 'danger'
-    //       })
-    //     } else {
-    //       bill.amount = bill.amount - item.sumValue;
-    //       goal.sumValue = goal.sumValue + item.sumValue;
-    //     //   if (goal.sumValue > cost.limitPayment && cost.limitPayment !=0) {
-    //     //     ngToast.create({
-    //     //       "content": "Вы превысили запланированный лимит по категории " + cost.title,
-    //     //       "className": 'warning'
-    //     //     })
-    //     //   }
-    //       $scope.billsCategories.$save(bill);
-    //     //   costsService.updateItemInCostsCategories(cost);
-    //     //   costsService.addItemInQueryCostsTransfer(item);
-
-    //       goalsService.updGoal(goal);
-    //       costsService.addItemInQueryCostsTransfer(item);
-    //     }
-    //   }
-
-
     $scope.addGoalAsCost = function (item) {
         // console.log(item);
         var isValid = $scope.validInput(item);
@@ -391,9 +373,9 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             // incomeService.addIncomeTransfer(result);
             goalsService. addGoalsTransferArr(result);
             // console.log('goalsTransfer',$scope.goalsTransferArr );
-            $translate('Sale').then(function(tranlsation){
+            $translate('The transaction was successful').then(function(translation){
                 ngToast.create ({
-                    'content':tranlsation,
+                    'content':translation,
                     "className": 'success'
                 })
             })
@@ -414,13 +396,8 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         goal.sum = goal.sum - item.sum;
         incomeService.updItemInIncomeAccounts(account);
         goalsService.updGoal(goal);
-        // console.log(account);
-        // incomeService.addIncomeTransfer(item);
+
     }
-    // $scope.addIncomeTransfer = function (item) {
-    //         $scope.makeIncomeTransfer(item);
-    //         incomeService.addIncomeTransfer(item);
-        
-    // }
+ 
 
 });

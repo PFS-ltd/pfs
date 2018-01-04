@@ -1,45 +1,41 @@
 <div class="modal-header">
-    <h3 class="modal-title" id="modal-title">Перевод средств</h3>
+    <h3 class="modal-title" id="modal-title">{{"Money transaction"| translate}}</h3>
 </div>
 <div class="modal-body" id="modal-body">
     <form class="form-horizontal" role="form">
             <div class="form-group">
-                    <label  class="col-sm-4 control-label"> Участник</label>
+                    <label  class="col-sm-4 control-label"> {{'Participant' | translate}}</label>
                     <div class="col-sm-8">
                         <select class="form-control" ng-model='transfer.who' ng-options="key.title for key in rolesArr">    
                         </select>
                     </div>
                 </div>
        <div class="form-group">
-            <label  class="col-sm-4 control-label"> Накопление</label>
+            <label  class="col-sm-4 control-label"> {{"Goals" | translate}}</label>
             <div class="col-sm-8">
                 <select class="form-control" ng-model='transfer.from' ng-options="key.title for key in goalArr">
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <label  class="col-sm-4 control-label">Счет</label>
+            <label  class="col-sm-4 control-label">{{'Account' | translate}}</label>
             <div class="col-sm-8">
                 <select class="form-control" ng-model='transfer.to' ng-options="key.title for key in billsCategories">
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <label  class="col-sm-4 control-label">Сумма перевода</label>
+            <label  class="col-sm-4 control-label">{{"Amount of payment"| translate}}</label>
             <div class="col-sm-8">
-                 <input type="number" placeholder="Сумма" required min='1' class="form-control" ng-model='transfer.sum'>
+                 <input type="number" placeholder="{{'Sum' | translate}}" required min='1' class="form-control" ng-model='transfer.sum'>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-12 clearfix">
-                <button class="btn btn-danger pull-left" type="button" ng-click="cancel()">Отмена</button>
-                <button class="btn btn-primary pull-right" type="submit" ng-click="ok(transfer)">Сохранить</button>
+                <button class="btn btn-danger pull-left" type="button" ng-click="cancel()">{{"Cancel" | translate}}</button>
+                <button class="btn btn-primary pull-right" type="submit" ng-click="ok(transfer)">{{"Save"| translate}}</button>
             </div>
         </div>
     </form>
 </div>
-<!--
-<div class="modal-footer clearfix">
-        <button class="btn btn-danger pull-left" type="button" ng-click="modalCtrl.cancel()">Отмена</button>
-        <button class="btn btn-primary pull-right" type="button" ng-click="modalCtrl.ok()">Сохранить</button>
-</div>-->
+

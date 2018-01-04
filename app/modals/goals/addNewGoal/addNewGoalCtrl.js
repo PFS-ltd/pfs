@@ -50,9 +50,5 @@
                         $uibModalInstance.close(result);
                     } 
                 }
-           
-        
-        
-        
     };
 });

@@ -4,7 +4,7 @@
              <div class="col-md-2">
                     <input type="text"
                     class="form-control"
-                    placeholder="Дата" 
+                    placeholder= "{{'Date' | translate}}"
                     uib-datepicker-popup="dd.MM.yyyy" 
                     ng-model="newCosts.date" is-open="popup.opened"
                     datepicker-options="dateOptions" ng-required="true"
@@ -13,32 +13,32 @@
             </div>
             <div class="col-md-2 ">
                 <select class="form-control" ng-model='newCosts.who' >
-                    <option value="" disabled selected>Участник</option>
+                    <option value="" disabled selected>{{'Participant' | translate}}</option>
                     <option ng-repeat="key in rolesArr" ng-value="key">{{key.title}}</option>
                 </select>
             </div>
             <div class="col-md-2">
                 <select class="form-control" ng-model='newCosts.from'>
-                    <option value="" selected disabled>Счет</option>
+                    <option value="" selected disabled>{{'Account' | translate}}</option>
                     <option ng-repeat="item in billsCategories" ng-value="item">{{item.title}}</option>
 
                 </select>
             </div>
             <div class="col-md-2">
                 <select class="form-control" ng-model='newCosts.to'>
-                    <option value=""  disabled selected >Категория</option>
+                    <option value=""  disabled selected >{{'Category'| translate}}</option>
                     <option ng-repeat='key in costsCategoriesArr' ng-value="key">{{key.title}}</option>
                 </select>
             </div>
             <div class="col-md-1">
-                <input type="number" placeholder="Сумма" min='0' class="form-control" ng-model='newCosts.sum'>
+                <input type="number" placeholder= "{{'Sum' | translate}}" min='0' class="form-control" ng-model='newCosts.sum'>
             </div>
            
             <div class="col-md-2">
-                <input type="text" placeholder="Комментарий" class="form-control" ng-model='newCosts.comment'>
+                <input type="text" placeholder="{{'Comment' | translate}}" class="form-control" ng-model='newCosts.comment'>
             </div>
             <span class="input-group-btn pull-left">
-                <button class="btn btn-success" type="submit" ng-click='addNewCosts(newCosts)'>Внести</button>
+                <button class="btn btn-success" type="submit" ng-click='addNewCosts(newCosts)'>{{'Transfer' | translate}}</button>
             </span>
         </div>
     </form>
@@ -47,10 +47,10 @@
 <div class="col-md-6">
     <div class="panel panel-danger">
         <div class="panel-heading clearfix">
-            <h3 class="panel-title costs-panel">Источники расходов</h3>
+            <h3 class="panel-title costs-panel">{{ "Consumption category" | translate}}</h3>
             <div class="pull-right">
                 <button type="button" class="btn btn-danger btn-sm" ng-click="addExpenditureCategory()">
-                    <span class="glyphicon glyphicon-plus"></span> Добавить категорию</button>
+                    <span class="glyphicon glyphicon-plus"></span>{{ "Add category" | translate }}</button>
             </div>
         </div>
         <div class="panel-body">
@@ -67,10 +67,10 @@
                         </uib-progressbar>
                     </div>
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="editExpenditureCategory(item)">
+                        <button type="button" class="btn btn-primary btn-xs" title='{{"Edit" | translate}}' ng-click="editExpenditureCategory(item)">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
-                        <button type="button" class="btn btn-danger btn-xs" title="Удалить" ng-click="deleteExpenditureCategory(item)">
+                        <button type="button" class="btn btn-danger btn-xs" title='{{"Delete" | translate}}' ng-click="deleteExpenditureCategory(item)">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </div>
@@ -83,10 +83,10 @@
 <div class="col-md-6">
     <div class="panel panel-warning">
         <div class="panel-heading clearfix">
-            <h3 class="panel-title costs-panel">Шаблоны </h3>
+            <h3 class="panel-title costs-panel">{{"Template" | translate }}</h3>
             <div class="pull-right">
                 <button type="button" class="btn btn-warning btn-sm" ng-click="addTemplateCosts()">
-                    <span class="glyphicon glyphicon-plus"></span> Добавить шаблон</button>
+                    <span class="glyphicon glyphicon-plus"></span> {{"Add template" | translate}}</button>
             </div>
         </div>
         <div class="panel-body">
@@ -94,13 +94,13 @@
                 <li class="list-group-item" ng-repeat='item in templateCostsArr'>
                     <span >{{item.comment}}</span>
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-success btn-xs" title="Совершить платеж" ng-click="makeTemplateTransfer(item)">
+                        <button type="button" class="btn btn-success btn-xs" title="{{'Transfer' | translate}}" ng-click="makeTemplateTransfer(item)">
                             <span class="glyphicon glyphicon-usd"></span>
                         </button>
-                        <button type="button" class="btn btn-primary btn-xs" title="Редактировать" ng-click="editTemplate(item)">
+                        <button type="button" class="btn btn-primary btn-xs" title="{{'Edit' | translate}}" ng-click="editTemplate(item)">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
-                        <button type="button" class="btn btn-danger btn-xs" title="Удалить" ng-click="deleteTemplate(item)">
+                        <button type="button" class="btn btn-danger btn-xs" title="{{'Delete' | translate}}" ng-click="deleteTemplate(item)">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </div>
@@ -112,24 +112,24 @@
 <div class="col-md-10 col-md-offset-1">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Последние расходы</h3>
+            <h3 class="panel-title">{{"Recent costs" | translate}}</h3>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
                     <thead>
                             <th>#</th>
-                            <th>Сумма</th>
-                            <th>Откуда/Куда</th>
-                            <th>Кто</th>
-                            <th>Дата</th>
-                            <th>Комментарий</th>
-                            <th>Отменить</th>
+                            <th>{{'Sum' | translate}}</th>
+                            <th>{{'From/To' | translate}}</th>
+                            <th>{{'Participant' | translate}}</th>
+                            <th>{{'Date' | translate}}</th>
+                            <th>{{'Comment' | translate}}</th>
+                            <th>{{'Delete' | translate}}</th>
                         </thead>
                 <tbody ng-repeat='item in costsTransferArrQuery'>
                     <tr>
                         <td>{{$index+1}}</td>
                         <td>{{item.sum}}  {{item.sumValue}}</td>
-                        <td>Из {{item.from.title}} в {{item.to.title}}</td>
+                        <td>{{"From" | translate}}  {{item.from.title}} {{"to" | translate}} {{item.to.title}}</td>
                         <td>{{item.who.title}}</td>
                         <td>{{item.date| date:'dd.MM.yyyy'}}</td>
                         <td>{{item.comment}}</td>

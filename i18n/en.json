@@ -81,7 +81,13 @@
     "Accumulation Successfully Deleted": "Accumulation Successfully Deleted",
     "Editing was successful":"Editing was successful",
     "It's not enough money on the account" : "It's not enough money on the account",
-    "The transaction was successful": "The transaction was successful"
-
+    "The transaction was successful": "The transaction was successful",
+    "Maximum amount exceeded": "Maximum amount exceeded",
+    "GoalPopover" : "This tab is dedicated to the goals. You can set a goal to accumulate a certain amount of money. Here you can either make money on the target, and if necessary, withdraw.",
+    "CostPopover" : "Allocate expenses by categories, so that later it would be easier for you to choose the method of sorting expenses that is convenient for you, and budget planning became more 'transparent' and understandable.",
+    "TemplatePopover" : "Create a regular expense template to save your time",
+    "Full cost" : "You exceeded the planned limit by category",
+    "Success edit cost" : "Category successfully updated",
+    "Success edit template": "Template successfully updated"
 
 }

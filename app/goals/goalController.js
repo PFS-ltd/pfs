@@ -234,7 +234,16 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
                     "className": 'danger'
                 })
               }) 
-        } else {
+        } 
+        else if( (goal.sum + item.sum) > goal.sumMax ){
+            $translate("Maximum amount exceeded").then(function(translation){
+                ngToast.create ({
+                    'content':translation,
+                    "className": 'danger'
+                })
+            })
+        }
+        else  {
             bill.amount = bill.amount - item.sum;
             goal.sum = goal.sum + item.sum;
             $scope.billsCategories.$save(bill);
@@ -242,7 +251,21 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             goalsService.updGoal(goal);
           
         }
-      }
+      };
+      $scope.addGoalAsCost = function (item) {
+        // console.log(item);
+        var isValid = $scope.validInput(item);
+        if(isValid) {
+            // console.log('item', item)
+            item.from.id = item.from.$id;
+            item.to.id = item.to.$id;
+            // console.log('item.to.id',item.to.id )
+            item.date = $filter('date')(item.date, 'yyyy-MM-dd');
+            makeTransfer(item);
+            $scope.newCosts = {comment: ''};
+            $scope.today();
+        }
+    };
       var makeReverseTransfer = function (item) {
         if (item.type === 'cost') {
             var bill = $scope.billsCategories.$getRecord(item.from.id);
@@ -331,20 +354,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
               });
            
         }
-    $scope.addGoalAsCost = function (item) {
-        // console.log(item);
-        var isValid = $scope.validInput(item);
-        if(isValid) {
-            // console.log('item', item)
-            item.from.id = item.from.$id;
-            item.to.id = item.to.$id;
-            // console.log('item.to.id',item.to.id )
-            item.date = $filter('date')(item.date, 'yyyy-MM-dd');
-            makeTransfer(item);
-            $scope.newCosts = {comment: ''};
-            $scope.today();
-        }
-    };
+   
 
 
     $scope.transferGoalToBill = function (item) {

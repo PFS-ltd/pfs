@@ -50,6 +50,9 @@
     <div class="panel panel-success">
         <div class="panel-heading clearfix">
             <h3 class="panel-title goal-panel"> {{'Goals' | translate}}</h3>
+            <span class="glyphicon glyphicon-question-sign" 
+            uib-popover="{{'GoalPopover' | translate}}" popover-trigger="'mouseenter'">
+            </span>
             <div class="pull-right">
                 <button type="button" class="btn btn-primary btn-sm" ng-click="addNewGoal()()">
                     <span class="glyphicon glyphicon-plus"></span> {{"Add Goal" | translate}}

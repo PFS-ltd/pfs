@@ -169,18 +169,23 @@
       console.log(bill);
       console.log(bill.amount);
       if ((bill.amount - item.sum) < 0) {
-        ngToast.create({
-          "content": "Недоасточно денег на счету " + bill.title,
-          "className": 'danger'
+        $translate("It's not enough money on the account").then(function(translation){
+          ngToast.create ({
+              'content':translation,
+              "className": 'danger'
+          })
         })
       } else {
         bill.amount = bill.amount - item.sum;
         cost.sum = cost.sum + item.sum;
         if (cost.sum > cost.limitPayment && cost.limitPayment !=0) {
-          ngToast.create({
-            "content": "Вы превысили запланированный лимит по категории " + cost.title,
-            "className": 'warning'
+          $translate("Full cost").then(function(translation){
+            ngToast.create ({
+                'content':translation +' '+ cost.title,
+                "className": 'warning'
+            })
           })
+          
         }
         $scope.billsCategories.$save(bill);
         costsService.updateItemInCostsCategories(cost);
@@ -256,10 +261,6 @@
       modalDeleteCategory.result.then(function (result) {
         if (result) {
           costsService.delItemInCostsCategories(item);
-          ngToast.create ({
-            'content' : 'Успешно удалено',
-            'className' : 'success'
-          });
         }
       });
     };
@@ -285,6 +286,13 @@
         console.log(item)
         item = angular.extend(item, result);
         costsService.updateItemInCostsCategories(item);
+        $translate("Success edit cost").then(function(translation){
+          ngToast.create ({
+              'content':translation,
+              "className": 'success'
+          })
+        })
+        
       }, function() {
         item = angular.extend(item, backup);
         $log.info('Modal dismissed at: ' + new Date());
@@ -331,14 +339,14 @@
         },
       });
       modalEditTemplate.result.then(function (result) {
-        // var item = angular.extend({}, result);
-        // console.log(item);
-        // console.log(result);
-        // var newItem = angular.extend({},result)
-        // console.log(newItem);
-        // console.log(item);
+
         costsService.updateItemInCostsTemplate(angular.extend(item,result));
-        // $scope.templateCostsArr.$save(item);
+        $translate("Success edit template").then(function(translation){
+          ngToast.create ({
+              'content':translation,
+              "className": 'success'
+          })
+        })
       }, function() {
         item = angular.extend(item,backup);
         $log.info('Modal dismissed at: ' + new Date());

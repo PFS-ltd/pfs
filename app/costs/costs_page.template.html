@@ -48,6 +48,9 @@
     <div class="panel panel-danger">
         <div class="panel-heading clearfix">
             <h3 class="panel-title costs-panel">{{ "Consumption category" | translate}}</h3>
+            <span class="glyphicon glyphicon-question-sign" 
+            uib-popover="{{'CostPopover' | translate}}" popover-trigger="'mouseenter'">
+            </span>
             <div class="pull-right">
                 <button type="button" class="btn btn-danger btn-sm" ng-click="addExpenditureCategory()">
                     <span class="glyphicon glyphicon-plus"></span>{{ "Add category" | translate }}</button>
@@ -89,6 +92,9 @@
     <div class="panel panel-warning">
         <div class="panel-heading clearfix">
             <h3 class="panel-title costs-panel">{{"Template" | translate }}</h3>
+            <span class="glyphicon glyphicon-question-sign" 
+            uib-popover="{{'TemplatePopover' | translate}}" popover-trigger="'mouseenter'">
+            </span>
             <div class="pull-right">
                 <button type="button" class="btn btn-warning btn-sm" ng-click="addTemplateCosts()">
                     <span class="glyphicon glyphicon-plus"></span> {{"Add template" | translate}}</button>

@@ -136,7 +136,7 @@
     "Success edit cost" : "Category successfully updated",
     "Success edit template": "Template successfully updated",
     "Who" :"Who",
-    "Where" : "Where"
+    "Where" : "Where",
 
 
 
@@ -149,7 +149,7 @@
     "LastMonth" : "Last month",
     "NoData": "For such date range there are no any infromation",
     "ChooseRange":" Choose date range",
-    "AddEvent": "Add event"
+    "AddEvent": "Add event",
 
     "Incomes help1": "Here you can add, edit or remove an income source, for example 'Salary' or 'Renting'. Must be one minimum.",
     "Incomes help2": "Here you can add, edit or remove an account, for example 'Bank account' or 'Cash'. Must be one minimum.",

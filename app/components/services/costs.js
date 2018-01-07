@@ -77,7 +77,7 @@ app.service('costsService', ['$state', 'Auth', "$firebaseObject", "$firebaseArra
                 // console.log(costsTransfers);
                 return costsTransfers;
             },
-
+           
             addItemInCostsTransfer: function (item) {
                 costsTransfers.$add(item);
             },

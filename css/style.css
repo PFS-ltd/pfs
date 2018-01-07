@@ -96,9 +96,24 @@ body {
     padding-bottom: 5px;
 }
 
+.red {
+    color: red; 
+}
+
+.green {
+    color: green;
+}
+.vcenter {
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+  }
+
+
 .settings-header {
     margin-top: 20px;
 }
 #page-select {
     display: inline-block;
 }
+

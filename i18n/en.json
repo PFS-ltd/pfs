@@ -97,6 +97,48 @@
     "Edit account": "Edit account",
     "Edit income source": "Edit income source",
 
+    "Category" : "Category",
+    "Consumption category" : "Consumption category",
+    "Add category" : "Add category",
+    "Template" : "Template",
+    "Add template" : "Add template",
+    "Recent costs" : "Recent costs",
+    "Adding a flow template" : "Adding a flow template",
+    "Name template" : "Name template",
+    "Amount of payment" : "Amount of payment",
+    "Add new consumption category" : "Add new consumption category",
+    "Flow limit": "Flow limit",
+    "Name  of category" : "Name  of category",
+    "Edit category" :"Edit category" ,
+    "Edit template" : "Edit template",
+    "Indicate the participant": "Indicate the participant",
+    "Indicate the date" : "Indicate the date",
+    "Indicate the account" : "Indicate the account",
+    "Indicate the category" : "Indicate the category",
+    "Indicate the sum" : "enter amount",
+    "Goals" : "Goals",
+    "Add Goal" : "Add Goal",
+    "Money transaction" : "Money transaction",
+    "Add new goal" : "Add new goal" ,
+    "Name of goal": "Name of goal",
+    "Goal amount" : "Goal amount",
+    "Edit Goal" : "Edit Goal",
+    "Accumulation Successfully Added": "Accumulation Successfully Added",
+    "Accumulation Successfully Deleted": "Accumulation Successfully Deleted",
+    "Editing was successful":"Editing was successful",
+    "It's not enough money on the account" : "It's not enough money on the account",
+    "The transaction was successful": "The transaction was successful",
+    "Maximum amount exceeded": "Maximum amount exceeded",
+    "GoalPopover" : "This tab is dedicated to the goals. You can set a goal to accumulate a certain amount of money. Here you can either make money on the target, and if necessary, withdraw.",
+    "CostPopover" : "Allocate expenses by categories, so that later it would be easier for you to choose the method of sorting expenses that is convenient for you, and budget planning became more 'transparent' and understandable.",
+    "TemplatePopover" : "Create a regular expense template to save your time",
+    "Full cost" : "You exceeded the planned limit by category",
+    "Success edit cost" : "Category successfully updated",
+    "Success edit template": "Template successfully updated",
+    "Who" :"Who",
+    "Where" : "Where"
+
+
 
     "Mutual": "Mutual",
     "BarChart" : "Bar Chart",
@@ -120,5 +162,6 @@
     "Cant cancel": "Can't cancel transfer, because will be negative sum on account ",
     "Category updated": "Category successfully updated",
     "Count updated": "Count successfully updated"
+
 
 }

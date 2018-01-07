@@ -7,18 +7,7 @@
         this.incomeTransfers = incomeService.getIncomeTransfersLast();
         this.rolesArr = settingsService.getRolesArray();
         
-        // console.log(this.incomeSourceArr);
-//         console.log(this.incomeAccountsArr);
-        // console.log(this.incomeTransfers);
-        // console.log(this.rolesArr);
-        // this.storageFactory = storageFactory;
-//        console.log(incomeService.getIncomeTransfers());
-        //datapicker
-//            this.dt = new Date();
-//            this.today = function () {
-//                incomeCtrl.tmpIncome.date = new Date();
-//            };
-        
+       
         this.dateOptions = {
             format: 'yy',
             maxDate: new Date(2020, 5, 22)

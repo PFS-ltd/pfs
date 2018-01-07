@@ -1,16 +1,16 @@
 <div class="modal-header">
-    <h3 class="modal-title" id="modal-title">Добавление шаблона расхода</h3>
+    <h3 class="modal-title" id="modal-title">{{"Adding a flow template" | translate}}</h3>
 </div>
 <div class="modal-body" id="modal-body">
     <form class="form-horizontal" role="form">
         <div class="form-group">
-            <label class="col-sm-4 control-label">Название</label>
+            <label class="col-sm-4 control-label">{{"Name" | translate}}</label>
             <div class="col-sm-8">
-                <input ng-model='newTemplateModel.comment' type="text" class="form-control" id="countName" placeholder="Название шаблона" maxlength="25">
+                <input ng-model='newTemplateModel.comment' type="text" class="form-control" id="countName" placeholder="{{'Name template' | translate}}" maxlength="25">
             </div>
             </div>  
         <div class="form-group">
-            <label class="col-sm-4 control-label" >Участник</label>
+            <label class="col-sm-4 control-label" >{{'Participant' | translate}}</label>
             <div class="col-sm-8">
                 <select class='form-control' ng-model='newTemplateModel.who' ng-options="key.title for key in rolesArr">
                     
@@ -19,7 +19,7 @@
         </div>
         
         <div class="form-group">
-            <label  class="col-sm-4 control-label">Счет</label>
+            <label  class="col-sm-4 control-label">{{'Account' | translate}}</label>
             <div class="col-sm-8">
                
                 <select class="form-control" ng-model='newTemplateModel.from' ng-options="key.title for key in billsCategories">
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label  class="col-sm-4 control-label">Категория</label>
+            <label  class="col-sm-4 control-label">{{'Category'| translate}}</label>
             <div class="col-sm-8">
                 <select class="form-control" ng-model='newTemplateModel.to' ng-options="key.title for key in costsCategoriesArr">
                 </select>
@@ -36,15 +36,15 @@
         </div>
         
         <div class="form-group">
-            <label  class="col-sm-4 control-label">Сумма платежа</label>
+            <label  class="col-sm-4 control-label">{{"Amount of payment" | translate}}</label>
             <div class="col-sm-8">
-                 <input type="number" placeholder="Сумма" required min='1' class="form-control" ng-model='newTemplateModel.sum'>
+                 <input type="number" placeholder="{{'Sum' | translate}}" required min='1' class="form-control" ng-model='newTemplateModel.sum'>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-12 clearfix">
-                <button class="btn btn-danger pull-left" type="button" ng-click="cancel()">Отмена</button>
-                <button class="btn btn-primary pull-right" type="submit" ng-click="ok(newTemplateModel)">Сохранить</button>
+                <button class="btn btn-danger pull-left" type="button" ng-click="cancel()">{{"Cancel" | translate}}</button>
+                <button class="btn btn-primary pull-right" type="submit" ng-click="ok(newTemplateModel)">{{"Save" | translate}}</button>
             </div>
         </div>
     </form>

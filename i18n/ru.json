@@ -98,6 +98,48 @@
     "Edit account": "Редактирование счета",
     "Edit income source": "Редактирование источника дохода",
 
+    "Category" : "Категория",
+    "Consumption category" : "Категория расходов",
+    "Template" : "Шаблон",
+    "Add template" : "Добавить шаблон",
+    "Recent costs" : "Последние расходы",
+    "Adding a flow template" : "Добавление шаблона расхода",
+    "Name template" : "Название шаблона",
+    "Amount of payment"  : "Сумма платежа",
+    "Add new consumption category" : "Добавить новую категорию расхода",
+    "Flow limit" : "Лимит расхода",
+    "Name  of category" : "Название категории",
+    "Edit category" : "Редактирование категории",
+    "Edit template" : "Редактирование шаблона",
+    "Indicate the participant" : "Укажите участника",
+    "Indicate the date" : "Укажите дату",
+    "Indicate the account" : "Укажите счет",
+    "Indicate the category" : "Укажите категорию",
+    "Indicate the sum" : "Укажите сумму",
+    "Goals": "Накопления",
+    "Add Goal" : "Добавить цель",
+    "Money transaction" : "Перевод стредств",
+    "Add new goal" : "Добавить новую категорию" ,
+    "Name of goal": "Имя цели",
+    "Goal amount" : "Сумма цели",
+    "Edit Goal" : "Редактирование цели",
+    "Accumulation Successfully Added": "Накопление успешно добавлено",
+    "Accumulation Successfully Deleted": "Накопление успешно удалено",
+    "Editing was successful": "Редактирование прошло успешно",
+    "It's not enough money on the account" : "Недоасточно денег на счету ",
+    "The transaction was successful" : "Транзакция прошла успешна",
+    "Maximum amount exceeded" : "Превышена максимальная сумма",
+    "GoalPopover" : "Данная вкладка посвещена целям. Вы можете поставить перед собой цель накопить определенную сумму денег.Здесь  вы можете как внести деньги на цель, так и в случае необходимости снять.",
+    "CostPopover": "Распределите расходы по категориям,чтобы Вам потом было проще выбрать удобный для Вас способ сортировки расходов, и планирование бюджета стало более «прозрачным» и понятным",
+    "TemplatePopover" : "Создайте шаблон регулярного расхода, чтобы сэкономить своё время",
+    "Full cost" : "Вы превысили запланированный лимит по категории",
+    "Success edit cost" : "Категория успешно обновилась",
+    "Success edit template" : "Шаблон успешно обновился",
+    "Who" : "Кто",
+    "Where" : "Куда"
+
+
+
 
     "Mutual": "Общий",
     "BarChart" : "Столбиковая диаграмма",
@@ -123,5 +165,6 @@
     "Cant cancel": "Невозможно отменить операцию, т.к. будет отрицательная сумма на счету ",
     "Category updated": "Категория успешно обновлена",
     "Count updated": "Счет успешно обновлен"
+
 
 }

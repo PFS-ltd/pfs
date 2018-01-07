@@ -1,16 +1,16 @@
  <div class="modal-header">
-    <h3 class="modal-title" id="modal-title">Редактирование шаблона расхода</h3>
+    <h3 class="modal-title" id="modal-title">{{"Edit template" | translate}}</h3>
 </div>
 <div class="modal-body" id="modal-body">
     <form class="form-horizontal" role="form">
         <div class="form-group">
-            <label class="col-sm-4 control-label">Название</label>
+            <label class="col-sm-4 control-label">{{"Name"}}</label>
             <div class="col-sm-8">
-                <input ng-model='correctTemplate.comment' type="text" class="form-control" id="countName" placeholder="Название категории">
+                <input ng-model='correctTemplate.comment' type="text" class="form-control" id="countName" placeholder="{{'Name template'}}">
             </div>
         </div>  
          <div class="form-group">
-            <label class="col-sm-4 control-label" >Участник</label>
+            <label class="col-sm-4 control-label" >{{'Participant' | translate}}</label>
             <div class="col-sm-8">
                 <select class='form-control' ng-model='newTemplateModel.who' ng-options="key.title for key in rolesArr">
                     
@@ -18,24 +18,15 @@
             </div>
         </div>
         <div class="form-group">
-            <label  class="col-sm-4 control-label">Счет</label>
+            <label  class="col-sm-4 control-label">{{'Account' | translate}}</label>
             <div class="col-sm-8">
-               <!--  <select class="form-control" ng-model='correctTemplate.from' ng-init='correctTemplate.from' 
-                ng-options="key.title for key in billsCategories"> -->
-                        <!-- ng-options="key.$id as key.title for key in incomeCategories" -->
-                        <!-- ng-options="key.title for key in incomeCategories track by key.$id" -->
-                    <!-- <option ng-repeat="key in incomeCategories" ng-value="key.$id" >{{key.title}}</option> -->
-                    <!-- ng-options="color.name for color in colors" -->
-                <!-- </select>
- -->                <select class="form-control" ng-model='correctTemplate.from' ng-init="correctTemplate.from = billsCategories[0].title">
-                       
+                <select class="form-control" ng-model='correctTemplate.from' ng-init="correctTemplate.from = billsCategories[0].title">
                     <option ng-repeat="key in billsCategories" ng-value="key.$id" >{{key.title}}</option>
-                    <!-- ng-options="color.name for color in colors" -->
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <label  class="col-sm-4 control-label">Категория</label>
+            <label  class="col-sm-4 control-label">{{'Category'| translate}}</label>
             <div class="col-sm-8">
                 <select class="form-control" ng-model='correctTemplate.to' ng-options="key.title  for key in costsCategoriesArr" >
                     
@@ -45,54 +36,16 @@
         </div>
         
         <div class="form-group">
-            <label  class="col-sm-4 control-label">Сумма платежа</label>
+            <label  class="col-sm-4 control-label"> {{"Amount of payment" | translate}} </label>
             <div class="col-sm-8">
-                 <input type="number" placeholder="Сумма" required min='1' class="form-control" ng-model='correctTemplate.sum'>
+                 <input type="number" placeholder="{{'Sum' | translate}}" required min='1' class="form-control" ng-model='correctTemplate.sum'>
             </div>
-        </div>
-        
-        
-        <!-- <div class="form-group" >
-            <label class="col-sm-4 control-label">Дата расхода</label>
-            <div class="col-sm-8">
-               
-                <p class="input-group">
-                    <input type="text" 
-                            class="form-control"
-                            uib-datepicker-popup="yyyy-MM-dd"
-                            ng-model="newExpenditureCategoryModel.datePayment" is-open="popup.opened" 
-                            datepicker-options="dateOptions"
-                            ng-required="true"
-                            show-button-bar="false"  />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </p>
-            </div>
-        </div> -->
-        
-        <!-- div class="form-group" >
-            <label class="col-sm-4 control-label">Выберите счет</label>
-            <div class="col-sm-8">
-                <select class="form-control" ng-model='newExpenditureCategoryModel.income'>
-                    <option disabled selected>Источник</option>
-                    <option>Без категории</option>
-                    <option ng-repeat="key in storageFactory.income">{{key.title}}</option>
-                </select>
-            </div>
-        </div> -->
-        
+        </div>     
         <div class="form-group">
             <div class="col-sm-12 clearfix">
-
-                <button class="btn btn-danger pull-left" type="button" ng-click="cancel()">Отмена</button>
-                <button class="btn btn-primary pull-right" type="submit" ng-click="ok(correctTemplate)">Сохранить</button>
+                <button class="btn btn-danger pull-left" type="button" ng-click="cancel()">{{'Cancel' | translate}}</button>
+                <button class="btn btn-primary pull-right" type="submit" ng-click="ok(correctTemplate)">{{'Save' | translate}}</button>
             </div>
         </div>
     </form>
 </div>
-<!--
-<div class="modal-footer clearfix">
-        <button class="btn btn-danger pull-left" type="button" ng-click="modalCtrl.cancel()">Отмена</button>
-        <button class="btn btn-primary pull-right" type="button" ng-click="modalCtrl.ok()">Сохранить</button>
-</div>-->

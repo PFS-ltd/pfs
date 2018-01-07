@@ -104,3 +104,8 @@ body {
 .green {
     color: green;
 }
+.vcenter {
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+  }

@@ -120,15 +120,18 @@
         </div>
     </div>
 </div>
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-12">
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{"Recent costs" | translate}}</h3>
+        <div class="panel-heading clearfix ">
+            <h3 class="panel-title  vcenter">{{"Recent costs" | translate}} </h3>
+            <div class="pull-right vcenter">
+                <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-md vcenter" items-per-page="itemsPerPage"></ul>
+            </div>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
                     <thead>
-                            <th>#</th>
+                            <!-- <th>#</th> -->
                             <th>{{'Sum' | translate}}</th>
                             <th>{{'From/To' | translate}}</th>
                             <th>{{'Participant' | translate}}</th>
@@ -136,9 +139,9 @@
                             <th>{{'Comment' | translate}}</th>
                             <th>{{'Delete' | translate}}</th>
                         </thead>
-                <tbody ng-repeat='item in costsTransferArrQuery'>
+                <tbody ng-repeat='item in CostArray.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))'>
                     <tr>
-                        <td>{{$index+1}}</td>
+                        <!-- <td>{{$index+1}}</td> -->
                         <td>{{item.sum}}  {{item.sumValue}}</td>
                         <td>{{"From" | translate}}  {{item.from.title}} {{"to" | translate}} {{item.to.title}}</td>
                         <td>{{item.who.title}}</td>

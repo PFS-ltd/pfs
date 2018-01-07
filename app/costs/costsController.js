@@ -3,8 +3,45 @@
     $scope.costsCategoriesArr = costsService.getCostsCategoriesArray();
   //  console.log('costsCategoriesArr',$scope.costsCategoriesArr);
     $scope.templateCostsArr = costsService.getCostsTemplateArray();
-    // console.log('$scope.templateCostsArr',$scope.templateCostsArr);
+    console.log('$scope.templateCostsArr',$scope.templateCostsArr);
     $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
+    console.log('costTransArray',$scope.costsTransferArrQuery[0]);
+    costsService.getCostsTransferArray().$loaded(function (arr){
+    $scope.CostArray = arr;
+    function sortDate (a,b) {
+      if( a.date > b.date ) return -1;
+      if( a.date < b.date ) return 1;
+    };
+    $scope.CostArray.sort(sortDate);
+      console.log($scope.CostArray.length);
+      $scope.totalItems = $scope.CostArray.length
+      if( $scope.totalItems > 50){
+        return $scope.totalItems = 50;
+       }
+       else if ($scope.totalItems <= 50) {
+         return $scope.totalItems = $scope.CostArray.length;
+       }
+      $scope.CostArray.$watch( function (event) {
+        $scope.totalItems = $scope.CostArray.length
+        
+      })
+     } )
+     
+     $scope.allCostArray = costsService.getCostsTransferArray();
+    // console.log($scope.CostArray.length);
+  //   var costArr = costsService.getCostsTransferArrayLast();
+  //   function fixScope (arr) {
+  //     var lngth = arr.length;
+  //     return lngth;
+  //   };
+  //   costArr.$watch(
+  //     function (event) {
+  //         $scope.costsLength = fixScope(costArr);
+  //     }
+  // );
+
+
+    
     
     $scope.costsTransfers = costsService.getCostsTransferArray();
     // console.log('$scope.costsTransferArrQuery',$scope.costsTransferArrQuery);
@@ -190,12 +227,19 @@
         $scope.billsCategories.$save(bill);
         costsService.updateItemInCostsCategories(cost);
         costsService.addItemInQueryCostsTransfer(item);
+
+        // чтобы норм добавлял страницы в пагинатор
+        costsService.getCostsTransferArray().$loaded(function (arr){
+          $scope.CostArray = arr;
+            $scope.totalItems = $scope.CostArray.length
+           
+           } )
       }
     }
     var makeReverseTransfer = function (item) {
       var bill = $scope.billsCategories.$getRecord(item.from.id);
       var cost = costsService.getItemInCostsCategoriesByKey(item.to.id);
-      
+      console.log(bill)
         bill.amount = bill.amount + item.sum;
         cost.sum = cost.sum - item.sum;
         
@@ -426,6 +470,7 @@
       });
     }
     $scope.deleteTransfer = function (item) {
+      console.log(item)
       var modalDelete = $uibModal.open({
         templateUrl: 'app/modals/costs/modalDelete/templateDelete.html',
         controller: 'ModalController',
@@ -438,9 +483,13 @@
       });
       modalDelete.result.then(function (result) {
         if (result) {
-          costsService.delItemInQueryCostsTransferLast(item);
-          console.log(item)
+          costsService.delItemInCostsTransfer(item);
           makeReverseTransfer(item);
+          costsService.getCostsTransferArray().$loaded(function (arr){
+            $scope.CostArray = arr;
+              console.log($scope.CostArray.length);
+              $scope.totalItems = $scope.CostArray.length
+             } )
         }
         
 
@@ -487,5 +536,34 @@
         // console.log($scope.costsCategoriesArr);
       }
     )
+
+    $scope.viewby = 1;
+   
+      // $scope.$watch($scope.CostArray, function (event){
+      //   // $scope.CostArray = costsService.getCostsTransferArray();
+      //   $scope.totalItems = $scope.CostArray.length
+      //   console.log(event)
+
+      // }) 
+      
+      
+
+  
+    $scope.currentPage = 1;
+    $scope.itemsPerPage = 5;
+    
+  
+    $scope.setPage = function (pageNo) {
+      $scope.currentPage = pageNo;
+    };
+  
+    $scope.pageChanged = function() {
+      console.log('Page changed to: ' + $scope.currentPage);
+    };
+  
+  $scope.setItemsPerPage = function(num) {
+    $scope.itemsPerPage = num;
+    $scope.currentPage = 1; //reset to first page
+  }
 
   });

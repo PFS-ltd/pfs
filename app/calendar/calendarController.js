@@ -8,7 +8,7 @@
             $scope.eventSources = calendarService.getEvents();
             
             $scope.calendarOptions = {
-                locale: 'ru',
+                locale: localStorage.getItem('preferredLanguage'),
                 height: 450,
                 views: 'month',
                 themeSystem: 'bootstrap3',

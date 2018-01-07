@@ -1,7 +1,27 @@
 {
     "Sign Up": "Зарегистрироваться",
     "Login": "Вход",
-    
+    "E-mail": "Почта",
+    "Password": "Пароль",
+    "Wrong password" : "Неверный пароль",
+    "Invalid email": "Неверная почта",
+    "UserNotFound" : "Пользователь с такой почтой не найден",
+    "Register":"Регистрация",
+    "ConfirmPasswordRegistration" :"Подтверждение пароля",
+    "UserRegName" : "Имя", 
+    "EnterName" : "Введите имя",
+    "NameAlphabets" :"Имя должно содержать только буквы",
+    "EnterEmail":"Введите почту",
+    "EmailIsInvalid":"Почта не соответсвует формату example@mail.com",
+    "EnterPassword":"Введите пароль",
+    "PasswordLength" :"Длина пароля должна быть не меньше 6 символов",
+    "PasswordSpaces":"Пароль не должен содержать пробелы",
+    "ConfirmPassword":"Подтвердите пароль",
+    "PassMismatch":"Пароль не совпадает",
+    "AlreadyInUse":"Указанная почта используется в другом аккаунте",
+
+    "WelcomeText": "Добро пожаловать",
+
     "Incomes": "Доходы",
     "Costs": "Расходы",
     "Calendar": "Календарь",

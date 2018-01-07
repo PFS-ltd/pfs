@@ -61,7 +61,7 @@
         function ValidForm(form) {
             form.pwd = form.pwd.trim();
             form.pwd2 = form.pwd2.trim();
-            console.log(form);
+            // console.log(form);
             var letters = /^[A-Za-zА-Яа-я]+$/;
             var email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             var password = /[0-9a-zA-Z!@#$%^&*]{6,}/;
@@ -94,7 +94,7 @@
                                                 $scope.err = "PassMismatch"
                                             } else {
                                                 $scope.err = ""
-                                                console.log(form);
+                                                // console.log(form);
                                                 return true;
                                             }
         }
@@ -116,7 +116,7 @@
                 form.pwd2 = form.pwd.trim();
                 Auth.$createUserWithEmailAndPassword(form.email, form.pwd)
                     .then(function (firebaseUser) {
-                        console.log(firebase);
+                        // console.log(firebase);
                         var db = firebase.database().ref('users/' + firebaseUser.uid);
                         firebase.database().ref('users/' + firebaseUser.uid).set(baseStructure);
                         firebase.database().ref('users/' + firebaseUser.uid + '/settings/roles/1').set({
@@ -124,7 +124,7 @@
                         })
                         $uibModalInstance.close(form.name);
                     }).catch(function (error) {
-                        console.log(error)
+                        // console.log(error)
                         if (error.code === 'auth/email-already-in-use') {
                             $scope.err = 'AlreadyInUse';
                         }

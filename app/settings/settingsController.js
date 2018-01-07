@@ -74,7 +74,7 @@
             settingsCtrl.seeError4 = false;
             settingsCtrl.seeError5 = false;
         }
-        console.log(Auth.$getAuth());
+        // console.log(Auth.$getAuth());
         
         this.changePass = function(oldPass, newPass, confirmPass) {
             Auth.$signInWithEmailAndPassword(Auth.$getAuth().email, oldPass).then(function(user) {

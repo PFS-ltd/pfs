@@ -17,7 +17,10 @@
             var lastSeven = translation.LastSeven;
             var lastThirty = translation.LastThirty;
             var thisMonth = translation.ThisMonth;
-            var lastMonth = translation.LastMonth
+            var lastMonth = translation.LastMonth;
+            var noDataMsg = translation.NoData;
+            var costs = translation.Costs;
+            var incomes = translation.Incomes
 
             var myRanges = {};
             myRanges[lastSeven] = [moment().subtract(1, 'w'), moment()],
@@ -102,13 +105,13 @@
                     //     axisLabel: 'Кол-во денег'
                     // },
                     yAxis: {
-                        axisLabel: 'Кол-во денег',
+                        // axisLabel: 'Кол-во денег',
                         axisLabelDistance: -30,
                         tickFormat: function (d) {
                             return d3.format()(d);
                         },
                     },
-                    noData: "За выбранный диапазон времени нет данных",
+                    noData: noDataMsg,
                 },
             };
             var sumOfOperationsFilterBydate = function (arr, role) {
@@ -132,12 +135,12 @@
                     {
                         values: [
                             {
-                                "label": "Расходы",
+                                "label": costs,
                                 "value": sumOfOperationsFilterBydate($scope.costsTransfers, $scope.data.role.title),
                                 'color': 'red'
                             },
                             {
-                                "label": "Доходы",
+                                "label": incomes,
                                 "value": sumOfOperationsFilterBydate($scope.incomeTransfers, $scope.data.role.title),
                                 'color': 'green'
                             }
@@ -178,7 +181,7 @@
                         }
                     },
                     showControls: false,
-                    noData: "За выбранный диапазон времени нет данных",
+                    noData: noDataMsg,
 
                 }
             }
@@ -286,7 +289,7 @@
                             left: 0
                         }
                     },
-                    noData: "За выбранный диапазон времени нет данных",
+                    noData: noDataMsg,
                 }
             }
 
@@ -355,7 +358,7 @@
                             left: 0
                         }
                     },
-                    noData: "За выбранный диапазон времени нет данных",
+                    noData: noDataMsg,
                 }
             }
 

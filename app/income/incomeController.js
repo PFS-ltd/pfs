@@ -47,14 +47,14 @@
         
         $transitions.onExit({exiting: 'home.income'}, function(transition) {
             localStorage.setItem('tempIncome', JSON.stringify(incomeCtrl.tmpIncome));
-            console.log(localStorage.getItem('tempIncome'));
+            // console.log(localStorage.getItem('tempIncome'));
         });
         
         $transitions.onStart({entering: 'home.income'}, function(transition) {
             incomeCtrl.tmpIncome = angular.extend({}, JSON.parse(localStorage.getItem('tempIncome')));
-            console.log(localStorage.getItem('tempIncome'));
+            // console.log(localStorage.getItem('tempIncome'));
 //            incomeCtrl.tmpIncome = JSON.parse(tt);
-            console.log('temp:', incomeCtrl.tmpIncome);
+            // console.log('temp:', incomeCtrl.tmpIncome);
             incomeCtrl.tmpIncome.sum = 33;
 //            $scope.$digest();
         });
@@ -123,7 +123,7 @@
             item.from.id = item.from.$id;
             item.to.id = item.to.$id;
             item.date = $filter('date')(item.date, 'yyyy-MM-dd');
-            console.log(item);
+            // console.log(item);
             var account = incomeService.getItemInIncomeAccounts(item.to.id);
             account.amount = account.amount + item.sum;
             incomeService.updItemInIncomeAccounts(account);

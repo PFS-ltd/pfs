@@ -78,7 +78,7 @@
 		var sameName =  $scope.templateCostsArr.some(function(item){
 			return (  item.comment === result.comment); 
 			});
-		console.log('sameNAm', sameName);
+		// console.log('sameNAm', sameName);
 		if (isValid){
 			if(sameName){
 				ngToast.create({

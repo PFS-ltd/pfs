@@ -2,14 +2,14 @@
 	// console.log(correctTemplate);
 	// $scope.storageFactory = storageFactory;
 	// $scope.correctTemplate = correctTemplate;
-	console.log(item);
+	// console.log(item);
   $scope.costsCategoriesArr=costsCategoriesArr;
-  console.log($scope.costsCategoriesArr);
+//   console.log($scope.costsCategoriesArr);
 	$scope.templateCostsArr = templateCostsArr;
 	$scope.correctTemplate = item;
 	$scope.rolesArr = rolesArr;
   $scope.abracadabra = item.from;
-  console.log($scope.abracadabra)
+//   console.log($scope.abracadabra)
 	 $scope.validInput = function (item) {
                	if(item === undefined || item === null || item ===""){
                		ngToast.create({

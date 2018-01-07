@@ -1,7 +1,7 @@
 app.controller('ModalGoalController', function ($scope, $uibModalInstance, item,ngToast){
-	console.log('item delete',item);
+	// console.log('item delete',item);
 	$scope.item = item ;
-	console.log(item.comment);
+	// console.log(item.comment);
 	$scope.cancel = function() {
 		$uibModalInstance.dismiss(false);
 

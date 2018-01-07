@@ -1,6 +1,6 @@
 app.controller('ModalTablController', function ($scope,item,$uibModalInstance,$translate,billsCategories,goalsService,ngToast){
 	$scope.billsCategories = billsCategories;
-    console.log('item delete',item);
+    // console.log('item delete',item);
 	$scope.item = item ;
 	$scope.cancel = function() {
 		$uibModalInstance.dismiss(false);
@@ -8,7 +8,7 @@ app.controller('ModalTablController', function ($scope,item,$uibModalInstance,$t
 	};
 
 	$scope.ok = function() {
-		console.log(item.title);
+		// console.log(item.title);
 		if (item.type === 'cost') {
 			var bill = $scope.billsCategories.$getRecord(item.from.id);
 			var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);

@@ -28,7 +28,7 @@
      return true;
     };
 
-     console.log($scope.newGoal);
+    //  console.log($scope.newGoal);
     $scope.cancel = function () {
         $uibModalInstance.dismiss('false');
     };

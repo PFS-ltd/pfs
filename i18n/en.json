@@ -162,7 +162,12 @@
     "Recent delete": "Recent income deleted",
     "Cant cancel": "Can't cancel transfer, because will be negative sum on account ",
     "Category updated": "Category successfully updated",
-    "Count updated": "Count successfully updated"
-
+    "Count updated": "Count successfully updated",
+    
+    "AddEventCalendar" : "Add event",
+    "EventDate" : "Event date",
+    "Description" : "Description",
+    "Background" : "Background color",
+    "EditCalEvent" : "Edit event"
 
 }

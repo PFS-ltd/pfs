@@ -9,7 +9,7 @@
 	};
 
 	$scope.ok = function(result) {
-		console.log('result', result);
+		// console.log('result', result);
 		if( (result.from.sum -result.sum ) < 0 ) {
 			$translate("It's not enough money on the account").then(function(translation){
 				ngToast.create ({
@@ -20,7 +20,7 @@
 		}
 		 else {
 			result.date = new Date ();
-		console.log(result);
+		// console.log(result);
 		$uibModalInstance.close(result);	
 		}
 		

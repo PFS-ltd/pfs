@@ -1,6 +1,8 @@
 (function () {
     var WelcomeController = app.controller('WelcomeController',
-        function ($scope, $uibModal, Auth, $location, $state, currentAuth) {
+
+        function ($scope, $uibModal, Auth, $location, $state, currentAuth,ngToast, $translate) {
+
             if (currentAuth == null) {
                 $state.go('root')
             } 
@@ -15,9 +17,8 @@
                     size: 'sm',
                 });
                 modalLogin.result.then(function (result) {
-                   
-                            $state.go('home.income');
-                        
+                    if(!result) return;
+                            $state.go('home.income');        
                 }).catch(function () {
                     // Modal dismissed.
                 });
@@ -31,7 +32,12 @@
                     size: 'sm',
                 });
                 modalRegister.result.then(function (result) {
-                    $location.path('/home')
+                   if(!result) return;
+                    $state.go('home.income');
+                    $translate('WelcomeText').then(function(translation){
+                        ngToast.create(translation + ' ' + result);
+                    })
+                   
                 }).catch(function () {
                     // Modal dismissed.
                 })

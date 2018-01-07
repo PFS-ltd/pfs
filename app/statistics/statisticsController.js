@@ -184,13 +184,8 @@
             }
 
             $scope.chart2.data = function () {
-                console.log($scope.data.date.startDate._d);
-                console.log($scope.data.date.endDate._d);
-                console.log(moment("01/02/2018"));
-                console.log((moment("01/02/2018").isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')));
 
                 var filteredCosts = $scope.costsTransfers.filter(function (item) {
-                    // console.log((moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')));
                     if (moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d)) {
                         if ($scope.data.role.title == 'Общий' || $scope.data.role.title == 'Mutual') {
                             return item.title = item.to.title
@@ -201,7 +196,6 @@
                         }
                     }
                 });
-                console.log(filteredCosts);
                 function unique(arr) {
                     var obj = {};
                     for (var i = 0; i < arr.length; i++) {
@@ -212,7 +206,6 @@
                 };
 
                 var categoriesArr = unique(filteredCosts);
-                console.log(categoriesArr);
 
                 var dataForChart = [];
                 // var startYear = moment(date).startOf('Year');
@@ -264,8 +257,6 @@
                     }
                     filteredCosts.forEach(function (item2) {
                         if (item.key == item2.title) {
-                            console.log(item);
-                            console.log(item2);
                             item.values.forEach(function (itemValues) {
                                 if (itemValues.x == item2.date) {
                                     itemValues.y += item2.sum;

@@ -1,11 +1,9 @@
 app.service('calendarService', ['$state', 'Auth', "$firebaseObject", "$firebaseArray",
     function ($state, Auth, $firebaseObject, $firebaseArray) {
         var uId = Auth.$getAuth().uid;
-
         var eventsArrRef = firebase.database().ref('users/' + uId + '/calendar/events/');
         var eventsArr = $firebaseArray(eventsArrRef);
-
-       
+      
         return {
             getEvents: function () {
                 return eventsArr;
@@ -19,18 +17,9 @@ app.service('calendarService', ['$state', 'Auth', "$firebaseObject", "$firebaseA
             updateEvents: function (item) {
                 eventsArr.$save(item);
             },
-            // getItemInCostsCategoriesByKey: function (key) {
-            //     // console.log(key)
-            //     return costsCategories.$getRecord(key);
-            // },
-
+        
             getEvent: function() {
                 return $firebaseObject(eventsArrRef);
-            },
-            // updateEvent: function(key) {
-            //     $
-            // }
-
-          
+            },      
         };
     }]);

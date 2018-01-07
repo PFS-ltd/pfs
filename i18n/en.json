@@ -150,6 +150,7 @@
     "NoData": "For such date range there are no any infromation",
     "ChooseRange":" Choose date range",
     "AddEvent": "Add event",
+    
 
     "Incomes help1": "Here you can add, edit or remove an income source, for example 'Salary' or 'Renting'. Must be one minimum.",
     "Incomes help2": "Here you can add, edit or remove an account, for example 'Bank account' or 'Cash'. Must be one minimum.",

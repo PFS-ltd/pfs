@@ -3,9 +3,9 @@
     $scope.costsCategoriesArr = costsService.getCostsCategoriesArray();
   //  console.log('costsCategoriesArr',$scope.costsCategoriesArr);
     $scope.templateCostsArr = costsService.getCostsTemplateArray();
-    console.log('$scope.templateCostsArr',$scope.templateCostsArr);
+    // console.log('$scope.templateCostsArr',$scope.templateCostsArr);
     $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
-    console.log('costTransArray',$scope.costsTransferArrQuery[0]);
+    // console.log('costTransArray',$scope.costsTransferArrQuery[0]);
     costsService.getCostsTransferArray().$loaded(function (arr){
     $scope.CostArray = arr;
     function sortDate (a,b) {
@@ -13,7 +13,7 @@
       if( a.date < b.date ) return 1;
     };
     $scope.CostArray.sort(sortDate);
-      console.log($scope.CostArray.length);
+      // console.log($scope.CostArray.length);
       $scope.totalItems = $scope.CostArray.length
       if( $scope.totalItems > 50){
         return $scope.totalItems = 50;
@@ -200,11 +200,11 @@
 
 
     var makeTransfer = function (item) {
-      console.log(item);
+      // console.log(item);
       var bill = $scope.billsCategories.$getRecord(item.from.id);
       var cost = costsService.getItemInCostsCategoriesByKey(item.to.id);
-      console.log(bill);
-      console.log(bill.amount);
+      // console.log(bill);
+      // console.log(bill.amount);
       if ((bill.amount - item.sum) < 0) {
         $translate("It's not enough money on the account").then(function(translation){
           ngToast.create ({
@@ -239,7 +239,7 @@
     var makeReverseTransfer = function (item) {
       var bill = $scope.billsCategories.$getRecord(item.from.id);
       var cost = costsService.getItemInCostsCategoriesByKey(item.to.id);
-      console.log(bill)
+      // console.log(bill)
         bill.amount = bill.amount + item.sum;
         cost.sum = cost.sum - item.sum;
         
@@ -327,7 +327,7 @@
         },
       });
       modalEditExpenditureCategory.result.then(function (result) {
-        console.log(item)
+        // console.log(item)
         item = angular.extend(item, result);
         costsService.updateItemInCostsCategories(item);
         $translate("Success edit cost").then(function(translation){
@@ -346,7 +346,7 @@
 
 
     $scope.makeTemplateTransfer = function (item) {
-      console.log(item);
+      // console.log(item);
       var dateForTransfer = new Date();
       item.date = $filter('date')(dateForTransfer, 'yyyy-MM-dd');
       makeTransfer(item);
@@ -461,8 +461,8 @@
         },
       });
       modalDelete.result.then(function (result) {
-        console.log('result', result);
-        console.log(item);
+        // console.log('result', result);
+        // console.log(item);
         costsService.delItemInCostsTemplate(item);
         // if (result)
         //   storageFactory.allCosts.splice($index, 1);
@@ -470,7 +470,7 @@
       });
     }
     $scope.deleteTransfer = function (item) {
-      console.log(item)
+      // console.log(item)
       var modalDelete = $uibModal.open({
         templateUrl: 'app/modals/costs/modalDelete/templateDelete.html',
         controller: 'ModalController',
@@ -487,7 +487,7 @@
           makeReverseTransfer(item);
           costsService.getCostsTransferArray().$loaded(function (arr){
             $scope.CostArray = arr;
-              console.log($scope.CostArray.length);
+              // console.log($scope.CostArray.length);
               $scope.totalItems = $scope.CostArray.length
              } )
         }
@@ -558,7 +558,7 @@
     };
   
     $scope.pageChanged = function() {
-      console.log('Page changed to: ' + $scope.currentPage);
+      // console.log('Page changed to: ' + $scope.currentPage);
     };
   
   $scope.setItemsPerPage = function(num) {

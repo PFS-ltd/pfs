@@ -156,7 +156,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         
         // console.log($scope.goalArr);
       }, function() {
-        console.log('close');
+        // console.log('close');
       }); 
     };
 
@@ -182,7 +182,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
                 })
               }) 
           }, function() {
-            console.log('close');
+            // console.log('close');
           });
        
     }
@@ -223,10 +223,10 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     }
     var makeTransfer = function (item) {
         var bill = $scope.billsCategories.$getRecord(item.from.id);
-        console.log('bill',bill)
+        // console.log('bill',bill)
         // var cost = costsService.getItemInCostsCategoriesByKey(item.to.id);
         var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
-        console.log('goal', goal)
+        // console.log('goal', goal)
         if ((bill.amount - item.sum) < 0) {
             $translate("It's not enough money on the account").then(function(translation){
                 ngToast.create ({
@@ -304,7 +304,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
           // costsService.addItemInCostsTransfer(item);
         }
         $scope.deleteTransfer = function (item) {
-            console.log(item);
+            // console.log(item);
             var delGoal = $uibModal.open ({
                 templateUrl: 'app/modals/goals/modalDeleteGoal/templateDelete.html',
                 controller: 'ModalTablController',
@@ -328,7 +328,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             })
           }) 
               }, function() {
-                console.log('close');
+                // console.log('close');
               }); 
         }
         $scope.deleteGoalCategory = function(item){
@@ -351,7 +351,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
                     })
                   })  
               }, function() {
-                console.log('close');
+                // console.log('close');
               });
            
         }
@@ -398,7 +398,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             
              
           }, function() {
-            console.log('close');
+            // console.log('close');
           });
     };
     $scope.makeIncomeTransfer = function (item) {

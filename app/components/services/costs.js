@@ -61,8 +61,6 @@ app.service('costsService', ['$state', 'Auth', "$firebaseObject", "$firebaseArra
                 queryTransfers.$add(item);
             },
             delItemInQueryCostsTransferLast: function (item) {
-                // console.log(item);
-                // console.log(costsTransfers);
                 queryTransfers.$remove(item);
             },
             updateItemInQueryCostsTransfer: function (item) {
@@ -74,7 +72,6 @@ app.service('costsService', ['$state', 'Auth', "$firebaseObject", "$firebaseArra
 
 
             getCostsTransferArray: function(){
-                // console.log(costsTransfers);
                 return costsTransfers;
             },
            
@@ -82,8 +79,6 @@ app.service('costsService', ['$state', 'Auth', "$firebaseObject", "$firebaseArra
                 costsTransfers.$add(item);
             },
             delItemInCostsTransfer: function (item) {
-                // console.log(item);
-                // console.log(costsTransfers);
                 costsTransfers.$remove(item);
             },
             updateItemInCostsTransfer: function (item) {

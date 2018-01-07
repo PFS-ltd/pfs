@@ -77,7 +77,7 @@
                 $scope.currencyNames.push("UAH");
 //                console.log($scope.currencyRates);
             }, function (error) {
-                console.log(error);
+                // console.log(error);
             });
             
             $scope.changeCurr = function() {
@@ -104,9 +104,9 @@
             
             $scope.signOut = function () {               
                 Auth.$signOut().then(function () {
-                    var asdf = 'Прощай'
+                    // var asdf = 'Прощай'
                     $state.transitionTo('root');
-                    ngToast.create(asdf);
+                    // ngToast.create(asdf);
                 })
             }
         });

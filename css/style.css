@@ -1,19 +1,27 @@
+/*
+body {
+    padding-top: 90px;
+}
+*/
 .container,
 .row {
     margin-bottom: 20px;
 }
 
 #income-form div,
-#costs-form div { /*слипание блоков инпута*/
+#costs-form div,
+#goal-form div { /*слипание блоков инпута*/
     padding: 0;
 }
 
-.panel-title {
+.incomes-panel,
+.costs-panel,
+.goal-panel
+{
     display: inline-block;
 }
 
-.category-title,
-.count-title
+.table-th-cursor
 {
     cursor: pointer;
 }
@@ -21,10 +29,91 @@
 .badge-success {
     background-color: #468847;
 }
+
 .badge-success:hover {
     background-color: #356635;
 }
 
-#test.test {
-    border-radius: 0;
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
+    outline: none;
 }
+
+#left-panel {
+    position: fixed;
+    top: 85px;
+}
+
+#left-panel .fa {
+    font-size: 30px;
+}
+.spinner {
+    position: absolute;
+    left: 50%;
+    font-size: 30px;
+}
+
+#info-window {
+    position: relative;
+    top: 85px;
+}
+
+#left-panel {
+    position: fixed;
+    top: 85px;
+}
+
+.tooltip.tooltip-info .tooltip-inner {
+    color: #fff;
+    background-color: #5a5a5a;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  }
+  /* Hide arrow */
+  .tooltip.tooltip-info .tooltip-arrow {
+    display: none;
+  }
+/*HEADER*/
+#rates div{
+    display: inline-block;
+    width: 70%;
+}
+
+/*
+#converter {
+    width: 25%;
+}
+*/
+
+#converter input {
+    display: inline-block;
+    width: 25%;
+}
+
+.navbar-btn {
+    margin-right: 10px;
+}
+
+.navbar-header {
+    padding-bottom: 5px;
+}
+
+.red {
+    color: red; 
+}
+
+.green {
+    color: green;
+}
+.vcenter {
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+  }
+
+
+.settings-header {
+    margin-top: 20px;
+}
+#page-select {
+    display: inline-block;
+}
+

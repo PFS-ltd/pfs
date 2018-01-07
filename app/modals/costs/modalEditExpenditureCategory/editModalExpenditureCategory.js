@@ -1,17 +1,54 @@
-app.controller('EditExpenditureCategory', ['$scope', '$uibModalInstance','correctCategory', function($scope, $uibModalInstance , correctCategory ) {
+app.controller('EditExpenditureCategory',  function($scope, $uibModalInstance , correctCategory, ngToast ,costsCategoriesArr) {
   // 'storageFactory',storageFactory
     // $scope.storageFactory = storageFactory;
     $scope.correctCategory = correctCategory;
+    $scope.costsCategoriesArr = costsCategoriesArr;
      
-    
+    $scope.valid = function (item) {
+      if (item === undefined || item === '' ||  item=== null ) {
+            ngToast.create({
+                "content": "Укажите название",
+                "className": 'danger'
+                })
+            return false;
+        }
+        else if ( item.title === "" || item.title ===undefined || item.title === null) {
+          ngToast.create({
+                "content": "Укажите название",
+                "className": 'danger'
+                })
+            return false;
+        }
+        
+    return true;
+    };
+
     $scope.cancel = function() {
-		$uibModalInstance.close();
+		$uibModalInstance.dismiss('cancel');
 
 	};
 
-	$scope.ok = function () {
+	$scope.ok = function (result) {
+      
+      var isValid  = $scope.valid(result);
+      var sameName =  $scope.costsCategoriesArr.some(function(item){
+      return (  item.title === result.title); 
+      });
+        if (isValid) {
+          if(sameName){
+            ngToast.create ({
+              'content': 'Такое имя ужее существует',
+              'className' : 'danger'
+            })
+          }
+          else {
+            $uibModalInstance.close(result); 
+          }
+          
+        }
+           
+      
     
-    $uibModalInstance.close(correctCategory);
     	
 	};
 
@@ -38,4 +75,4 @@ app.controller('EditExpenditureCategory', ['$scope', '$uibModalInstance','correc
           opened: false
         };
 
-}])
+})

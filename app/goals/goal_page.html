@@ -1,0 +1,124 @@
+<div class="row">
+    <form class="col-md-12">
+        <div class="input-group" id="costs-form">>
+             <div class="col-md-2">
+                    <input type="text"
+                    class="form-control"
+                    placeholder="Дата" 
+                    uib-datepicker-popup="dd.MM.yyyy" 
+                    ng-model="newCosts.date" is-open="popup.opened"
+                    datepicker-options="dateOptions" ng-required="true"
+                    show-button-bar="false"
+                    ng-focus="openPicker()" />
+            </div>
+            <div class="col-md-2 ">
+                <select class="form-control" ng-model='newCosts.who' >
+                    <option value="" disabled selected>{{'Participant' | translate}}</option>
+                    <option ng-repeat="key in rolesArr" ng-value="key">{{key.title}}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" ng-model='newCosts.from'>
+                    <option value="" selected disabled>{{'Account' | translate}}</option>
+                    <option ng-repeat="item in billsCategories" ng-value="item">{{item.title}}</option>
+
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" ng-model='newCosts.to'>
+                    <option value=""  disabled selected >{{'Goals' | translate}}</option>
+                    <option ng-repeat='key in goalArr' ng-value="key">{{key.title}}</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <input type="number" placeholder="{{'Sum' | translate}}"  min='0' class="form-control" ng-model='newCosts.sum'>
+            </div>
+           
+            <div class="col-md-2">
+                <input type="text" placeholder="{{'Comment' | translate}}" class="form-control" ng-model='newCosts.comment'>
+            </div>
+            <span class="input-group-btn pull-left">
+                <button class="btn btn-success" type="submit" ng-click='addGoalAsCost(newCosts)'>{{'Transfer' | translate}}</button>
+            </span>
+        </div>
+    </form>
+</div>
+
+
+
+<div class="col-md-12">
+    <div class="panel panel-success">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title goal-panel"> {{'Goals' | translate}}</h3>
+            <span class="glyphicon glyphicon-question-sign" 
+            uib-popover="{{'GoalPopover' | translate}}" popover-trigger="'mouseenter'">
+            </span>
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm" ng-click="addNewGoal()()">
+                    <span class="glyphicon glyphicon-plus"></span> {{"Add Goal" | translate}}
+                </button>
+                <button type="button" class="btn btn-warning btn-sm" ng-click="transferGoalToBill()">
+                    <span class="glyphicon glyphicon-usd"></span>{{"Money transaction"| translate}}
+                </button>
+            </div>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group" >
+                <li class="list-group-item text-left" ng-repeat="key in goalArr">
+                    <span class="category-title" >{{key.title}}</span>
+                    <div class="col-md-6" class="list-group-item-heading">
+                        <uib-progressbar animate="true" type="success" max="key.sumMax" value="key.sum" >
+                            <i style="color:black; text-align:center;">{{key.sum}}/{{key.sumMax}}</i>
+                        </uib-progressbar>
+                    </div>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-info btn-xs" ng-click="openTable()" >
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <!-- <button type="button" class="btn btn-warning btn-xs" ng-click="transferGoalToBill(key)">
+                            <span class="glyphicon glyphicon-usd"></span>
+                        </button> -->
+                        <button type="button" class="btn btn-primary btn-xs" title="{{'Edit' | translate}}" ng-click="editGoalCategory(key)" >
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs" title="{{'Delete' | translate}}" ng-click="deleteGoalCategory(key)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                <hr> 
+                    <div class="horizontal-collapse" uib-collapse="isCollapsed">
+                            <table class="table table-hover well well-lg ">
+                                    <thead>
+                                            <th>#</th>
+                                            <th>{{"Sum" | translate}}</th>
+                                            <th>{{"Where" | translate}}</th>
+                                            <th>{{"Who" | translate}}</th>
+                                            <th>{{"Date" | translate}}</th>
+                                            <th>{{"Comment" | translate}}</th>
+                                            <th>{{"Delete" | translate}}</th>
+                                        </thead>
+                                <tbody ng-class="item.type === 'income' ? 'green' : 'red' " ng-repeat='item in goalsTransferArr| filter : MyFilter(key) '>
+                                    <tr>
+                                        <td>{{$index+1}}</td>
+                                        <td>{{item.sum}}</td>
+                                        <td ng-if=" item.type ==='income' " > {{item.to.title}}</td>
+                                        <td ng-if=" item.type ==='cost' " > {{item.to.title}}</td>
+                                        <td>{{item.who.title}}</td>
+                                        <td>{{item.date| date:'dd.MM.yyyy'}}</td>
+                                        <td>{{item.comment}}</td>
+                                        <td>
+                                            <button class="btn btn-danger btn-xs" title="{{'Delete' | translate}}" ng-click='deleteTransfer(item)'>
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
+                </li>
+               
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="modal-window"></div> 

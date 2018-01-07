@@ -4,22 +4,52 @@ var app = angular.module('application',
         'firebase',
         'ui.router',
         'ui.router.stateHelper',
+        // 'ui.calendar',
         'ngToast',
-        
+        'daterangepicker',
+        'nvd3',
+        'ngAnimate',
+        'ngSanitize',
+        'angular-fullcalendar',
+        'pascalprecht.translate',
+        'xeditable',
+        // 'colorpicker.module',
+        'color.picker'
     ]);
-
     
-app.run(["$transitions", "$state", "ngToast",'$rootScope', '$stateParams',
- function ($transitions, $state, ngToast,$rootScope, $stateParams) {
+app.run(["$transitions", "$state", "ngToast", '$rootScope', '$stateParams', 'editableOptions',
+ function ($transitions, $state, ngToast, $rootScope, $stateParams, editableOptions) {
     $transitions.onError({}, function (result) {
         if (result._error.detail === "AUTH_REQUIRED") {
             ngToast.create({
                 classname: 'default',
-                content: "Please, sign in the app"
+                content: "Please, sign in the app",
             });
             $state.go("root");
         }
     });
+    editableOptions.theme = 'bs3';
 }]);
+
+//app.value('styleLinks', ["node_modules/bootstrap/dist/css/bootstrap.css", 
+//                        "https://bootswatch.com/3/slate/bootstrap.min.css",
+//                        "https://bootswatch.com/3/cerulean/bootstrap.min.css",
+//                        "https://bootswatch.com/3/spacelab/bootstrap.min.css",
+//                        "https://bootswatch.com/3/simplex/bootstrap.min.css"]);
+app.value('styleLinks', ["node_modules/bootstrap/dist/css/bootstrap.css", 
+                        "css/themes/slate/bootstrap.css",
+                        "css/themes/cerulean/bootstrap.css",
+                        "css/themes/spacelab/bootstrap.css",
+                        "css/themes/simplex/bootstrap.css"]);
+
+app.controller('MainCtrl', ['$scope', 'styleLinks', function($scope, styleLinks) {
+    $scope.selected = localStorage.getItem("preferredStyle") || 0;
+    $scope.styleLinks = styleLinks;
+    $scope.style = $scope.styleLinks[$scope.selected];
+    $scope.$on('styleChanged', function(event, index) {
+//        $scope.selected = localStorage.getItem("preferredStyle");
+        $scope.style = $scope.styleLinks[index];
+    })
+}])
 
 

@@ -1,6 +1,8 @@
 (function () {
     var WelcomeController = app.controller('WelcomeController',
-        function ($scope, $uibModal, Auth, $location, $state, currentAuth,) {
+
+        function ($scope, $uibModal, Auth, $location, $state, currentAuth,ngToast, $translate) {
+
             if (currentAuth == null) {
                 $state.go('root')
             } 
@@ -15,10 +17,10 @@
                     size: 'sm',
                 });
                 modalLogin.result.then(function (result) {
-                    Auth.$signInWithEmailAndPassword(result.email, result.pass)
-                        .then(function (firebaseUser) {
-                            $location.path('/home');
-                        })
+                    if(!result) return;
+                            $state.go('home.income');        
+                }).catch(function () {
+                    // Modal dismissed.
                 });
 
             };
@@ -30,13 +32,17 @@
                     size: 'sm',
                 });
                 modalRegister.result.then(function (result) {
-                    // console.log(result);
-
+                   if(!result) return;
+                    $state.go('home.income');
+                    $translate('WelcomeText').then(function(translation){
+                        ngToast.create(translation + ' ' + result);
+                    })
+                   
                 }).catch(function () {
                     // Modal dismissed.
                 })
             };
         });
 
-    WelcomeController.$inject = ['$scope', '$uibModal', 'Auth', '$location', '$state', 'currentAuth' ]
+    WelcomeController.$inject = ['$scope', '$uibModal', 'Auth', '$location', '$state', 'currentAuth']
 })();

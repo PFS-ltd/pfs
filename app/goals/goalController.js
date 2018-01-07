@@ -261,6 +261,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             item.to.id = item.to.$id;
             // console.log('item.to.id',item.to.id )
             item.date = $filter('date')(item.date, 'yyyy-MM-dd');
+            item.type = 'income';
             makeTransfer(item);
             $scope.newCosts = {comment: ''};
             $scope.today();
@@ -333,12 +334,12 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         $scope.deleteGoalCategory = function(item){
             var delGoal = $uibModal.open ({
                 templateUrl: 'app/modals/goals/modalDeleteGoal/templateDelete.html',
-                controller: 'ModalController',
+                controller: 'ModalGoalController',
                 size: 'md',
                 resolve: {
                     item: function () {
                         return item;
-                    },
+                    }, 
                 },
             });
             delGoal.result.then(function (result) {
@@ -382,7 +383,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             result.from.id = result.from.$id;
             result.to.id = result.to.$id;
             // result.who = result.who.title;
-            result.type = 'income';
+            result.type = 'cost';
             $scope.makeIncomeTransfer(result);
             // incomeService.addIncomeTransfer(result);
             goalsService. addGoalsTransferArr(result);
@@ -412,4 +413,25 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         goalsService.updGoal(goal);
 
     }
+    //        pagination
+
+
+//     $scope.viewby = 5;
+//     $scope.totalItems = $scope.goalsTransferArr.length;
+//     $scope.currentPage = 1;
+//     $scope.itemsPerPage = $scope.viewby;
+    
+  
+//     $scope.setPage = function (pageNo) {
+//       $scope.currentPage = pageNo;
+//     };
+  
+//     $scope.pageChanged = function() {
+//       console.log('Page changed to: ' + $scope.currentPage);
+//     };
+  
+//   $scope.setItemsPerPage = function(num) {
+//     $scope.itemsPerPage = num;
+//     $scope.currentPage = 1; //reset to first page
+//   }
 });

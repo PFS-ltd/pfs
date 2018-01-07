@@ -88,6 +88,8 @@
     "TemplatePopover" : "Create a regular expense template to save your time",
     "Full cost" : "You exceeded the planned limit by category",
     "Success edit cost" : "Category successfully updated",
-    "Success edit template": "Template successfully updated"
+    "Success edit template": "Template successfully updated",
+    "Who" :"Who",
+    "Where" : "Where"
 
 }

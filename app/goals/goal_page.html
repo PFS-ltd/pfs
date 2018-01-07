@@ -91,18 +91,18 @@
                                     <thead>
                                             <th>#</th>
                                             <th>{{"Sum" | translate}}</th>
-                                            <th>{{"From" | translate}}</th>
+                                            <th>{{"Where" | translate}}</th>
                                             <th>{{"Who" | translate}}</th>
                                             <th>{{"Date" | translate}}</th>
                                             <th>{{"Comment" | translate}}</th>
                                             <th>{{"Delete" | translate}}</th>
                                         </thead>
-                                <tbody ng-class="item.type === 'cost' ? 'green' : 'red' " ng-repeat='item in goalsTransferArr | filter : MyFilter(key) '>
+                                <tbody ng-class="item.type === 'income' ? 'green' : 'red' " ng-repeat='item in goalsTransferArr| filter : MyFilter(key) '>
                                     <tr>
                                         <td>{{$index+1}}</td>
                                         <td>{{item.sum}}</td>
                                         <td ng-if=" item.type ==='income' " > {{item.to.title}}</td>
-                                        <td ng-if=" item.type ==='cost' " > {{item.from.title}}</td>
+                                        <td ng-if=" item.type ==='cost' " > {{item.to.title}}</td>
                                         <td>{{item.who.title}}</td>
                                         <td>{{item.date| date:'dd.MM.yyyy'}}</td>
                                         <td>{{item.comment}}</td>
@@ -113,7 +113,6 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                
                             </table>
                         </div> 
                 </li>
@@ -122,4 +121,4 @@
         </div>
     </div>
 </div>
-<div class="modal-window"></div>
+<div class="modal-window"></div> 

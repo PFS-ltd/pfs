@@ -8,6 +8,7 @@ app.controller('ModalTablController', function ($scope,item,$uibModalInstance,$t
 	};
 
 	$scope.ok = function() {
+		console.log(item.title);
 		if (item.type === 'cost') {
 			var bill = $scope.billsCategories.$getRecord(item.from.id);
 			var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);

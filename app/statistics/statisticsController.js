@@ -1,7 +1,29 @@
 (function () {
-    app.controller('StatisticsController', ['$scope', 'incomeService', 'settingsService', 'costsService', '$filter', 'ngToast', 'Auth', 'currentAuth', '$timeout', 'calendarLocale',
-        function ($scope, incomeService, settingsService, costsService, $filter, ngToast, Auth, currentAuth, $timeout, calendarLocale) {
+    app.controller('StatisticsController', ['$scope', 'incomeService', 'settingsService', 'costsService', '$filter', 'ngToast', 'Auth', 'currentAuth', '$timeout', 'calendarLocale', '$translate',
+        function ($scope, incomeService, settingsService, costsService, $filter, ngToast, Auth, currentAuth, $timeout, calendarLocale, $translate) {
             $scope.load = true;
+
+            var translation = $translate.instant([
+                'Mutual',
+                'BarChart',
+                'PieChart',
+                'LastSeven',
+                'LastThirty',
+                'ThisMonth',
+                'LastMonth',
+                'Incomes',
+                'Costs',
+                'NoData']);
+            var lastSeven = translation.LastSeven;
+            var lastThirty = translation.LastThirty;
+            var thisMonth = translation.ThisMonth;
+            var lastMonth = translation.LastMonth
+
+            var myRanges = {};
+            myRanges[lastSeven] = [moment().subtract(1, 'w'), moment()],
+                myRanges[lastThirty] = [moment().subtract(29, 'days'), moment()],
+                myRanges[thisMonth] = [moment().startOf('month'), moment().endOf('month')],
+                myRanges[lastMonth] = [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
 
             $scope.rolesArray = settingsService.getRolesArray();
             $scope.incomeTransfers = incomeService.getIncomeTransfers();
@@ -49,12 +71,7 @@
                 applyClass: 'btn btn-success',
                 locale: calendarLocale[localStorage.getItem('preferredLanguage')],
                 opens: "left",
-                ranges: {
-                    'Последние 7 дней': [moment().subtract(1, 'w'), moment()],
-                    'Последние 30 дней': [moment().subtract(29, 'days'), moment()],
-                    'Этот месяц': [moment().startOf('month'), moment().endOf('month')],
-                    'Прошлый месяц': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                },
+                ranges: myRanges,
                 eventHandlers: {
                     'apply.daterangepicker': function () {
                         $scope.update();
@@ -98,7 +115,7 @@
                 var operation = 0;
                 arr.filter(function (item) {
                     if (moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')) {
-                        if (role == 'Общий') {
+                        if (role == 'Общий' || role == 'Mutual') {
                             return operation += item.sum;
                         } else {
                             if (item.who == role || item.who.title === role) {
@@ -175,7 +192,7 @@
                 var filteredCosts = $scope.costsTransfers.filter(function (item) {
                     // console.log((moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')));
                     if (moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d)) {
-                        if ($scope.data.role.title == 'Общий') {
+                        if ($scope.data.role.title == 'Общий' || $scope.data.role.title == 'Mutual') {
                             return item.title = item.to.title
                         } else {
                             if (item.who == $scope.data.role.title || item.who.title === $scope.data.role.title) {
@@ -206,7 +223,7 @@
                         values: [],
                     });
                 }
-                    
+
                 dataForChart.forEach(function (item) {
                     if (moment($scope.data.date.startDate).year() == moment($scope.data.date.endDate).year()) {
                         for (let i = 0, day = moment($scope.data.date.startDate).dayOfYear(); i < moment($scope.data.date.endDate).dayOfYear() - moment($scope.data.date.startDate).dayOfYear() + 1; i++ , day++) {
@@ -222,7 +239,7 @@
                             startOfYear = 1,
                             endOfYear = 365,
                             range = (endOfYear - dayOfYear1) + (dayOfYear2 - startOfYear) + 1;
-                          
+
                             i < range;
 
                             i++
@@ -287,7 +304,7 @@
 
                 var filteredCosts = $scope.costsTransfers.filter(function (item) {
                     if (moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')) {
-                        if ($scope.data.role.title == 'Общий') {
+                        if ($scope.data.role.title == 'Общий' | $scope.data.role.title == 'Mutual')  {
                             return item.title = item.to.title
                         } else {
                             if (item.who == $scope.data.role.title || item.who.title === $scope.data.role.title) {

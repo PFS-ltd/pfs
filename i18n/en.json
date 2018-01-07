@@ -69,5 +69,16 @@
     "Are you sure?": "Are you sure you want to delete?",
     "Cancel recent income?": "Cancel recent income?",
     "Edit account": "Edit account",
-    "Edit income source": "Edit income source"
+    "Edit income source": "Edit income source",
+
+    "Mutual": "Mutual",
+    "BarChart" : "Bar Chart",
+    "PieChart" : "PieChart",
+    "LastSeven" : "Last 7 days",
+    "LastThirty" : "Last 30 days",
+    "ThisMonth" : "This month",
+    "LastMonth" : "Last month",
+    "NoData": "For such date range there are no any infromation",
+    "ChooseRange":" Choose date range",
+    "AddEvent": "Add event"
 }

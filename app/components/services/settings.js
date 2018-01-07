@@ -17,7 +17,7 @@ function ($state, Auth, $firebaseObject, $firebaseArray) {
 
     var langRef = firebase.database().ref('users/' + uId + '/settings/locals');
     var prefLang = $firebaseObject(langRef);
-    
+
     return {
         getRolesArray: function () {
             return rolesArr;
@@ -48,7 +48,7 @@ function ($state, Auth, $firebaseObject, $firebaseArray) {
         // getCostsTemplateArray: function () {
         //     return costsTemplate;
         // },
-        // addItemInCostsTemplate: function (item) {
+        // addItemInCostsTemplate: function (item) {        
         //     costsTemplate.$add(item);
         // },
         // delItemInCostsTemplate: function (item) {

@@ -21,12 +21,13 @@
                 <select class="form-control" ng-model='newCosts.from'>
                     <option value="" selected disabled>{{'Account' | translate}}</option>
                     <option ng-repeat="item in billsCategories" ng-value="item">{{item.title}}</option>
-
                 </select>
             </div>
             <div class="col-md-2">
                 <select class="form-control" ng-model='newCosts.to'>
+
                     <option value=""  disabled selected >{{'Category'| translate}}</option>
+
                     <option ng-repeat='key in costsCategoriesArr' ng-value="key">{{key.title}}</option>
                 </select>
             </div>
@@ -47,10 +48,12 @@
 <div class="col-md-6">
     <div class="panel panel-danger">
         <div class="panel-heading clearfix">
+
             <h3 class="panel-title costs-panel">{{ "Consumption category" | translate}}</h3>
             <span class="glyphicon glyphicon-question-sign" 
             uib-popover="{{'CostPopover' | translate}}" popover-trigger="'mouseenter'">
             </span>
+
             <div class="pull-right">
                 <button type="button" class="btn btn-danger btn-sm" ng-click="addExpenditureCategory()">
                     <span class="glyphicon glyphicon-plus"></span>{{ "Add category" | translate }}</button>
@@ -82,7 +85,6 @@
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </div>
-
                 </li>
             </ul>
         </div>
@@ -91,6 +93,7 @@
 <div class="col-md-6">
     <div class="panel panel-warning">
         <div class="panel-heading clearfix">
+
             <h3 class="panel-title costs-panel">{{"Template" | translate }}</h3>
             <span class="glyphicon glyphicon-question-sign" 
             uib-popover="{{'TemplatePopover' | translate}}" popover-trigger="'mouseenter'">
@@ -98,12 +101,13 @@
             <div class="pull-right">
                 <button type="button" class="btn btn-warning btn-sm" ng-click="addTemplateCosts()">
                     <span class="glyphicon glyphicon-plus"></span> {{"Add template" | translate}}</button>
+
             </div>
         </div>
         <div class="panel-body">
              <ul class="list-group">
                 <li class="list-group-item" ng-repeat='item in templateCostsArr'>
-                    <span >{{item.comment}}</span>
+                    <span>{{item.comment}}</span>
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-success btn-xs" title="{{'Transfer' | translate}}" ng-click="makeTemplateTransfer(item)">
                             <span class="glyphicon glyphicon-usd"></span>
@@ -130,6 +134,7 @@
         </div>
         <div class="panel-body">
             <table class="table table-hover">
+
                     <thead>
                             <!-- <th>#</th> -->
                             <th>{{'Sum' | translate}}</th>
@@ -140,6 +145,7 @@
                             <th>{{'Delete' | translate}}</th>
                         </thead>
                 <tbody ng-repeat='item in CostArray.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))'>
+
                     <tr>
                         <!-- <td>{{$index+1}}</td> -->
                         <td>{{item.sum}}  {{item.sumValue}}</td>

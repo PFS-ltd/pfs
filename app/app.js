@@ -10,7 +10,6 @@ var app = angular.module('application',
         'nvd3',
         'ngAnimate',
         'ngSanitize',
-        'ngAnimate',
         'angular-fullcalendar',
         'pascalprecht.translate',
         'xeditable',
@@ -32,11 +31,16 @@ app.run(["$transitions", "$state", "ngToast", '$rootScope', '$stateParams', 'edi
     editableOptions.theme = 'bs3';
 }]);
 
+//app.value('styleLinks', ["node_modules/bootstrap/dist/css/bootstrap.css", 
+//                        "https://bootswatch.com/3/slate/bootstrap.min.css",
+//                        "https://bootswatch.com/3/cerulean/bootstrap.min.css",
+//                        "https://bootswatch.com/3/spacelab/bootstrap.min.css",
+//                        "https://bootswatch.com/3/simplex/bootstrap.min.css"]);
 app.value('styleLinks', ["node_modules/bootstrap/dist/css/bootstrap.css", 
-                        "https://bootswatch.com/3/darkly/bootstrap.min.css",
-                        "https://bootswatch.com/3/united/bootstrap.min.css",
-                        "https://bootswatch.com/3/spacelab/bootstrap.min.css",
-                        "https://bootswatch.com/3/simplex/bootstrap.min.css"]);
+                        "css/themes/slate/bootstrap.css",
+                        "css/themes/cerulean/bootstrap.css",
+                        "css/themes/spacelab/bootstrap.css",
+                        "css/themes/simplex/bootstrap.css"]);
 
 app.controller('MainCtrl', ['$scope', 'styleLinks', function($scope, styleLinks) {
     $scope.selected = localStorage.getItem("preferredStyle") || 0;

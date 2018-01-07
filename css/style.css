@@ -9,8 +9,8 @@ body {
 }
 
 #income-form div,
-#costs-form div ,
-#goal-form div{ /*слипание блоков инпута*/
+#costs-form div,
+#goal-form div { /*слипание блоков инпута*/
     padding: 0;
 }
 
@@ -95,4 +95,10 @@ body {
 .navbar-header {
     padding-bottom: 5px;
 }
-/*--------*/
+
+.settings-header {
+    margin-top: 20px;
+}
+#page-select {
+    display: inline-block;
+}

@@ -1,5 +1,5 @@
-app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRouterProvider', '$translateProvider','$provide',
-    function ($stateProvider, ngToastProvider, $locationProvider, $urlRouterProvider, $translateProvider, $provide) {
+app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRouterProvider', '$translateProvider','$provide', '$uibTooltipProvider', 
+    function ($stateProvider, ngToastProvider, $locationProvider, $urlRouterProvider, $translateProvider, $provide, $uibTooltipProvider) {
         
         $locationProvider.hashPrefix('');
 
@@ -66,7 +66,6 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
                 controller : "GoalController"
             })
 
-
         $urlRouterProvider.otherwise('home');
 
         ngToastProvider.configure({
@@ -119,6 +118,7 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
 
         $translateProvider.preferredLanguage(lang);
 
+        if (localStorage.getItem('preferredStyle') === null) localStorage.setItem('preferredStyle', '1');
     }]);
 
 

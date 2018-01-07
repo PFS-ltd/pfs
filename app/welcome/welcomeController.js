@@ -1,6 +1,8 @@
 (function () {
     var WelcomeController = app.controller('WelcomeController',
+
         function ($scope, $uibModal, Auth, $location, $state, currentAuth,ngToast, $translate) {
+
             if (currentAuth == null) {
                 $state.go('root')
             } 
@@ -42,5 +44,5 @@
             };
         });
 
-    WelcomeController.$inject = ['$scope', '$uibModal', 'Auth', '$location', '$state', 'currentAuth' ]
+    WelcomeController.$inject = ['$scope', '$uibModal', 'Auth', '$location', '$state', 'currentAuth']
 })();

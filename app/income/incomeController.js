@@ -1,26 +1,24 @@
 (function () {
-    app.controller('IncomeController', ['$uibModal', '$scope', 'incomeService', 'settingsService', '$filter', 'ngToast', '$transitions', function ($uibModal, $scope, incomeService, settingsService, $filter, ngToast, $transitions) {
+    app.controller('IncomeController', ['$uibModal', '$scope', 'incomeService', 'settingsService', '$filter', 'ngToast', '$transitions', '$translate', function ($uibModal, $scope, incomeService, settingsService, $filter, ngToast, $transitions, $translate) {
         
         var incomeCtrl = this;
         this.incomeSourceArr = incomeService.getIncomeSource();
         this.incomeAccountsArr = incomeService.getIncomeAccounts();
         this.incomeTransfers = incomeService.getIncomeTransfersLast();
         this.rolesArr = settingsService.getRolesArray();
-
+        
         // console.log(this.incomeSourceArr);
-        // console.log(this.incomeAccountsArr);
+//         console.log(this.incomeAccountsArr);
         // console.log(this.incomeTransfers);
         // console.log(this.rolesArr);
-
         // this.storageFactory = storageFactory;
-
+//        console.log(incomeService.getIncomeTransfers());
         //datapicker
 //            this.dt = new Date();
 //            this.today = function () {
 //                incomeCtrl.tmpIncome.date = new Date();
 //            };
-//            
-
+        
         this.dateOptions = {
             format: 'yy',
             maxDate: new Date(2020, 5, 22)
@@ -58,61 +56,73 @@
         //modals
 //            this.categoryModel = { title: '' };
         
-//        $transitions.onExit({exiting: 'home.income'}, function(transition) {
-//            localStorage.setItem('tempIncome', JSON.stringify(incomeCtrl.tmpIncome));
-//            console.log(localStorage.getItem('tempIncome'));
-//        });
-//        
-//        $transitions.onBefore({entering: 'home.income'}, function(transition) {
-////            incomeCtrl.tmpIncome = angular.extend({}, JSON.parse(localStorage.getItem('tempIncome')));
-//            incomeCtrl.tmpIncome = JSON.parse(localStorage.getItem('tempIncome'));
-////            console.log(incomeCtrl);
-////            $scope.$digest();
-//        });
+        $transitions.onExit({exiting: 'home.income'}, function(transition) {
+            localStorage.setItem('tempIncome', JSON.stringify(incomeCtrl.tmpIncome));
+            console.log(localStorage.getItem('tempIncome'));
+        });
+        
+        $transitions.onStart({entering: 'home.income'}, function(transition) {
+            incomeCtrl.tmpIncome = angular.extend({}, JSON.parse(localStorage.getItem('tempIncome')));
+            console.log(localStorage.getItem('tempIncome'));
+//            incomeCtrl.tmpIncome = JSON.parse(tt);
+            console.log('temp:', incomeCtrl.tmpIncome);
+            incomeCtrl.tmpIncome.sum = 33;
+//            $scope.$digest();
+        });
         
         this.validateInput = function(item) {
             //DATE
 //                console.log(item)
             if (item.date === undefined) {
-                ngToast.create({
-                    "content": "Укажите дату",
-                    "className": 'danger'
+                $translate('Input date').then(function(content) {
+                    ngToast.create({
+                        "content": content,
+                        "className": 'danger'
+                        });
                 });
                 return false;
             }
 
             //WHO
             if (item.who === null || item.who === undefined) {
-                ngToast.create({
-                    "content": "Укажите участника",
-                    "className": 'danger'
+                $translate('Input participant').then(function(content) {
+                    ngToast.create({
+                        "content": content,
+                        "className": 'danger'
+                        });
                 });
                 return false;
             }
 
             //FROM
             if (item.from === null || item.from === undefined) {
-                ngToast.create({
-                    "content": "Укажите источник",
-                    "className": 'danger'
+                $translate('Input source').then(function(content) {
+                    ngToast.create({
+                        "content": content,
+                        "className": 'danger'
+                        });
                 });
                 return false;
             }
 
             //TO
             if (item.to === null || item.to === undefined) {
-                ngToast.create({
-                    "content": "Укажите счет",
-                    "className": 'danger'
+                $translate('Input source').then(function(content) {
+                    ngToast.create({
+                        "content": content,
+                        "className": 'danger'
+                        });
                 });
                 return false;
             }
 
             //SUM
             if (item.sum === null || item.sum === undefined) {
-                ngToast.create({
-                    "content": "Укажите сумму",
-                    "className": 'danger'
+                $translate('Input sum').then(function(content) {
+                    ngToast.create({
+                        "content": content,
+                        "className": 'danger'
+                        });
                 });
                 return false;
             }
@@ -135,16 +145,20 @@
         this.makeReverseIncomeTransfer = function (item) {
             var account = incomeService.getItemInIncomeAccounts(item.to.id);
             if ((account.amount - item.sum) < 0) {
-                ngToast.create({
-                    "content": "Невозможно отменить операцию, т.к. на счету " + account.title + " будет отрицательная сумма",
-                    "className": 'danger'
+                $translate('Cant cancel').then(function(content) {
+                    ngToast.create({
+                        "content": content + account.title,
+                        "className": 'danger'
+                        });
                 });
             } else {
                 account.amount = account.amount - item.sum;
-                console.log(account);
+//                console.log(account);
                 incomeService.updItemInIncomeAccounts(account);
                 incomeService.delIncomeTransfer(item);
-                ngToast.create('Внесенный доход удален');
+                $translate('Recent delete').then(function(content) {
+                    ngToast.create(content);
+                });
             }
             // incomeService.addIncomeTransfer(item);
         };
@@ -231,9 +245,11 @@
             modalInstance.result.then(function (result) {
                 if (result) {
                     incomeService.updItemInIncomeSource(angular.extend(item, result));
-                    ngToast.create({
-                        content: 'Категория "' + result.title + '" успешно обновлена',
-                        timeout: 3000
+                    $translate('Category updated').then(function(content) {
+                        ngToast.create({
+                            "content": content,
+                            "className": 'success'
+                            });
                     });
                 }
             }, function () {
@@ -319,9 +335,11 @@
             modalInstance.result.then(function (result) {
                 if (result) {
                     incomeService.updItemInIncomeAccounts(angular.extend(item, result));
-                    ngToast.create({
-                        content: 'Счет "' + result.title + '" успешно обновлен',
-                        timeout: 3000
+                    $translate('Count updated').then(function(content) {
+                        ngToast.create({
+                            "content": content,
+                            "className": 'success'
+                            });
                     });
                 }
             }, function () {

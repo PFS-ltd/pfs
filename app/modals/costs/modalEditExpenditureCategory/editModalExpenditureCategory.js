@@ -1,4 +1,4 @@
-app.controller('EditExpenditureCategory',  function($scope, $uibModalInstance , correctCategory, ngToast ,costsCategoriesArr) {
+app.controller('EditExpenditureCategory',  function($scope, $uibModalInstance , correctCategory, ngToast ,costsCategoriesArr,$translate) {
   // 'storageFactory',storageFactory
     // $scope.storageFactory = storageFactory;
     $scope.correctCategory = correctCategory;
@@ -6,17 +6,21 @@ app.controller('EditExpenditureCategory',  function($scope, $uibModalInstance , 
      
     $scope.valid = function (item) {
       if (item === undefined || item === '' ||  item=== null ) {
-            ngToast.create({
-                "content": "Укажите название",
-                "className": 'danger'
-                })
+        $translate("fill the form").then(function(translation){
+          ngToast.create ({
+            'content':translation,
+            "className": 'danger'
+          })
+          })
             return false;
         }
         else if ( item.title === "" || item.title ===undefined || item.title === null) {
-          ngToast.create({
-                "content": "Укажите название",
-                "className": 'danger'
-                })
+          $translate("Indicate the name").then(function(translation){
+						ngToast.create ({
+							'content':translation,
+							"className": 'danger'
+						}) 
+					  })
             return false;
         }
         
@@ -36,10 +40,12 @@ app.controller('EditExpenditureCategory',  function($scope, $uibModalInstance , 
       });
         if (isValid) {
           if(sameName){
-            ngToast.create ({
-              'content': 'Такое имя ужее существует',
-              'className' : 'danger'
-            })
+            $translate("This name already exists").then(function(translation){
+              ngToast.create ({
+                'content':translation,
+                "className": 'danger'
+              })
+              })
           }
           else {
             $uibModalInstance.close(result); 

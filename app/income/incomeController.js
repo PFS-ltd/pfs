@@ -2,11 +2,47 @@
     app.controller('IncomeController', ['$uibModal', '$scope', 'incomeService', 'settingsService', '$filter', 'ngToast', '$transitions', function ($uibModal, $scope, incomeService, settingsService, $filter, ngToast, $transitions) {
         
         var incomeCtrl = this;
+      
         this.incomeSourceArr = incomeService.getIncomeSource();
         this.incomeAccountsArr = incomeService.getIncomeAccounts();
         this.incomeTransfers = incomeService.getIncomeTransfersLast();
+        // console.log(this.incomeTransfers)
         this.rolesArr = settingsService.getRolesArray();
+        
+        incomeService.getIncomeTransfersLast().$loaded(function (arr){
+            incomeCtrl.incomeArrPag = arr;
+            console.log(incomeCtrl.incomeArrPag)
+            console.log('sds',incomeCtrl.incomeArrPag.length);
+            incomeCtrl.totalItems = incomeCtrl.incomeArrPag.length
+              console.log('totalItem',incomeCtrl.totalItems)
+              if( incomeCtrl.totalItems > 50){
+                incomeCtrl.totalItems = 50;
+               }
+               else if (incomeCtrl.totalItems <= 50) {
+                incomeCtrl.totalItems = incomeCtrl.incomeArrPag.length;
+               }
 
+             });
+            
+            this.currentPage = 1;
+            this.itemsPerPage = 5;
+             
+           
+            this.setPage = function (pageNo) {
+              this.currentPage = pageNo;
+             };
+           
+            this.pageChanged = function() {
+               console.log('Page changed to: ' +this.currentPage);
+             };
+           
+          this.setItemsPerPage = function(num) {
+            incomeCtrl.itemsPerPage = num;
+            incomeCtrl.currentPage = 1; //reset to first page
+           }
+           this.viewby = 1;
+
+        //Женя это не твое !!!!!!!!!!
         // console.log(this.incomeSourceArr);
         console.log(this.incomeAccountsArr);
         // console.log(this.incomeTransfers);
@@ -31,19 +67,32 @@
 
 //     this.amount1 = amount();
 // })
-       
-        this.dateOptions = {
-            format: 'yy',
-            maxDate: new Date(2020, 5, 22)
-        };
+    
+    
+    // добавление даты и календаря в инпут 
+    
+    this.tmpIncome = {comment: ''};
+    
+    this.today = function () {
+        incomeCtrl.tmpIncome.date = new Date();
+    };
+    this.today();
+    this.setDate = function (year, month, day) {
+        incomeCtrl.tmpIncome.date = new Date(year, month, day);
+      };     
+      this.dateOptions = {
+        format: 'yy',
+        maxDate: new Date(2020, 5, 22)
+    };
 
-        this.open = function () {
-            incomeCtrl.popup.opened = true;
-        };
+    this.open = function () {
+        incomeCtrl.popup.opened = true;
+    };
 
-        this.popup = {
-            opened: false
-        };
+    this.popup = {
+        opened: false
+    };
+    
         //end
 
         //big mfn input
@@ -63,7 +112,7 @@
 //            };
 //
 //            this.tmpIncome = angular.extend({}, this.inputFormModel);
-        this.tmpIncome = {comment: ''};
+        
         //input end
         
         //modals
@@ -169,8 +218,9 @@
                 incomeService.addIncomeTransfer(item);
                 
                 sessionStorage.removeItem('tempIncome');
-
-                incomeCtrl.tmpIncome = {comment: ''}; //обнуляет значения инпута
+                
+                incomeCtrl.tmpIncome = {comment: ''};
+                incomeCtrl.today(); //обнуляет значения инпута
 //                    incomeCtrl.tmpIncome = angular.extend({}, incomeCtrl.inputFormModel); //обнуляет значения инпута <- так появляются пустые строки в select (из-за ng-value)
             }
         };
@@ -180,7 +230,7 @@
                 templateUrl: 'app/modals/income/delIncomeTransfer/delIncomeTransfer.html',
                 controller: 'delIncomeTransferController',
                 // controllerAs: 'modalSourceCtrl',
-                size: 'md',
+                size: 'sm',
                 resolve: {
                     item: function () {
                         return item;
@@ -257,7 +307,7 @@
                 templateUrl: 'app/modals/income/delIncomeSource/delIncomeSource.html',
                 controller: 'delIncomeSourceController',
                 // controllerAs: 'modalSourceCtrl',
-                size: 'md',
+                size: 'sm',
                 resolve: {
                     item: function () {
                         return item;
@@ -344,7 +394,7 @@
             var modalInstance = $uibModal.open({
                 templateUrl: 'app/modals/income/delIncomeAccount/delIncomeAccount.html',
                 controller: 'delIncomeAccountController',
-                size: 'md',
+                size: 'sm',
                 resolve: {
                     item: function () {
                         return item;

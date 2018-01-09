@@ -1,5 +1,5 @@
-app.controller('AddExpenditureCategory', ['$scope', '$uibModalInstance', 'newExpenditureCategoryModel', 'ngToast' , 'costsCategoriesArr',
-					function($scope, $uibModalInstance, newExpenditureCategoryModel,ngToast, costsCategoriesArr) {
+app.controller('AddExpenditureCategory', ['$scope', '$uibModalInstance', 'newExpenditureCategoryModel', 'ngToast','$translate' , 'costsCategoriesArr',
+					function($scope, $uibModalInstance, newExpenditureCategoryModel,ngToast,$translate, costsCategoriesArr) {
 
 	$scope.costsCategoriesArr = costsCategoriesArr;
 	
@@ -10,17 +10,21 @@ app.controller('AddExpenditureCategory', ['$scope', '$uibModalInstance', 'newExp
 
     $scope.valid = function (item) {
     	if (item === undefined || item === '' ||  item=== null ) {
-            ngToast.create({
-                "content": "Укажите название",
-                "className": 'danger'
+            $translate("fill the form").then(function(translation){
+                ngToast.create ({
+                    'content':translation,
+                    "className": 'danger'
                 })
+              })
             return false;
         }
         else if ( item.title === "" || item.title ===undefined || item.title === null) {
-        	ngToast.create({
-                "content": "Укажите название",
-                "className": 'danger'
-                })
+			$translate("Indicate the name").then(function(translation){
+				ngToast.create ({
+					'content':translation,
+					"className": 'danger'
+				})
+			  })
             return false;
         }
         
@@ -35,20 +39,23 @@ app.controller('AddExpenditureCategory', ['$scope', '$uibModalInstance', 'newExp
 
 	$scope.ok = function(result) {
 		var isValid = $scope.valid(result);   
-		var sameName =  $scope.costsCategoriesArr.some(function(item){ 
-			return (  item.title === result.title); 
-			});
+		
 			
 		
 		
 		if(isValid){
+			var sameName =  $scope.costsCategoriesArr.some(function(item){ 
+				return (  item.title === result.title); 
+				});
 			var trimValid = result.title.trim();
 				if(trimValid.length) {
 						if(sameName) {
-							ngToast.create({
-							'content': ' Такое имя уже существует',
-							'className': 'danger'	
-							});
+							$translate("This name already exists").then(function(translation){
+								ngToast.create ({
+									'content':translation,
+									"className": 'danger'
+								})
+							  })
 							result.title = undefined;
 						}
 						else {
@@ -56,13 +63,15 @@ app.controller('AddExpenditureCategory', ['$scope', '$uibModalInstance', 'newExp
 						}
 						
 
-					
+						
 				}
 				else {
-					ngToast.create({
-					'content': ' Некорректное имя',
-					'className': 'danger'
-					})
+					$translate("Invalid name").then(function(translation){
+						ngToast.create ({
+							'content':translation,
+							"className": 'danger'
+						})
+					  })
 
 				}
 		
@@ -72,51 +81,3 @@ app.controller('AddExpenditureCategory', ['$scope', '$uibModalInstance', 'newExp
 	};
 	
 }])
-
-// arr = [
-//     {
-// 		title : 'jeka',
-// 		name : 'dsa'
-// 	},
-//     {
-// 		title : 'nika',
-// 		name : 'sass'
-// 	}
-// ];
-
-// result = {
-// 	title: 'kas'
-// }
-// function sameName(obj) {
-// 	return (result.title === result.title) {
-
-// 		return true
-// 	}
-// 	return false
-// }
-
-// arr.some(sameName)
-
-
-// function sameName(obj) {
-// 							return obj.title === costsCategoriesArr.title  
-// 						};
-// 						if( costsCategoriesArr.some(sameName(result))) {
-// 							ngToast.create ({
-// 							'content' : 'same name',
-// 							'className':'warning'
-// 						});
-// 						}
-
-
-
-
-
-
-
-
-
-
-
-
-

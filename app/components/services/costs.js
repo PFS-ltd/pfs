@@ -12,7 +12,7 @@ app.service('costsService', ['$state', 'Auth', "$firebaseObject", "$firebaseArra
         var transferRef = firebase.database().ref('users/' + uId + '/costs/costsTransfer');
         var costsTransfers = $firebaseArray(transferRef);
 
-        var query = transferRef.orderByChild("timestamp").limitToLast(5);
+        var query = transferRef.orderByChild("timestamp").limitToLast(50);
         var queryTransfers = $firebaseArray(query);
 
 

@@ -1,53 +1,65 @@
-  app.controller('addTemplateCosts', function($scope, $uibModalInstance, billsCategories, costsCategoriesArr,rolesArr, ngToast,templateCostsArr) {
+  app.controller('addTemplateCosts', function($scope, $uibModalInstance, billsCategories, costsCategoriesArr,rolesArr, ngToast,templateCostsArr,$translate) {
 			$scope.rolesArr = rolesArr;
 			$scope.templateCostsArr = templateCostsArr;
 	 $scope.validInput = function (item) {
                	if(item === undefined || item === null || item ===""){
-               		ngToast.create({
-               			'content': 'Заполните форму',
-               			'className': 'danger'
-               		})
+					$translate("fill the form").then(function(translation){
+						ngToast.create ({
+							'content':translation,
+							"className": 'danger'
+						})
+					  })
                		return false;
                	}
               	else if (item.comment === null || item.comment === undefined || item.comment === ''){
-              		ngToast.create({
-              			'content': 'Укажите название',
-              			'className': 'danger'
-              		});
+					$translate("Indicate the name").then(function(translation){
+						ngToast.create ({
+							'content':translation,
+							"className": 'danger'
+						}) 
+					  })
               		return false;
               	}
                 else if (item.who === null || item.who === undefined) {
-                    ngToast.create({
-                        "content": "Укажите участника",
-                        "className": 'danger'
-                    })
+                    $translate('Indicate the participant').then(function(translation){
+						ngToast.create ({
+							'content':translation,
+							"className": 'danger'
+						})
+					  })
                     return false;
                 }
                 
                 //FROM
                 else if (item.from === null || item.from === undefined) {
-                    ngToast.create({
-                        "content": "Укажите счет",
-                        "className": 'danger'
-                    })
+					$translate("Indicate the account").then(function(translation){
+						ngToast.create ({
+							'content':translation,
+							"className": 'danger'
+						})
+					  })
                     return false;
                 }
                 
                 //TO
                 else if (item.to === null || item.to === undefined) {
-                    ngToast.create({
-                        "content": "Укажите категорию",
-                        "className": 'danger'
-                    })
+                    $translate("Indicate the category").then(function(translation){
+						ngToast.create ({
+							'content':translation,
+							"className": 'danger'
+						})
+					  })
                     return false;
                 }
                 
                 //SUM
-                else if (item.sum === null || item.sum === undefined) {
-                    ngToast.create({
-                        "content": "Укажите сумму",
-                        "className": 'danger'
-                    })
+                else if (item.sum === null || item.sum === undefined || item.sum === 0) {
+                    $translate("Indicate the sum").then(function(translation){
+						ngToast.create ({
+							'content':translation,
+							"className": 'danger'
+						})
+					  })
                     return false;
                 }
                 
@@ -75,16 +87,19 @@
 
 	$scope.ok = function(result) {
 		var isValid = $scope.validInput(result);  
-		var sameName =  $scope.templateCostsArr.some(function(item){
-			return (  item.comment === result.comment); 
-			});
+		
 		console.log('sameNAm', sameName);
 		if (isValid){
+			var sameName =  $scope.templateCostsArr.some(function(item){
+				return (  item.comment === result.comment); 
+				});
 			if(sameName){
-				ngToast.create({
-							'content': ' Такое имя уже существует',
-							'className': 'danger'	
-							});
+				$translate("This name already exists").then(function(translation){
+					ngToast.create ({
+						'content':translation,
+						"className": 'danger'
+					})
+				  })
 							result.comment = undefined;
 			}
 			else {

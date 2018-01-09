@@ -104,8 +104,13 @@ body {
 .green {
     color: green;
 }
-.vcenter {
-    display: inline-block;
-    float: none;
-    vertical-align: middle;
-  }
+.x1 {
+    float: left;
+    line-height: 35px ; 
+    margin: 0;
+    font-size: 16px;
+    color: inherit;
+}
+.pagination {
+    margin : 0 !important ;
+}

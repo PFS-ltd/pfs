@@ -20,8 +20,8 @@
         <div class="form-group">
             <label  class="col-sm-4 control-label">{{'Account' | translate}}</label>
             <div class="col-sm-8">
-                <select class="form-control" ng-model='correctTemplate.from' ng-init="correctTemplate.from = billsCategories[0].title">
-                    <option ng-repeat="key in billsCategories" ng-value="key.$id" >{{key.title}}</option>
+                <select class="form-control" ng-model='correctTemplate.from' ng-options="key.title for key in billsCategories">
+                    <!-- <option ng-repeat="key in billsCategories" ng-value="key.$id" >{{key.title}}</option> -->
                 </select>
             </div>
         </div>

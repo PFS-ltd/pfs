@@ -1,27 +1,33 @@
- app.controller('addNewGoalCtrl', function($scope,$uibModalInstance,ngToast,newGoal,goalArr){
+ app.controller('addNewGoalCtrl', function($scope,$uibModalInstance,ngToast,newGoal,goalArr,$translate){
     $scope.goalArr = goalArr;
      $scope.newGoal = newGoal;
 
      $scope.validForm = function (item) {
         if(item === undefined || item === null || item ===""){
-            ngToast.create({
-                'content': 'Заполните форму',
-                'className': 'danger'
-            })
+            $translate("fill the form").then(function(translation){
+                ngToast.create ({
+                    'content':translation,
+                    "className": 'danger'
+                })
+              })
             return false;
         }
        else if (item.title === null || item.title === undefined || item.title === ''){
-           ngToast.create({
-               'content': 'Укажите название',
-               'className': 'danger'
-           });
+        $translate("Indicate the name").then(function(translation){
+            ngToast.create ({
+                'content':translation,
+                "className": 'danger'
+            })
+          })
            return false;
        }
         else if (item.sumMax === null || item.sumMax === undefined || item.sumMax === 0) {
-         ngToast.create({
-             "content": "Укажите сумму",
-             "className": 'danger'
-         })
+            $translate("Indicate the sum").then(function(translation){
+                ngToast.create ({
+                    'content':translation,
+                    "className": 'danger'
+                })
+              })
          return false;
      }
      
@@ -40,10 +46,12 @@
         // console.log('same?',sameName);
         if (valid) {
                     if (sameName){
-                        ngToast.create ({
-                            'content' : 'Такое имя уже существует',
-                            "className" : 'danger'
-                        });
+                        $translate("This name already exists").then(function(translation){
+                            ngToast.create ({
+                                'content':translation,
+                                "className": 'danger'
+                            })
+                          })
                         result.title = undefined;
                     }
                     else {

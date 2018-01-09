@@ -12,7 +12,7 @@ app.service('incomeService', ['$state', 'Auth', "$firebaseObject", "$firebaseArr
         var transferRef = firebase.database().ref('users/' + uId + '/income/transferFromIncomeToBills');
         var transfers = $firebaseArray(transferRef);
 
-        var query = transferRef.orderByChild("timestamp").limitToLast(5);
+        var query = transferRef.orderByChild("timestamp").limitToLast(50);
         var queryTransfers = $firebaseArray(query);
 
         return {

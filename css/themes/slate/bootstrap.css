@@ -7274,3 +7274,7 @@ a.list-group-item-danger.active:focus {
 .panel-info .panel-heading {
   border-color: #000;
 }
+
+div.progress-bar i {
+  color: white;
+}

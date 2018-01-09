@@ -13,6 +13,7 @@
     "angular": "^1.6.7",
     "angular-animate": "^1.6.7",
     "angular-daterangepicker": "^0.2.3-alpha1",
+    "angular-dynamic-locale": "^0.1.32",
     "angular-fullcalendar": "^1.0.1",
     "angular-i18n": "^1.6.7",
     "angular-nvd3": "^1.0.9",

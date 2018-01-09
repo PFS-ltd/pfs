@@ -10,7 +10,7 @@
        
         this.dateOptions = {
             format: 'yy',
-            maxDate: new Date(2020, 5, 22)
+            maxDate: new Date(2020, 5, 22),
         };
 
         this.open = function () {
@@ -20,6 +20,8 @@
         this.popup = {
             opened: false
         };
+        this.dateFormat = $translate.instant('Date format');
+        
         //end
 
         //big mfn input
@@ -172,7 +174,7 @@
                 templateUrl: 'app/modals/income/delIncomeTransfer/delIncomeTransfer.html',
                 controller: 'delIncomeTransferController',
                 // controllerAs: 'modalSourceCtrl',
-                size: 'md',
+                size: 'sm',
                 resolve: {
                     item: function () {
                         return item;
@@ -251,7 +253,7 @@
                 templateUrl: 'app/modals/income/delIncomeSource/delIncomeSource.html',
                 controller: 'delIncomeSourceController',
                 // controllerAs: 'modalSourceCtrl',
-                size: 'md',
+                size: 'sm',
                 resolve: {
                     item: function () {
                         return item;
@@ -340,7 +342,7 @@
             var modalInstance = $uibModal.open({
                 templateUrl: 'app/modals/income/delIncomeAccount/delIncomeAccount.html',
                 controller: 'delIncomeAccountController',
-                size: 'md',
+                size: 'sm',
                 resolve: {
                     item: function () {
                         return item;

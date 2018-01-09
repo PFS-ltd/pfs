@@ -13,14 +13,16 @@
                 'LastMonth',
                 'Incomes',
                 'Costs',
-                'NoData']);
+                'NoData',
+                'Total']);
             var lastSeven = translation.LastSeven;
             var lastThirty = translation.LastThirty;
             var thisMonth = translation.ThisMonth;
             var lastMonth = translation.LastMonth;
             var noDataMsg = translation.NoData;
             var costs = translation.Costs;
-            var incomes = translation.Incomes
+            var incomes = translation.Incomes;
+            var total = translation.Total;
 
             var myRanges = {};
             myRanges[lastSeven] = [moment().subtract(1, 'w'), moment()],
@@ -174,7 +176,7 @@
                         rotateLabels: -45
                     },
                     yAxis: {
-                        axisLabel: 'Сумма',
+                        axisLabel: total,
                         axisLabelDistance: -20,
                         tickFormat: function (d) {
                             return d3.format()(d);

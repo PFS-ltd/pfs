@@ -1,7 +1,8 @@
 (function () {
-    app.controller('SettingsController', ['$scope', 'settingsService', '$translate', 'ngToast', 'Auth', '$state', function ($scope, settingsService, $translate, ngToast, Auth, $state) {
+    app.controller('SettingsController', ['$uibModal', '$scope', 'settingsService', '$translate', 'ngToast', 'Auth', '$state', 'localeFactory', function ($uibModal, $scope, settingsService, $translate, ngToast, Auth, $state, localeFactory) {
 
         var settingsCtrl = this;
+        
         
         this.roles = settingsService.getRolesArray();
         this.style = localStorage.getItem('preferredStyle') || 0;
@@ -11,6 +12,7 @@
         this.changeLanguage = function(key) {
             $translate.use(key);
             localStorage.setItem('preferredLanguage', key);
+            localeFactory.setLocale(key);
         }
         
         //change theme
@@ -20,25 +22,26 @@
             $scope.$emit('styleChanged', settingsCtrl.style);
         };
         
+//        console.log($locale);
         //user profile
         this.email = Auth.$getAuth().email;
         this.oldPass = '';
         this.newPass = '';
         this.confirmPass = '';
-        this.class3 = 'col-sm-4';
+        this.class3 = 'col-lg-4 col-md-4 col-sm-4';
         this.seeError3 = false;
-        this.class4 = 'col-sm-4';
+        this.class4 = 'col-lg-4 col-md-4 col-sm-4';
         this.seeError4 = false;
         this.seeError5 = false;
         this.confirmMailField = false;
-        this.class5 = 'form-group col-md-4';
+        this.class5 = 'form-group col-lg-4 col-md-4 col-sm-4';
         this.mailPass = '';
         this.seeError6 = false;
 //        settingsCtrl.confirmMailField
         
         this.checkMail = function(newMail) {
             if (newMail === '') return $translate('Empty mail').then(function(content) { return content; });
-            else if (newMail.indexOf('@') === -1 || newMail.indexOf('.') === -1) return $translate('Invalid format').then(function(content) { return content; });
+            else if (newMail.indexOf('@') === -1 || newMail.indexOf('.') === -1 || (newMail.indexOf('@') > newMail.lastIndexOf('.')) === true) return $translate('Invalid format').then(function(content) { return content; });
         }
         
         this.mailChanged = function(mail) {
@@ -47,7 +50,7 @@
         
         this.clearClass4 = function() {
             settingsCtrl.seeError6 = false;
-            settingsCtrl.class5 = 'form-group col-md-4';
+            settingsCtrl.class5 = 'form-group col-lg-4 col-md-4 col-sm-4';
         }
         
         this.updateMail = function(pass, mail) {
@@ -63,14 +66,14 @@
             },
             function() {
                 settingsCtrl.seeError6 = true;
-                settingsCtrl.class5 = 'form-group col-md-4 has-error';
+                settingsCtrl.class5 = 'form-group col-lg-4 col-md-4 col-sm-4 has-error';
             });
         }
         
         this.clearClass3 = function() {
-            settingsCtrl.class3 = 'col-sm-4';
+            settingsCtrl.class3 = 'col-lg-4 col-md-4 col-sm-4';
             settingsCtrl.seeError3 = false;
-            settingsCtrl.class4 = 'col-sm-4';
+            settingsCtrl.class4 = 'col-lg-4 col-md-4 col-sm-4';
             settingsCtrl.seeError4 = false;
             settingsCtrl.seeError5 = false;
         }
@@ -79,10 +82,10 @@
         this.changePass = function(oldPass, newPass, confirmPass) {
             Auth.$signInWithEmailAndPassword(Auth.$getAuth().email, oldPass).then(function(user) {
                 if (newPass.length < 6) {
-                    settingsCtrl.class4 = 'col-sm-4 has-error';
+                    settingsCtrl.class4 = 'col-lg-4 col-md-4 col-sm-4 has-error';
                     settingsCtrl.seeError5 = true;
                 } else if (newPass !== confirmPass){
-                    settingsCtrl.class4 = 'col-sm-4 has-error';
+                    settingsCtrl.class4 = 'col-lg-4 col-md-4 col-sm-4 has-error';
                     settingsCtrl.seeError4 = true;
                 } else if (newPass === confirmPass) {
                     user.updatePassword(newPass);
@@ -98,7 +101,7 @@
                 }
             },
             function() {
-                settingsCtrl.class3 = 'col-sm-4 has-error';
+                settingsCtrl.class3 = 'col-lg-4 col-md-4 col-sm-4 has-error';
                 settingsCtrl.seeError3 = true;
             });
         };
@@ -114,11 +117,11 @@
         
         //Roles
         this.newRole = '';
-        this.class1 = 'form-group col-md-4';
+        this.class1 = 'form-group col-lg-4 col-md-4 col-sm-4';
         this.seeError1 = false;
         
         this.clearClass1 = function() {
-                settingsCtrl.class1 = 'form-group col-md-4';
+                settingsCtrl.class1 = 'form-group col-lg-4 col-md-4 col-sm-4';
                 settingsCtrl.seeError1 = false;
         }
         
@@ -135,7 +138,7 @@
                     });
                 });
             } else {
-                settingsCtrl.class1 = 'form-group col-md-4 has-error';
+                settingsCtrl.class1 = 'form-group col-lg-4 col-md-4 col-sm-4 has-error';
                 settingsCtrl.seeError1 = true;
             }
         };
@@ -179,29 +182,42 @@
         
         //del account
         this.pass = '';
-        this.class2 = 'form-group col-md-4';
+        this.class2 = 'form-group col-lg-4 col-md-4 col-sm-4';
         this.seeError2 = false;
         
         this.clearClass2 = function() {
-                settingsCtrl.class2 = 'form-group col-md-4';
+                settingsCtrl.class2 = 'form-group col-lg-4 col-md-4 col-sm-4';
                 settingsCtrl.seeError2 = false;
         }
         
         this.deleteUser = function(pass) {
-            Auth.$signInWithEmailAndPassword(Auth.$getAuth().email, pass).then(function(item) {
-                settingsService.delUser(Auth.$getAuth().uid);
-                Auth.$deleteUser().then(function(){
-                    $state.go('root');
-                    $translate('Your account is deleted').then(function(content) {
-                        ngToast.create({
-                            "content": content,
-                            "className": 'success'
+            Auth.$signInWithEmailAndPassword(Auth.$getAuth().email, pass).then(function() {
+       
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modals/settings/delUserAccount/delUserAccount.html',
+                    controller: 'delUserAccountController',
+                    // controllerAs: 'modalSourceCtrl',
+                    size: 'sm'
+                });
+                modalInstance.result.then(function (result) {
+                    if (result) {
+                        settingsService.delUser(Auth.$getAuth().uid);
+                        Auth.$deleteUser().then(function(){
+                            $state.go('root');
+                            $translate('Your account is deleted').then(function(content) {
+                                ngToast.create({
+                                    "content": content,
+                                    "className": 'success'
+                                });
+                            });
                         });
-                    });
+                    }
+                }, function () {
+                    //error
                 });
             },
             function() {
-                settingsCtrl.class2 = 'form-group col-md-4 has-error';
+                settingsCtrl.class2 = 'form-group col-lg-4 col-md-4 col-sm-4 has-error';
                 settingsCtrl.seeError2 = true;
             });
         }

@@ -1,6 +1,6 @@
 /*
 body {
-    padding-top: 90px;
+    width: 100%;
 }
 */
 .container,
@@ -72,16 +72,27 @@ body {
     display: none;
   }
 /*HEADER*/
+#totalSum {
+    width: 15%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#rates {
+    width: 16%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 #rates div{
     display: inline-block;
     width: 70%;
 }
 
-/*
 #converter {
+    padding-left: 10px;
+    padding-right: 10px;
     width: 25%;
 }
-*/
 
 #converter input {
     display: inline-block;
@@ -117,3 +128,20 @@ body {
     display: inline-block;
 }
 
+@media (max-width: 1030px) {
+/*
+    .container-fluid .navbar-header {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+*/
+    #rates {
+        width: 20%;
+    }
+    #converter {
+        width: 35%;
+    }
+    .hide-title {
+        display: none;
+    }
+}

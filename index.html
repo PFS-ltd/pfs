@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PersonalFinance</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <title>CashMoney</title>
+    <link rel="shortcut icon" type="image/x-icon" href="img/1600.png">
     <link rel="stylesheet" ng-href="{{style}}">
     <link rel="stylesheet" href="node_modules/ng-toast/dist/ngToast.css">
     <link rel="stylesheet" href="node_modules/ng-toast/dist/ngToast-animations.css">
@@ -25,12 +25,7 @@
 
 <body>
     <toast></toast>
-    <!--
-    <div class="container">
-        <div ui-view=""></div>
-    </div>
--->
-    <div ui-view=""></div>
+    <div ui-view="" ng-cloak></div>
 
     <script src="node_modules/angular/angular.js"></script>
     <script src="node_modules/angular-animate/angular-animate.js"></script>
@@ -39,7 +34,7 @@
     <script src="node_modules/angular-ui-router.statehelper/statehelper.js"></script>
     <script src="node_modules/angularfire/dist/angularfire.js"></script>
     <script src="node_modules/firebase/firebase.js"></script>
-    <script src="node_modules/angular-i18n/angular-locale_ru-ru.js"></script>
+    
     <script src="node_modules/ng-toast/dist/ngToast.min.js"></script>
     <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
     <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
@@ -63,7 +58,7 @@
     <script src="node_modules/tinycolor2/dist/tinycolor-min.js"></script>
     <script src="node_modules/angularjs-color-picker/dist/angularjs-color-picker.js"></script>
     <!-- <script src="node_modules/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script> -->
-
+    
     <script src="app/app.js"></script>
     <script src="app/app.config.js"></script>
 
@@ -73,9 +68,10 @@
     <script src="app/home/homeController.js"></script>
 
     <script src="app/components/constants/calendarLocale.js"></script>
+    <script src="app/components/factories/localeFactory.js"></script>
 
     <script src="app/components/factories/auth.js"></script>
-
+    
     <script src="app/components/services/costs.js"></script>
     <script src="app/components/services/income.js"></script>
     <script src="app/components/services/settings.js"></script>
@@ -95,6 +91,7 @@
     <script src="app/modals/income/delIncomeTransfer/delIncomeTransferController.js"></script>
 
     <script src="app/settings/settingsController.js"></script>
+    <script src="app/modals/settings/delUserAccount/delUserAccountController.js"></script>
 
     <script src="app/costs/costsController.js"></script>
 
@@ -122,6 +119,7 @@
     <script src="app/modals/goals/editGoal/editGoalCtrl.js"></script>
     <script src="app/modals/goals/transferGoalToBill/transferCtrl.js"></script>
     
+    <script src="app/history/historyController.js"></script>
 </body>
 
 </html>

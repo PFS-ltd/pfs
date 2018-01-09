@@ -5,20 +5,20 @@
         <h5 class="page-header settings-header">{{'Change password' | translate}}</h5>
         <div class="form-horizontal">
             <div class="form-group">
-                <label for="oldPass" class="col-sm-3 control-label">{{'Old password' | translate}}</label>
+                <label for="oldPass" class="col-lg-3 col-md-3 col-sm-3 control-label">{{'Old password' | translate}}</label>
                 <div ng-class="settingsCtrl.class3">
                     <input type="password" class="form-control" id="oldPass" ng-model="settingsCtrl.oldPass" ng-change="settingsCtrl.clearClass3()" placeholder="{{'Input password' | translate}}">
                     <label for="oldPass" ng-if="settingsCtrl.seeError3" class="control-label">{{'Wrong password' | translate}}</label>
                 </div>
             </div>
             <div class="form-group">
-                <label for="newPass" class="col-sm-3 control-label">{{'New password' | translate}}</label>
+                <label for="newPass" class="col-lg-3 col-md-3 col-sm-3 control-label">{{'New password' | translate}}</label>
                 <div ng-class="settingsCtrl.class4">
                   <input type="password" class="form-control" id="newPass" ng-model="settingsCtrl.newPass" ng-change="settingsCtrl.clearClass3()" placeholder="{{'Input password' | translate}}">
                 </div>
             </div>
             <div class="form-group">
-                <label for="confirmPass" class="col-sm-3 control-label">{{'Confirm password' | translate}}</label>
+                <label for="confirmPass" class="col-lg-3 col-md-3 col-sm-3 control-label">{{'Confirm password' | translate}}</label>
                 <div ng-class="settingsCtrl.class4">
                     <input type="password" class="form-control" id="confirmPass" ng-model="settingsCtrl.confirmPass" ng-change="settingsCtrl.clearClass3()" placeholder="{{'Input password' | translate}}">
                     <label for="confirmPass" ng-if="settingsCtrl.seeError4" class="control-label">{{'Doesnt match' | translate}}</label>
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-4">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-3 col-md-offset-3 col-sm-offset-3">
                   <button type="submit" class="btn btn-primary" ng-click="settingsCtrl.changePass(settingsCtrl.oldPass, settingsCtrl.newPass, settingsCtrl.confirmPass)">{{'Change' | translate}}</button>
                 </div>
             </div>

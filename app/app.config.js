@@ -21,6 +21,7 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
                 url: '/home',
                 templateUrl: 'app/home/home.html',
                 controller: 'HomeController',
+                controllerAs: 'homeCtrl',
                 resolve: {
                     "currentAuth": ["Auth", function (Auth) {
                         return Auth.$requireSignIn();
@@ -64,6 +65,12 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
                 url: "/goals",
                 templateUrl : "app/goals/goal_page.html",
                 controller : "GoalController"
+            })
+            .state('home.history',{
+                url: "/history",
+                templateUrl : "app/history/history_page.html",
+                controller : "HistoryController",
+                controllerAs: 'historyCtrl',
             })
 
         $urlRouterProvider.otherwise('home');
@@ -118,7 +125,7 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
 
         $translateProvider.preferredLanguage(lang);
 
-        if (localStorage.getItem('preferredStyle') === null) localStorage.setItem('preferredStyle', '1');
+        if (localStorage.getItem('preferredStyle') === null) localStorage.setItem('preferredStyle', '3');
     }]);
 
 

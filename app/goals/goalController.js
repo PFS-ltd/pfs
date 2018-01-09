@@ -12,12 +12,12 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     $scope.rolesArr = settingsService.getRolesArray();
     // console.log('$scope.rolesArr', $scope.rolesArr);
     $scope.isCollapsed = true;
-    $scope.openTable = function () {
-        // console.log($scope.isCollapsed );
-        return $scope.isCollapsed = !$scope.isCollapsed;
-        
-    };
-     
+//    $scope.openTable = function () {
+//        // console.log($scope.isCollapsed );
+//        return $scope.isCollapsed = !$scope.isCollapsed;
+//        
+//    };
+//     
     $scope.MyFilter = function (key) {
         return key.title;
     }

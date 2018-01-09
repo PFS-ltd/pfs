@@ -35,7 +35,7 @@ app.constant('calendarLocale', {
         "firstDay": 1
     },
     'ru': {
-        "format": "DD/MM/YYYY",
+        "format": "DD.MM.YYYY",
         "separator": " - ",
         "applyLabel": "Принять",
         "cancelLabel": "Отмена",

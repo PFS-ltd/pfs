@@ -2,20 +2,22 @@
     var homeController = app.controller('HomeController',
         function ($scope, Auth, ngToast, $state, currentAuth, $location, settingsService, $http, incomeService) {
             
+            var homeCtrl = this;
+        
             if (currentAuth == null) {
                 $state.transitionTo('root');
             };
             
-            $scope.classes = ['', '', '', '', '', ''];
-            $scope.changeClass = function(index) {
-                $scope.classes.forEach(function(item, i, arr) {
+            this.classes = ['', '', '', '', '', '', ''];
+            this.changeClass = function(index) {
+                homeCtrl.classes.forEach(function(item, i, arr) {
                     (i != index) ? arr[i] = '' : arr[i] = 'active';
                 })
             };
-            $scope.locPaths = ['/home/income', '/home/costs', '/home/statistics', '/home/calendar', '/home/goals', '/home/settings']
-            if ($scope.locPaths.indexOf($location.$$path) != -1) {
-                $scope.classes.forEach(function(item, i, arr) {
-                    (i != $scope.locPaths.indexOf($location.$$path)) ? arr[i] = '' : arr[i] = 'active';
+            this.locPaths = ['/home/income', '/home/costs', '/home/statistics', '/home/calendar', '/home/goals', '/home/settings', '/home/history']
+            if (this.locPaths.indexOf($location.$$path) != -1) {
+                this.classes.forEach(function(item, i, arr) {
+                    (i != homeCtrl.locPaths.indexOf($location.$$path)) ? arr[i] = '' : arr[i] = 'active';
                 })
             };
         
@@ -31,7 +33,7 @@
         
             incomeArr.$watch(
                 function (event) {
-                    $scope.amount = amountMoney(incomeArr);
+                    homeCtrl.amount = amountMoney(incomeArr);
                 }
             );
         
@@ -48,65 +50,66 @@
         //Currencies
             if (localStorage.getItem('converter') === null || localStorage.getItem('converter') === 'false') {
                 localStorage.setItem('converter', 'false');
-                $scope.seeConv = false;
-            } else if (localStorage.getItem('converter') === 'true') $scope.seeConv = true;
+                this.seeConv = false;
+            } else if (localStorage.getItem('converter') === 'true') this.seeConv = true;
             
             if (localStorage.getItem('rates') === null || localStorage.getItem('rates') === 'false') {
                 localStorage.setItem('rates', 'false');
-                $scope.seeRates = false;
-            } else if (localStorage.getItem('rates') === 'true') $scope.seeRates = true;
+                this.seeRates = false;
+            } else if (localStorage.getItem('rates') === 'true') this.seeRates = true;
         
             $scope.$on('widgets', function(event, data) {
-                (data.widget === 'converter') ? $scope.seeConv = data.value : $scope.seeRates = data.value;
+                (data.widget === 'converter') ? homeCtrl.seeConv = data.value : homeCtrl.seeRates = data.value;
             });
         
-            $scope.currencyRates = [];
-            $scope.currencyNames = [];
-            $scope.currency1 = 0;
-            $scope.currency2 = 0;
-            $scope.i = 0;
-            $scope.j = 0;
-            $scope.k = 0;
+            this.currencyRates = [];
+            this.currencyNames = [];
+            this.currency1 = 0;
+            this.currency2 = 0;
+            this.i = 0;
+            this.j = 0;
+            this.k = 0;
             $http.get("https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5").then(function (response) {
 //                console.log(response)
-                $scope.currencyRates = response.data;
-                $scope.currencyRates.splice(3,1);   //delete bitcoin
-                $scope.currencyRates.forEach(function(item, i, arr) {
-                    $scope.currencyNames.push(arr[i].ccy);
+                homeCtrl.currencyRates = response.data;
+                homeCtrl.currencyRates.splice(3,1);   //delete bitcoin
+                homeCtrl.currencyRates.forEach(function(item, i, arr) {
+                    item.buy = (+item.buy).toFixed(3);
+                    item.sale = (+item.sale).toFixed(3);
+//                    console.log(item)
+                    homeCtrl.currencyNames.push(arr[i].ccy);
                 });
-                $scope.currencyNames.push("UAH");
+                homeCtrl.currencyNames.push("UAH");
 //                console.log($scope.currencyRates);
             }, function (error) {
-                console.log(error);
+                // console.log(error);
             });
             
-            $scope.changeCurr = function() {
-                ( $scope.i != ($scope.currencyRates.length-1) ) ? $scope.i++ : $scope.i = 0;
+            this.changeCurr = function() {
+                ( homeCtrl.i != (homeCtrl.currencyRates.length-1) ) ? homeCtrl.i++ : homeCtrl.i = 0;
             };   
-            $scope.convertCurr1 = function() {
-                ( $scope.j != ($scope.currencyNames.length-1) ) ? $scope.j++ : $scope.j = 0;
-                $scope.calculate();
+            this.convertCurr1 = function() {
+                ( homeCtrl.j != (homeCtrl.currencyNames.length-1) ) ? homeCtrl.j++ : homeCtrl.j = 0;
             };  
-            $scope.convertCurr2 = function() {
-                ( $scope.k != ($scope.currencyNames.length-1) ) ? $scope.k++ : $scope.k = 0;
-                $scope.calculate();
+            this.convertCurr2 = function() {
+                ( homeCtrl.k != (homeCtrl.currencyNames.length-1) ) ? homeCtrl.k++ : homeCtrl.k = 0;
             }; 
-            $scope.calculate = function() {
-                if ($scope.currencyNames[$scope.j] === $scope.currencyNames[$scope.k]) $scope.currency2 = $scope.currency1;
-                else if ($scope.currencyNames[$scope.j] != "UAH" && $scope.currencyNames[$scope.k] === "UAH") {
-                            $scope.currency2 = $scope.currency1 * $scope.currencyRates[$scope.j].buy;
-                    } else if ($scope.currencyNames[$scope.j] === "UAH" && $scope.currencyNames[$scope.k] != "UAH") {
-                            $scope.currency2 = $scope.currency1 / $scope.currencyRates[$scope.k].sale;
-                        } else if ($scope.currencyNames[$scope.j] != "UAH" && $scope.currencyNames[$scope.k] != "UAH") {
-                            $scope.currency2 = ($scope.currency1 * $scope.currencyRates[$scope.j].buy) / $scope.currencyRates[$scope.k].sale;
+            this.calculate = function() {
+                if (homeCtrl.currencyNames[homeCtrl.j] === homeCtrl.currencyNames[homeCtrl.k]) homeCtrl.currency2 = homeCtrl.currency1;
+                else if (homeCtrl.currencyNames[homeCtrl.j] != "UAH" && homeCtrl.currencyNames[homeCtrl.k] === "UAH") {
+                            homeCtrl.currency2 = homeCtrl.currency1 * homeCtrl.currencyRates[homeCtrl.j].buy;
+                    } else if (homeCtrl.currencyNames[homeCtrl.j] === "UAH" && homeCtrl.currencyNames[homeCtrl.k] != "UAH") {
+                            homeCtrl.currency2 = homeCtrl.currency1 / homeCtrl.currencyRates[homeCtrl.k].sale;
+                        } else if (homeCtrl.currencyNames[homeCtrl.j] != "UAH" && homeCtrl.currencyNames[homeCtrl.k] != "UAH") {
+                            homeCtrl.currency2 = (homeCtrl.currency1 * homeCtrl.currencyRates[homeCtrl.j].buy) / homeCtrl.currencyRates[homeCtrl.k].sale;
                         }
             };
             
-            $scope.signOut = function () {               
+            this.signOut = function () {               
                 Auth.$signOut().then(function () {
-                    var asdf = 'Прощай'
+                    // var asdf = 'Прощай'
                     $state.transitionTo('root');
-                    ngToast.create(asdf);
+                    // ngToast.create(asdf);
                 })
             }
         });

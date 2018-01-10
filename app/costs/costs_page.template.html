@@ -1,7 +1,7 @@
 <div class="row">
-    <form class="col-md-12">
+    <form class="col-lg-12 col-md-12 col-sm-12">
         <div class="input-group" id="costs-form">
-             <div class="col-md-2">
+             <div class="col-lg-2 col-md-2 col-sm-2">
                     <input type="text"
                     class="form-control"
                     placeholder= "{{'Date' | translate}}"
@@ -11,19 +11,19 @@
                     show-button-bar="false"
                     ng-focus="openPicker()" />
             </div>
-            <div class="col-md-2 ">
+            <div class="col-lg-2 col-md-2 col-sm-2">
                 <select class="form-control" ng-model='newCosts.who' >
                     <option value="" disabled selected>{{'Participant' | translate}}</option>
                     <option ng-repeat="key in rolesArr" ng-value="key">{{key.title}}</option>
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">
                 <select class="form-control" ng-model='newCosts.from'>
                     <option value="" selected disabled>{{'Account' | translate}}</option>
                     <option ng-repeat="item in billsCategories" ng-value="item">{{item.title}}</option>
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">
                 <select class="form-control" ng-model='newCosts.to'>
 
                     <option value=""  disabled selected >{{'Category'| translate}}</option>
@@ -31,11 +31,11 @@
                     <option ng-repeat='key in costsCategoriesArr' ng-value="key">{{key.title}}</option>
                 </select>
             </div>
-            <div class="col-md-1">
+            <div class="col-lg-1 col-md-1 col-sm-1">
                 <input type="number" placeholder= "{{'Sum' | translate}}" min='0' class="form-control" ng-model='newCosts.sum'>
             </div>
            
-            <div class="col-md-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">
                 <input type="text" placeholder="{{'Comment' | translate}}" class="form-control" ng-model='newCosts.comment'>
             </div>
             <span class="input-group-btn pull-left">
@@ -45,7 +45,7 @@
     </form>
 </div>
 
-<div class="col-md-6">
+<div class="col-lg-6 col-md-6 col-sm-6">
     <div class="panel panel-danger">
         <div class="panel-heading clearfix">
 
@@ -66,14 +66,14 @@
                 </li> -->
                 <li class="list-group-item text-left" ng-repeat='item in costsCategoriesArr'>
                     <span class="category-title">{{item.title}}</span>
-                    <div class="col-xs-4" class="list-group-item-heading" ng-if="item.limit!=0">
+                    <div class="col-lg-4 col-md-4 col-sm-4" class="list-group-item-heading" ng-if="item.limit!=0">
                         <uib-progressbar animate="false" type="{{type(item)}}" max="item.limitPayment" value="item.sum" ng-if="item.limitPayment">
                             <!-- <i style="color:black;">{{item.sum}}</i> <i style ng-hide="item.limitPayment ==0"> / {{item.limitPayment}}</i> -->
-                            <i style="color:black; text-align:center;">{{item.sum}}/{{item.limitPayment}}</i>
+                            <i style="text-align:center;">{{item.sum}}/{{item.limitPayment}}</i>
                         </uib-progressbar>
                         <uib-progressbar animate="false" type="success" max="item.limitPayment" value="item.sum" ng-if="!item.limitPayment">
                             <!-- <i style="color:black;">{{item.sum}}</i> <i style ng-hide="item.limitPayment ==0"> / {{item.limitPayment}}</i> -->
-                            <i style="color:black; text-align:center;">{{item.sum}}</i>
+                            <i style="text-align:center;">{{item.sum}}</i>
                         </uib-progressbar>
                     </div>
                     
@@ -90,7 +90,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-6">
+<div class="col-lg-6 col-md-6 col-sm-6">
     <div class="panel panel-warning">
         <div class="panel-heading clearfix">
 
@@ -124,7 +124,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-12">
+<div class="col-lg-12 col-md-12 col-sm-12">
     <div class="panel panel-default">
         <div class="panel-heading clearfix ">
             <h3 class=" x1 ">{{"Recent costs" | translate}} </h3>

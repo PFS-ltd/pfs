@@ -13,11 +13,16 @@
                 'LastMonth',
                 'Incomes',
                 'Costs',
-                'NoData']);
+                'NoData',
+                'Total']);
             var lastSeven = translation.LastSeven;
             var lastThirty = translation.LastThirty;
             var thisMonth = translation.ThisMonth;
-            var lastMonth = translation.LastMonth
+            var lastMonth = translation.LastMonth;
+            var noDataMsg = translation.NoData;
+            var costs = translation.Costs;
+            var incomes = translation.Incomes;
+            var total = translation.Total;
 
             var myRanges = {};
             myRanges[lastSeven] = [moment().subtract(1, 'w'), moment()],
@@ -102,13 +107,13 @@
                     //     axisLabel: 'Кол-во денег'
                     // },
                     yAxis: {
-                        axisLabel: 'Кол-во денег',
+                        // axisLabel: 'Кол-во денег',
                         axisLabelDistance: -30,
                         tickFormat: function (d) {
                             return d3.format()(d);
                         },
                     },
-                    noData: "За выбранный диапазон времени нет данных",
+                    noData: noDataMsg,
                 },
             };
             var sumOfOperationsFilterBydate = function (arr, role) {
@@ -132,12 +137,12 @@
                     {
                         values: [
                             {
-                                "label": "Расходы",
+                                "label": costs,
                                 "value": sumOfOperationsFilterBydate($scope.costsTransfers, $scope.data.role.title),
                                 'color': 'red'
                             },
                             {
-                                "label": "Доходы",
+                                "label": incomes,
                                 "value": sumOfOperationsFilterBydate($scope.incomeTransfers, $scope.data.role.title),
                                 'color': 'green'
                             }
@@ -171,26 +176,30 @@
                         rotateLabels: -45
                     },
                     yAxis: {
-                        axisLabel: 'Сумма',
+                        axisLabel: total,
                         axisLabelDistance: -20,
                         tickFormat: function (d) {
                             return d3.format()(d);
                         }
                     },
                     showControls: false,
-                    noData: "За выбранный диапазон времени нет данных",
-
+                    noData: noDataMsg,
+                    legend: {
+                        margin: {
+                            top: 5,
+                            right: 5,
+                            bottom: 5,
+                            left: 0
+                        },
+                        vers: 'furious'
+                    },
+                    legendPosition: 'bottom',
                 }
             }
 
             $scope.chart2.data = function () {
-                console.log($scope.data.date.startDate._d);
-                console.log($scope.data.date.endDate._d);
-                console.log(moment("01/02/2018"));
-                console.log((moment("01/02/2018").isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')));
 
                 var filteredCosts = $scope.costsTransfers.filter(function (item) {
-                    // console.log((moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')));
                     if (moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d)) {
                         if ($scope.data.role.title == 'Общий' || $scope.data.role.title == 'Mutual') {
                             return item.title = item.to.title
@@ -201,7 +210,6 @@
                         }
                     }
                 });
-                console.log(filteredCosts);
                 function unique(arr) {
                     var obj = {};
                     for (var i = 0; i < arr.length; i++) {
@@ -212,7 +220,6 @@
                 };
 
                 var categoriesArr = unique(filteredCosts);
-                console.log(categoriesArr);
 
                 var dataForChart = [];
                 // var startYear = moment(date).startOf('Year');
@@ -264,8 +271,6 @@
                     }
                     filteredCosts.forEach(function (item2) {
                         if (item.key == item2.title) {
-                            console.log(item);
-                            console.log(item2);
                             item.values.forEach(function (itemValues) {
                                 if (itemValues.x == item2.date) {
                                     itemValues.y += item2.sum;
@@ -287,15 +292,17 @@
                     duration: 500,
                     labelThreshold: 0.01,
                     labelSunbeamLayout: true,
+                    noData: noDataMsg,
                     legend: {
                         margin: {
                             top: 5,
                             right: 5,
                             bottom: 5,
                             left: 0
-                        }
+                        },
+                        vers: 'furious'
                     },
-                    noData: "За выбранный диапазон времени нет данных",
+                    legendPosition: 'bottom',
                 }
             }
 
@@ -362,9 +369,11 @@
                             right: 5,
                             bottom: 5,
                             left: 0
-                        }
+                        },
+                        vers: 'furious'
                     },
-                    noData: "За выбранный диапазон времени нет данных",
+                    legendPosition: 'bottom',
+                    noData: noDataMsg,
                 }
             }
 

@@ -39,7 +39,7 @@
     };
     $scope.ok = function (result) {
         var valid = $scope.validForm(result) ;
-        console.log(valid)
+        // console.log(valid)
         var sameName =  $scope.goalArr.some(function(item) {
 			return (  item.title === result.title); 
 		});

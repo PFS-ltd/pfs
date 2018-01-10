@@ -1,4 +1,5 @@
 {
+    "Please, sign in": "Please, sign in the app",
     "Sign Up": "Sign Up",
     "Login": "Login",
     "E-mail": "E-mail address",
@@ -6,19 +7,19 @@
     "Wrong password" : "Wrong password",
     "Invalid email": "Invalid e-mail",
     "UserNotFound" : "User with such e-mail wasn't found",
-    "Register":"Register",
+    "Register": "Register",
     "ConfirmPasswordRegistration" :"Confirm password",
     "UserRegName" : "Name", 
     "EnterName" : "Enter name",
     "NameAlphabets": "Name must contain only alphabets",
-    "EnterEmail":"Enter e-mail",
-    "EmailIsInvalid":"E-mail doesn't match example format example@mail.com",
-    "EnterPassword":"Enter password",
+    "EnterEmail": "Enter e-mail",
+    "EmailIsInvalid": "E-mail doesn't match example format example@mail.com",
+    "EnterPassword": "Enter password",
     "PasswordLength" :"Password should be at least 6 characters",
-    "PasswordSpaces":"Password can't contain spaces",
-    "ConfirmPassword":"Confrim password",
-    "PassMismatch":"Password mismatch",
-    "AlreadyInUse":"The email address is already in use by another account",
+    "PasswordSpaces": "Password can't contain spaces",
+    "ConfirmPassword": "Confrim password",
+    "PassMismatch": "Password mismatch",
+    "AlreadyInUse": "The email address is already in use by another account",
     "WelcomeText": "Welcome",
 
     "Incomes": "Incomes",
@@ -26,6 +27,7 @@
     "Calendar": "Calendar",
     "Statistics": "Statistics",
     "Goals": "Goals",
+    "History": "History",
     "Logout": "Logout",
     "Settings": "Settings",
     "Currency rate": "Currency rate (PrivatBank)",
@@ -65,6 +67,7 @@
     "Doesnt match": "Passwords doesn't match",
     "Min 6": "Minimum 6 symbols in password",
     "Change": "Change",
+    "User account": "User account",
     
     "Delete": "Delete",
     "Income sources": "Income sources",
@@ -96,6 +99,12 @@
     "Cancel recent income?": "Cancel recent income?",
     "Edit account": "Edit account",
     "Edit income source": "Edit income source",
+    "Date format": "MM/dd/yyyy",
+    
+    "Records": "Records per page",
+    "First": "First",
+    "Last": "Last",
+    "Page filter": "Page filter",
 
     "Category" : "Category",
     "Consumption category" : "Consumption category",
@@ -141,7 +150,7 @@
     "This name already exists": "This name already exists",
     "The goal amount must exceed the accumulation amount": "The goal amount must exceed the accumulation amount",
     "Transfer the balance to the account" : "Transfer the balance to the account",
-    "Invalid name" :"Invalid name"
+    "Invalid name" :"Invalid name",
 
 
 
@@ -154,7 +163,9 @@
     "LastMonth" : "Last month",
     "NoData": "For such date range there are no any infromation",
     "ChooseRange":" Choose date range",
-    "AddEvent": "Add event"
+    "AddEvent": "Add event",
+    "Total":"Total",
+    
 
     "Incomes help1": "Here you can add, edit or remove an income source, for example 'Salary' or 'Renting'. Must be one minimum.",
     "Incomes help2": "Here you can add, edit or remove an account, for example 'Bank account' or 'Cash'. Must be one minimum.",
@@ -166,7 +177,12 @@
     "Recent delete": "Recent income deleted",
     "Cant cancel": "Can't cancel transfer, because will be negative sum on account ",
     "Category updated": "Category successfully updated",
-    "Count updated": "Count successfully updated"
-
+    "Count updated": "Count successfully updated",
+    
+    "AddEventCalendar" : "Add event",
+    "EventDate" : "Event date",
+    "Description" : "Description",
+    "Background" : "Background color",
+    "EditCalEvent" : "Edit event"
 
 }

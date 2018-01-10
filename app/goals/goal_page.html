@@ -1,7 +1,7 @@
 <div class="row">
-    <form class="col-md-12">
-        <div class="input-group" id="costs-form">>
-             <div class="col-md-2">
+    <form class="col-lg-12 col-md-12 col-sm-12">
+        <div class="input-group" id="goal-form">>
+             <div class="col-lg-2 col-md-2 col-sm-2">
                     <input type="text"
                     class="form-control"
                     placeholder="Дата" 
@@ -11,20 +11,20 @@
                     show-button-bar="false"
                     ng-focus="openPicker()" />
             </div>
-            <div class="col-md-2 ">
+            <div class="col-lg-2 col-md-2 col-sm-2">
                 <select class="form-control" ng-model='newCosts.who' >
                     <option value="" disabled selected>{{'Participant' | translate}}</option>
                     <option ng-repeat="key in rolesArr" ng-value="key">{{key.title}}</option>
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">
                 <select class="form-control" ng-model='newCosts.from'>
                     <option value="" selected disabled>{{'Account' | translate}}</option>
                     <option ng-repeat="item in billsCategories" ng-value="item">{{item.title}}</option>
 
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">
                 <select class="form-control" ng-model='newCosts.to'>
                     <option value=""  disabled selected >{{'Goals' | translate}}</option>
                     <option ng-repeat='key in goalArr' ng-value="key">{{key.title}}</option>
@@ -34,7 +34,7 @@
                 <input type="number" placeholder="{{'Sum' | translate}}"  class="form-control" ng-model='newCosts.sum'>
             </div>
            
-            <div class="col-md-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">
                 <input type="text" placeholder="{{'Comment' | translate}}" class="form-control" ng-model='newCosts.comment'>
             </div>
             <span class="input-group-btn pull-left">
@@ -46,7 +46,7 @@
 
 
 
-<div class="col-md-12">
+<div class="col-lg-12 col-md-12 col-sm-12">
     <div class="panel panel-success">
         <div class="panel-heading clearfix">
             <h3 class="panel-title goal-panel"> {{'Goals' | translate}}</h3>
@@ -66,13 +66,13 @@
             <ul class="list-group" >
                 <li class="list-group-item text-left" ng-repeat="key in goalArr">
                     <span class="category-title" >{{key.title}}</span>
-                    <div class="col-md-6" class="list-group-item-heading">
+                    <div class="col-lg-6 col-md-6 col-sm-6" class="list-group-item-heading">
                         <uib-progressbar animate="true" type="success" max="key.sumMax" value="key.sum" >
-                            <i style="color:black; text-align:center;">{{key.sum}}/{{key.sumMax}}</i>
+                            <i style="text-align:center;">{{key.sum}}/{{key.sumMax}}</i>
                         </uib-progressbar>
                     </div>
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-info btn-xs" ng-click="isCollapsed = !isCollapsed "  >
+                        <button type="button" class="btn btn-info btn-xs" ng-click="isCollapsed = !isCollapsed" >
                             <span class="glyphicon glyphicon-chevron-down"></span>
                         </button>
                         <!-- <button type="button" class="btn btn-warning btn-xs" ng-click="transferGoalToBill(key)">

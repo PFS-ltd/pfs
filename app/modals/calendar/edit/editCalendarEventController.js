@@ -1,20 +1,20 @@
 (function () {
-    app.controller('EditCalendarEventController', ['$uibModalInstance', '$scope', 'item', 'calendarLocale', 'ngToast',
-        function ($uibModalInstance, $scope, item, calendarLocale, ngToast) {
+    app.controller('EditCalendarEventController', ['$uibModalInstance', '$scope', 'item', 'calendarLocale', 'ngToast', '$translate',
+        function ($uibModalInstance, $scope, item, calendarLocale, ngToast, $translate) {
             $scope.item = item;
-            console.log($scope.item);
+            // console.log($scope.item);
 
 
             $scope.data = {
                 options: {
-                    locale: calendarLocale['ru'],
+                    locale: calendarLocale[localStorage.getItem('preferredLanguage')],
                     singleDatePicker: true,
                     applyClass: 'btn btn-success',
                     autoApply: true,
                     showCustomRangeLabel: false,
                 }
             };
-            console.log($scope.data);
+            // console.log($scope.data);
 
 
             $scope.cancel = function () {
@@ -24,9 +24,11 @@
 
             $scope.ok = function (item, action) {
                 if (!item || item.title == undefined || item.title === "" ) {
-                    ngToast.create({
-                        className: 'warning',
-                        content: 'Название не может быть пустым '
+                    $translate( "Empty name").then(function(translation){
+                        ngToast.create({
+                            className: 'warning',
+                            content: translation
+                        });
                     });
 
                 } else {

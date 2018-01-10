@@ -15,7 +15,7 @@
                         'pass': pass,
                     })
                 }).catch(function (error) {
-                    console.log(error);
+                    // console.log(error);
                     if(error.code === 'auth/invalid-email') {
                         $scope.err = "Invalid email"
                     } else if(error.code === 'auth/user-not-found'){

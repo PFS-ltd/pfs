@@ -1,11 +1,10 @@
 (function () {
-    app.controller('CalendarsController', ['$scope', 'incomeService', 'settingsService', 'costsService',
-        '$filter', 'ngToast', 'Auth', 'currentAuth', '$timeout', 'calendarService', '$uibModal', '$compile', '$translate',
-        function ($scope, incomeService, settingsService, costsService, $filter,
-            ngToast, Auth, currentAuth, $timeout, calendarService, $uibModal, $compile, $translate) {
-
+    app.controller('CalendarsController', ['$scope', 'settingsService', 'ngToast', 'Auth', 'currentAuth', '$timeout', 'calendarService', '$uibModal', '$compile', '$translate',
+        function ($scope, settingsService, ngToast, Auth, currentAuth, $timeout, calendarService, $uibModal, $compile, $translate) {
 
             $scope.eventSources = calendarService.getEvents();
+           
+            // console.log($scope.eventSources);
             var btn = $translate.instant('AddEvent');
             $scope.calendarOptions = {
                 locale: localStorage.getItem('preferredLanguage'),
@@ -14,7 +13,6 @@
                 themeSystem: 'bootstrap3',
                 eventLimit: true,
                 dayClick: function (date) {
-                    console.log(date)
                     var modalEventCalendar = $uibModal.open({
                         templateUrl: 'app/modals/calendar/add/addCalendarEvent.html',
                         controller: 'addCalendarEventController',

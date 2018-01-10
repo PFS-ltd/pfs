@@ -6956,3 +6956,6 @@ button.close {
 .panel-primary .panel-title {
   color: #fff;
 }
+div.progress-bar i {
+  color: black;
+}

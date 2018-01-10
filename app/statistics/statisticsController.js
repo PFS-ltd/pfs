@@ -184,7 +184,16 @@
                     },
                     showControls: false,
                     noData: noDataMsg,
-
+                    legend: {
+                        margin: {
+                            top: 5,
+                            right: 5,
+                            bottom: 5,
+                            left: 0
+                        },
+                        vers: 'furious'
+                    },
+                    legendPosition: 'bottom',
                 }
             }
 
@@ -283,15 +292,17 @@
                     duration: 500,
                     labelThreshold: 0.01,
                     labelSunbeamLayout: true,
+                    noData: noDataMsg,
                     legend: {
                         margin: {
                             top: 5,
                             right: 5,
                             bottom: 5,
                             left: 0
-                        }
+                        },
+                        vers: 'furious'
                     },
-                    noData: noDataMsg,
+                    legendPosition: 'bottom',
                 }
             }
 
@@ -358,8 +369,10 @@
                             right: 5,
                             bottom: 5,
                             left: 0
-                        }
+                        },
+                        vers: 'furious'
                     },
+                    legendPosition: 'bottom',
                     noData: noDataMsg,
                 }
             }

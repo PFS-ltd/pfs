@@ -102,17 +102,9 @@ app.config(["$stateProvider", "ngToastProvider", '$locationProvider', '$urlRoute
             options.inputClass = 'form-control';
             return options;
         });
-//        $translateProvider.translations('en', {
-//            "Incomes": "Incomes",
-//            "Costs": "Costs"
-//        });
-//
-//        $translateProvider.translations('ru', {
-//            "Incomes": 'Доходы",
-//            "Costs": "Расходы"
-//        });
+
         $translateProvider.useStaticFilesLoader({
-            prefix: '/i18n/',
+            prefix: './i18n/',
             suffix: '.json'
         });
         

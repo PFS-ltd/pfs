@@ -6,7 +6,7 @@
 
     <div class="col-lg-7 col-md-7">
         <div class="col-lg-4 col-md-4 pull-right">
-              <input type="text" class="form-control input-sm" ng-model="historyCtrl.search" placeholder="{{'Page filter' | translate}}">
+              <input type="text" class="form-control input-sm" ng-model="historyCtrl.search" ng-model-options='{ debounce: 1000 }' ng-change="historyCtrl.filterBy()" placeholder="{{'Page filter' | translate}}">
         </div>
         <div class="pull-right">
             {{'Records' | translate}}:
@@ -25,25 +25,25 @@
     <uib-tab index="0" heading="{{'Incomes' | translate}}" select="historyCtrl.tabSelected(0)">
         <table class="table table-hover">
             <thead>
-                <th class="table-th-cursor" ng-click="sortBy('date')">
+                <th class="table-th-cursor" >
         <!--            <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'date', 'glyphicon-menu-down': sortField === '-date'}"></i>-->
                     {{'Date' | translate}}
                 </th>
-                <th class="table-th-cursor" ng-click="sortBy('sum')">
+                <th class="table-th-cursor">
         <!--            <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'sum', 'glyphicon-menu-down': sortField === '-sum'}"></i>-->
                     {{'Sum' | translate}}
                 </th>
                 <th>
                     {{'From/To' | translate}}
                 </th>
-                <th class="table-th-cursor" ng-click="sortBy('who')">
+                <th class="table-th-cursor">
         <!--            <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'who', 'glyphicon-menu-down': sortField === '-who'}"></i>-->
                     {{'Participant' | translate}}
                 </th>
                 <th>{{'Comment' | translate}}</th>
             </thead>
             <tbody>
-                <tr ng-repeat='item in historyCtrl.incomeTransfers.slice( ( (historyCtrl.currentPage-1)*historyCtrl.itemsPerPage), ( (historyCtrl.currentPage)*historyCtrl.itemsPerPage) ) | orderBy: sortField | filter: historyCtrl.search track by $index'>
+                <tr ng-repeat='item in historyCtrl.incomes.slice( ( (historyCtrl.currentPage-1)*historyCtrl.itemsPerPage), ( (historyCtrl.currentPage)*historyCtrl.itemsPerPage) )'>
                     <td>{{item.date | date : historyCtrl.dateFormat}}</td>
                     <td>{{item.sum}}</td>
                     <td>{{'From' | translate}} "{{item.from.title}}" {{'to' | translate}} "{{item.to.title}}"</td>
@@ -74,7 +74,7 @@
                 <th>{{'Comment' | translate}}</th>
             </thead>
             <tbody>
-                <tr ng-repeat='item in historyCtrl.costTransfers.slice( ( (historyCtrl.currentPage-1)*historyCtrl.itemsPerPage), ( (historyCtrl.currentPage)*historyCtrl.itemsPerPage) ) | orderBy: sortField | filter: historyCtrl.search track by $index'>
+                <tr ng-repeat='item in historyCtrl.costs.slice( ( (historyCtrl.currentPage-1)*historyCtrl.itemsPerPage), ( (historyCtrl.currentPage)*historyCtrl.itemsPerPage) ) | orderBy: sortField'>
                     <td>{{item.date | date : historyCtrl.dateFormat}}</td>
                     <td>{{item.sum}}</td>
                     <td>{{'From' | translate}} "{{item.from.title}}" {{'to' | translate}} "{{item.to.title}}"</td>
@@ -87,25 +87,25 @@
     <uib-tab index="2" heading="{{'Goals' | translate}}" select="historyCtrl.tabSelected(2)">
         <table class="table table-hover">
             <thead>
-                <th class="table-th-cursor" ng-click="sortBy('date')">
+                <th class="table-th-cursor">
         <!--            <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'date', 'glyphicon-menu-down': sortField === '-date'}"></i>-->
                     {{'Date' | translate}}
                 </th>
-                <th class="table-th-cursor" ng-click="sortBy('sum')">
+                <th class="table-th-cursor">
         <!--            <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'sum', 'glyphicon-menu-down': sortField === '-sum'}"></i>-->
                     {{'Sum' | translate}}
                 </th>
                 <th>
                     {{'From/To' | translate}}
                 </th>
-                <th class="table-th-cursor" ng-click="sortBy('who')">
+                <th class="table-th-cursor">
         <!--            <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'who', 'glyphicon-menu-down': sortField === '-who'}"></i>-->
                     {{'Participant' | translate}}
                 </th>
                 <th>{{'Comment' | translate}}</th>
             </thead>
             <tbody>
-                <tr ng-repeat='item in historyCtrl.goalsTransfers.slice( ( (historyCtrl.currentPage-1)*historyCtrl.itemsPerPage), ( (historyCtrl.currentPage)*historyCtrl.itemsPerPage) ) | orderBy: sortField | filter: historyCtrl.search track by $index'>
+                <tr ng-repeat='item in historyCtrl.goals.slice( ( (historyCtrl.currentPage-1)*historyCtrl.itemsPerPage), ( (historyCtrl.currentPage)*historyCtrl.itemsPerPage) )'>
                     <td>{{item.date | date : historyCtrl.dateFormat}}</td>
                     <td>{{item.sum}}</td>
                     <td>{{'From' | translate}} "{{item.from.title}}" {{'to' | translate}} "{{item.to.title}}"</td>

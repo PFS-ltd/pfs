@@ -1,5 +1,5 @@
 (function () {
-    app.controller('IncomeController', ['$uibModal', '$scope', 'incomeService', 'settingsService', '$filter', 'ngToast', '$transitions', '$translate', function ($uibModal, $scope, incomeService, settingsService, $filter, ngToast, $transitions, $translate) {
+    app.controller('IncomeController', ['$uibModal', '$scope', 'incomeService', 'settingsService', '$filter', 'ngToast', '$translate', function ($uibModal, $scope, incomeService, settingsService, $filter, ngToast, $translate) {
         
         var incomeCtrl = this;
         this.incomeSourceArr = incomeService.getIncomeSource();
@@ -46,20 +46,6 @@
         
         //modals
 //            this.categoryModel = { title: '' };
-        
-        $transitions.onExit({exiting: 'home.income'}, function(transition) {
-            localStorage.setItem('tempIncome', JSON.stringify(incomeCtrl.tmpIncome));
-            // console.log(localStorage.getItem('tempIncome'));
-        });
-        
-        $transitions.onStart({entering: 'home.income'}, function(transition) {
-            incomeCtrl.tmpIncome = angular.extend({}, JSON.parse(localStorage.getItem('tempIncome')));
-            // console.log(localStorage.getItem('tempIncome'));
-//            incomeCtrl.tmpIncome = JSON.parse(tt);
-            // console.log('temp:', incomeCtrl.tmpIncome);
-            incomeCtrl.tmpIncome.sum = 33;
-//            $scope.$digest();
-        });
         
         this.validateInput = function(item) {
             //DATE

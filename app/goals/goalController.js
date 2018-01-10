@@ -7,30 +7,29 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     // console.log('billCat', $scope.billsCategories);
     $scope.goalArr = goalsService.getGoalsArr();
     $scope.goalsTransferArr = goalsService.getGoalsTransferArr();
-    
-    
-    goalsService.getGoalsTransferArr().$loaded(function (arr){
-        $scope.GoalTransArr = arr;
-        function sortDate (a,b) {
-          if( a.date > b.date ) return -1;
-          if( a.date < b.date ) return 1;
-        };
-        $scope.GoalTransArr.sort(sortDate);
-          console.log($scope.GoalTransArr.length);
-          $scope.totalItems = $scope.GoalTransArr.length
-          if( $scope.totalItems > 50){
-            return $scope.totalItems = 50;
-           }
-           else if ($scope.totalItems <= 50) {
-             return $scope.totalItems = $scope.GoalTransArr.length;
-           }
-          $scope.GoalTransArr.$watch( function (event) {
-            $scope.totalItems = $scope.GoalTransArr.length
+   
+    // goalsService.getGoalsTransferArr().$loaded(function (arr){
+    //     $scope.GoalTransArr = arr;
+    //     function sortDate (a,b) {
+    //       if( a.date > b.date ) return -1;
+    //       if( a.date < b.date ) return 1;
+    //     };
+    //     $scope.GoalTransArr.sort(sortDate);
+    //       console.log($scope.GoalTransArr.length);
+    //       $scope.totalItems = $scope.GoalTransArr.length
+    //       if( $scope.totalItems > 50){
+    //         return $scope.totalItems = 50;
+    //        }
+    //        else if ($scope.totalItems <= 50) {
+    //          return $scope.totalItems = $scope.GoalTransArr.length;
+    //        }
+    //       $scope.GoalTransArr.$watch( function (event) {
+    //         $scope.totalItems = $scope.GoalTransArr.length
             
-          })
-         });
-         $scope.currentPage = 1;
-         $scope.itemsPerPage = 5;
+    //       })
+    //      });
+    //      $scope.currentPage = 1;
+        //  $scope.itemsPerPage = 5;
 
         //  $scope.newArrayForTable = function (item) {
         //     Array.prototype.diff = function(a) {
@@ -43,19 +42,19 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
         
     
   
-    $scope.setPage = function (pageNo) {
-      $scope.currentPage = pageNo;
-    };
+    // $scope.setPage = function (pageNo) {
+    //   $scope.currentPage = pageNo;
+    // // };
   
-    $scope.pageChanged = function() {
-      console.log('Page changed to: ' + $scope.currentPage);
-    };
+//     $scope.pageChanged = function() {
+//       console.log('Page changed to: ' + $scope.currentPage);
+//     };
   
-  $scope.setItemsPerPage = function(num) {
-    $scope.itemsPerPage = num;
-    $scope.currentPage = 1; //reset to first page
+//   $scope.setItemsPerPage = function(num) {
+//     $scope.itemsPerPage = num;
+//     $scope.currentPage = 1; //reset to first page
 
-  }
+//   }
 
     // console.log('goalArr', $scope.goalArr)
     $scope.rolesArr = settingsService.getRolesArray();
@@ -164,7 +163,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
        }
        
        //SUM
-       if (item.sum === null || item.sum === undefined) {
+       if (item.sum === null || item.sum === undefined || item.sum === 0 || item.sum < 0) {
         $translate("Indicate the sum").then(function(translation){
             ngToast.create ({
                 'content':translation,
@@ -410,7 +409,8 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
                         }
                 }
                 else if (item.type === 'income') {
-                    var bill = $scope.billsCategories.$getRecord(item.from.id);
+                    // var bill = $scope.billsCategories.$getRecord(item.from.id); 
+                    var bill = incomeService.getItemInIncomeAccounts(item.from.id)
                     var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
                         if( (goal.sum - item.sum) < 0){
                                 $translate("It's not enough money on the account").then(function(translation){
@@ -422,7 +422,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
                         }
                          else  {
                         console.log('bill',bill);
-                        console.log('goal',goal);
+                        // console.log('goal',goal);
                         
                           bill.amount = bill.amount + item.sum;
                           goal.sum = goal.sum - item.sum;

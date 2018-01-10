@@ -1,48 +1,59 @@
  app.controller('CostsController',
-  function ($uibModal, $log, $document, $scope, costsService, incomeService, settingsService, uibDateParser, $filter, ngToast,$translate,$timeout) {
+  function ($uibModal, $log, $document, $scope, costsService, incomeService, settingsService, uibDateParser, $filter, $rootScope, ngToast,$translate,$timeout) {
+    if($rootScope.reversed){} else $rootScope.reversed = false;
     $scope.costsCategoriesArr = costsService.getCostsCategoriesArray();
   //  console.log('costsCategoriesArr',$scope.costsCategoriesArr);
     $scope.templateCostsArr = costsService.getCostsTemplateArray();
     console.log('$scope.templateCostsArr',$scope.templateCostsArr);
-    $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
-  
+    $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast().reverse();
+    
+   
+
     // for  Pagination 
-    costsService. getCostsTransferArrayLast().$loaded(function (arr){
-      $scope.CostArray= arr;
+    // costsService. getCostsTransferArrayLast().$loaded(function (arr){
+    //   if($rootScope.reversed == false) {$scope.arrFireLast = arr.reverse();
+    //   $rootScope.reversed = true;
+    //   console.log($scope.arrFireLast)
+    //   } else {
+    //     $scope.arrFireLast = arr;
+    //   console.log($scope.arrFireLast)
+        
+    //   }
+    //   $scope.CostArray=$scope.arrFireLast.concat() ;
     // $scope.CostArray= $filter('orderBy')(CostArr,index);
     // .sort(sortDate);
     //         function sortDate (a,b) {
     //           if( a.date > b.date ) return -1;
     //           if( a.date < b.date ) return 1;
     //         };
-    console.log($scope.CostArray);
+  //   console.log($scope.CostArray);
     
-      console.log($scope.CostArray.length);
-      $scope.totalItems = $scope.CostArray.length
-      if( $scope.totalItems > 50){
-        return $scope.totalItems = 50;
-       }
-       else if ($scope.totalItems <= 50) {
-         return $scope.totalItems = $scope.CostArray.length;
-       }
-     })
+  //     console.log($scope.CostArray.length);
+  //     $scope.totalItems = $scope.CostArray.length
+  //     if( $scope.totalItems > 50){
+  //       return $scope.totalItems = 50;
+  //      }
+  //      else if ($scope.totalItems <= 50) {
+  //        return $scope.totalItems = $scope.CostArray.length;
+  //      }
+  //    })
 
-    $scope.currentPage = 1;
-    $scope.itemsPerPage = 5;
+  //   $scope.currentPage = 1;
+  //   $scope.itemsPerPage = 5;
     
   
-    $scope.setPage = function (pageNo) {
-      $scope.currentPage = pageNo;
-    };
+  //   $scope.setPage = function (pageNo) {
+  //     $scope.currentPage = pageNo;
+  //   };
   
-    $scope.pageChanged = function() {
-      console.log('Page changed to: ' + $scope.currentPage);
-    };
+  //   $scope.pageChanged = function() {
+  //     console.log('Page changed to: ' + $scope.currentPage);
+  //   };
   
-  $scope.setItemsPerPage = function(num) {
-    $scope.itemsPerPage = num;
-    $scope.currentPage = 1; //reset to first page
-  }
+  // $scope.setItemsPerPage = function(num) {
+  //   $scope.itemsPerPage = num;
+  //   $scope.currentPage = 1; 
+  // }
  
   //    $timeout( function(){
   //     $scope.$watch('CostArray' ,function () {
@@ -313,6 +324,8 @@
       // $scope.newCosts = angular.extend({}, $scope.costsModel);
       $scope.newCosts = {comment: ''};
       $scope.today();
+      
+
       
       }
     };

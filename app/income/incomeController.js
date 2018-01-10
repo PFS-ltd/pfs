@@ -9,38 +9,38 @@
         // console.log(this.incomeTransfers)
         this.rolesArr = settingsService.getRolesArray();
         
-        incomeService.getIncomeTransfersLast().$loaded(function (arr){
-            incomeCtrl.incomeArrPag = arr;
-            console.log(incomeCtrl.incomeArrPag)
-            console.log('sds',incomeCtrl.incomeArrPag.length);
-            incomeCtrl.totalItems = incomeCtrl.incomeArrPag.length
-              console.log('totalItem',incomeCtrl.totalItems)
-              if( incomeCtrl.totalItems > 50){
-                incomeCtrl.totalItems = 50;
-               }
-               else if (incomeCtrl.totalItems <= 50) {
-                incomeCtrl.totalItems = incomeCtrl.incomeArrPag.length;
-               }
+        // incomeService.getIncomeTransfersLast().$loaded(function (arr){
+        //     incomeCtrl.incomeArrPag = arr.reverse();
+        //     console.log(incomeCtrl.incomeArrPag)
+        //     console.log('sds',incomeCtrl.incomeArrPag.length);
+        //     incomeCtrl.totalItems = incomeCtrl.incomeArrPag.length
+        //       console.log('totalItem',incomeCtrl.totalItems)
+        //       if( incomeCtrl.totalItems > 50){
+        //         incomeCtrl.totalItems = 50;
+        //        }
+        //        else if (incomeCtrl.totalItems <= 50) {
+        //         incomeCtrl.totalItems = incomeCtrl.incomeArrPag.length;
+        //        }
 
-             });
+        //      });
             
-            this.currentPage = 1;
-            this.itemsPerPage = 5;
+        //     this.currentPage = 1;
+        //     this.itemsPerPage = 5;
              
            
-            this.setPage = function (pageNo) {
-              this.currentPage = pageNo;
-             };
+        //     this.setPage = function (pageNo) {
+        //       this.currentPage = pageNo;
+        //      };
            
-            this.pageChanged = function() {
-               console.log('Page changed to: ' +this.currentPage);
-             };
+        //     this.pageChanged = function() {
+        //        console.log('Page changed to: ' +this.currentPage);
+        //      };
            
-          this.setItemsPerPage = function(num) {
-            incomeCtrl.itemsPerPage = num;
-            incomeCtrl.currentPage = 1; //reset to first page
-           }
-           this.viewby = 1;
+        //   this.setItemsPerPage = function(num) {
+        //     incomeCtrl.itemsPerPage = num;
+        //     incomeCtrl.currentPage = 1; //reset to first page
+        //    }
+        //    this.viewby = 1;
 
         //Женя это не твое !!!!!!!!!!
         // console.log(this.incomeSourceArr);

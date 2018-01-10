@@ -8,6 +8,7 @@
     $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast().reverse();
     
    
+  $scope.dateFormat = $translate.instant('Date format');
 
     // for  Pagination 
     // costsService. getCostsTransferArrayLast().$loaded(function (arr){

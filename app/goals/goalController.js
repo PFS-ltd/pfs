@@ -7,6 +7,8 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     // console.log('billCat', $scope.billsCategories);
     $scope.goalArr = goalsService.getGoalsArr();
     $scope.goalsTransferArr = goalsService.getGoalsTransferArr();
+    $scope.dateFormat = $translate.instant('Date format');
+
    
     // goalsService.getGoalsTransferArr().$loaded(function (arr){
     //     $scope.GoalTransArr = arr;

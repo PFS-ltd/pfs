@@ -10,7 +10,7 @@
         this.rolesArr = settingsService.getRolesArray();
         
         
-       
+        this.dateFormat = $translate.instant('Date format');
     
     
     // добавление даты и календаря в инпут 

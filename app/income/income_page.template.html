@@ -1,26 +1,21 @@
 <div class="row">
     <form class="col-md-12">
         <div class="input-group" id="income-form">
-<!--            tmpIncome {{incomeCtrl.tmpIncome.date}}-->
+<!--            tmpIncome {{incomeCtrl.tmpIncome.sum}}-->
             <div class="col-md-2">
-                
-                    <input type="text" 
-                    class="form-control"
-                    placeholder="{{'Date' | translate}}"
-                    uib-datepicker-popup="dd.MM.yyyy"
-                    ng-model="incomeCtrl.tmpIncome.date" is-open="incomeCtrl.popup.opened" 
-                    datepicker-options="incomeCtrl.dateOptions"
-                    show-button-bar="false" ng-focus="incomeCtrl.open()" />
-                    
+                <input type="text" 
+                class="form-control"
+                placeholder="{{'Date' | translate}}"
+                uib-datepicker-popup="dd.MM.yyyy"
+                ng-model="incomeCtrl.tmpIncome.date" is-open="incomeCtrl.popup.opened" 
+                datepicker-options="incomeCtrl.dateOptions"
+                show-button-bar="false" ng-focus="incomeCtrl.open()" />
             </div>
             <div class="col-md-2">
-                    <select class="form-control" ng-model="incomeCtrl.tmpIncome.who" >
-                        <!-- <option value="" disabled selected>Участник</option> ng-options="role.title for role in incomeCtrl.rolesArr"-->
-                        <!-- <select class="form-control" ng-model='newCosts.who' > -->
-                        <!-- </select> -->
-                        <option value="" disabled selected>{{'Participant' | translate}}</option>
-                        <option ng-repeat="item in incomeCtrl.rolesArr">{{item.title}}</option>
-                    </select>
+                <select class="form-control" ng-model="incomeCtrl.tmpIncome.who" >
+                    <option value="" disabled selected>{{'Participant' | translate}}</option>
+                    <option ng-repeat="item in incomeCtrl.rolesArr">{{item.title}}</option>
+                </select>
             </div>
             <div class="col-md-2">
                 <select class="form-control" ng-model="incomeCtrl.tmpIncome.from">
@@ -37,22 +32,6 @@
             <div class="col-md-1">
                 <input type="number" placeholder="{{'Sum' | translate}}" min='0' class="form-control" ng-model="incomeCtrl.tmpIncome.sum">
             </div>
-<!--
-            <div class="col-md-2">
-                <div class="input-group">
-                    <input type="text" 
-                    class="form-control"
-                    uib-datepicker-popup="dd.MM.yyyy"
-                    ng-model="incomeCtrl.tmpIncome.date" is-open="incomeCtrl.popup.opened" 
-                    datepicker-options="incomeCtrl.dateOptions"
-                    ng-required="true"
-                    show-button-bar="false"  />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="incomeCtrl.open()"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </div>
-            </div>
--->
             <div class="col-md-2">
                 <input type="text" placeholder="{{'Comment' | translate}}" class="form-control" ng-model="incomeCtrl.tmpIncome.comment">
             </div>
@@ -67,6 +46,7 @@
     <div class="panel panel-success">
         <div class="panel-heading clearfix">
             <h3 class="panel-title incomes-panel">{{'Income sources' | translate}}</h3>
+            <span class="glyphicon glyphicon-question-sign" uib-popover="{{'Incomes help1' | translate}}" popover-trigger="'mouseenter'"></span>
             <div class="pull-right">
                 <button type="button" class="btn btn-success btn-sm" 
         ng-click="incomeCtrl.addIncomeSource()">
@@ -97,6 +77,7 @@
     <div class="panel panel-warning">
         <div class="panel-heading clearfix">
             <h3 class="panel-title incomes-panel">{{'Your accounts' | translate}}</h3>
+            <span class="glyphicon glyphicon-question-sign" uib-popover="{{'Incomes help2' | translate}}" popover-trigger="'mouseenter'"></span>
             <div class="pull-right">
                 <button type="button" class="btn btn-warning btn-sm" 
         ng-click="incomeCtrl.addIncomeAccount()">
@@ -124,12 +105,9 @@
 </div>
 <div class="col-md-12">
     <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-            <h3 class="x1">{{'Recent incomes' | translate}}</h3>
-            <!-- <div class="pull-right x2">
-                    <ul uib-pagination total-items="incomeCtrl.totalItems" ng-model="incomeCtrl.currentPage" ng-change="incomeCtrl.pageChanged()" class="pagination-md vcenter" items-per-page="incomeCtrl.itemsPerPage"  previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
-            </div> -->
-
+        <div class="panel-heading">
+            <h3 class="panel-title incomes-panel">{{'Recent incomes' | translate}}</h3>
+            <span class="glyphicon glyphicon-question-sign" uib-popover="{{'Incomes help3' | translate}}" popover-trigger="'mouseenter'"></span>
         </div>
         <div class="panel-body">
             <table class="table table-hover">

@@ -1,6 +1,6 @@
 app.constant('calendarLocale', {
 
-    en: {
+    'en': {
         "format": "MM/DD/YYYY",
         "separator": " - ",
         "applyLabel": "Apply",
@@ -34,7 +34,7 @@ app.constant('calendarLocale', {
         ],
         "firstDay": 1
     },
-    ru: {
+    'ru': {
         "format": "DD/MM/YYYY",
         "separator": " - ",
         "applyLabel": "Принять",

@@ -1,40 +1,97 @@
 <h2>{{'User settings' | translate}}</h2>
 
 <uib-accordion close-others="false">
-    <div uib-accordion-group class="panel-default" heading="{{'User profile' | translate}}">
-        email
-        pass
+    <div uib-accordion-group class="panel-info" heading="{{'User profile' | translate}}">
+        <h5 class="page-header settings-header">{{'Change password' | translate}}</h5>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="oldPass" class="col-sm-3 control-label">{{'Old password' | translate}}</label>
+                <div ng-class="settingsCtrl.class3">
+                    <input type="password" class="form-control" id="oldPass" ng-model="settingsCtrl.oldPass" ng-change="settingsCtrl.clearClass3()" placeholder="{{'Input password' | translate}}">
+                    <label for="oldPass" ng-if="settingsCtrl.seeError3" class="control-label">{{'Wrong password' | translate}}</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="newPass" class="col-sm-3 control-label">{{'New password' | translate}}</label>
+                <div ng-class="settingsCtrl.class4">
+                  <input type="password" class="form-control" id="newPass" ng-model="settingsCtrl.newPass" ng-change="settingsCtrl.clearClass3()" placeholder="{{'Input password' | translate}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPass" class="col-sm-3 control-label">{{'Confirm password' | translate}}</label>
+                <div ng-class="settingsCtrl.class4">
+                    <input type="password" class="form-control" id="confirmPass" ng-model="settingsCtrl.confirmPass" ng-change="settingsCtrl.clearClass3()" placeholder="{{'Input password' | translate}}">
+                    <label for="confirmPass" ng-if="settingsCtrl.seeError4" class="control-label">{{'Doesnt match' | translate}}</label>
+                    <label for="confirmPass" ng-if="settingsCtrl.seeError5" class="control-label text-left">{{'Min 6' | translate}}</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-4">
+                  <button type="submit" class="btn btn-primary" ng-click="settingsCtrl.changePass(settingsCtrl.oldPass, settingsCtrl.newPass, settingsCtrl.confirmPass)">{{'Change' | translate}}</button>
+                </div>
+            </div>
+        </div>
+        
+        <h5 class="page-header settings-header">{{'Change email' | translate}}</h5>
+        <div class="container">
+            <a href="#" editable-text="settingsCtrl.email" onbeforesave="settingsCtrl.checkMail($data)" onaftersave="settingsCtrl.mailChanged(settingsCtrl.email)">{{ settingsCtrl.email || 'empty' }}</a>
+        </div>
+        <div ng-if="settingsCtrl.confirmMailField">
+            <div ng-class="settingsCtrl.class5">
+                <input type="password" class="form-control" ng-model="settingsCtrl.mailPass" id="mailConfirm" ng-change="settingsCtrl.clearClass4()" placeholder="{{'Input password' | translate}}">
+                <label for="mailConfirm" ng-if="settingsCtrl.seeError6" class="control-label">{{'Wrong password' | translate}}</label>
+            </div>
+            <button class="btn btn-primary" ng-click="settingsCtrl.updateMail(settingsCtrl.mailPass, settingsCtrl.email)">{{'Change' | translate}}</button>
+        </div>
     </div>
-    <div uib-accordion-group class="panel-default" heading="{{'Color themes' | translate}}">
-        <label class="radio-inline"><input type="radio" name="theme" value="0" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">{{'Standart' | translate}}</label>
-        <label class="radio-inline"><input type="radio" name="theme" value="1" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">Тема 1</label>
-        <label class="radio-inline"><input type="radio" name="theme" value="2" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">Тема 2</label>
-        <label class="radio-inline"><input type="radio" name="theme" value="3" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">Тема 3</label>
-        <label class="radio-inline"><input type="radio" name="theme" value="4" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">Тема 4</label>
+    <div uib-accordion-group class="panel-info" heading="{{'Color themes' | translate}}">
+        <label class="radio-inline"><input type="radio" name="theme" value="0" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">BS3</label>
+        <label class="radio-inline"><input type="radio" name="theme" value="1" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">Slate</label>
+        <label class="radio-inline"><input type="radio" name="theme" value="2" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">Cerulean</label>
+        <label class="radio-inline"><input type="radio" name="theme" value="3" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">Spacelab</label>
+        <label class="radio-inline"><input type="radio" name="theme" value="4" ng-model="settingsCtrl.style" ng-click="settingsCtrl.changeStyle()">Simplex</label>
     </div>
-    <div uib-accordion-group class="panel-default" heading="{{'Interface language' | translate}}">
+    <div uib-accordion-group class="panel-info" heading="{{'Interface language' | translate}}">
         <label class="radio-inline"><input type="radio" name="language" value="ru" ng-model="settingsCtrl.lang" ng-click="settingsCtrl.changeLanguage(settingsCtrl.lang)">Русский</label>
         <label class="radio-inline"><input type="radio" name="language" value="en" ng-model="settingsCtrl.lang" ng-click="settingsCtrl.changeLanguage(settingsCtrl.lang)">English</label>
-
-<!--        <button class="btn btn-primary" ng-click="saveSettings(lang)">Сохранить</button>-->
     </div>
-    <div uib-accordion-group class="panel-default" heading="{{'Add \u002F Edit participant' | translate}}">
+    <div uib-accordion-group class="panel-info" heading="{{'Add/Edit participant' | translate}}">
         <ul class="list-group">
-            <li class="list-group-item" ng-repeat="item in settingsCtrl.roles">
-                <a href="#" editable-text="item.title">{{ item.title || 'empty' }}</a>
+            <li class="list-group-item clearfix" ng-repeat="item in settingsCtrl.roles">
+                <a href="#" editable-text="item.title" onbeforesave="settingsCtrl.checkName($data)" e-maxlength="25" onaftersave="settingsCtrl.updateRole(item)">{{ item.title || 'empty' }}</a>
+                <div class="pull-right">
+                    <button class="btn btn-danger" title="{{'Delete' | translate}}" ng-click="settingsCtrl.deleteRole(item)"><span class="glyphicon glyphicon-trash"></span></button>
+                </div>
             </li>
         </ul>
         <div class="row">
-            <div class="col-xs-4">
-                <input type="text" class="form-control" maxlength="25" ng-model="settingsCtrl.newRole">
+            <div ng-class="settingsCtrl.class1">
+                <input type="text" class="form-control" maxlength="25" ng-model="settingsCtrl.newRole" placeholder="{{'Participant name' | translate}}" id="addRole" ng-change="settingsCtrl.clearClass1()">
+                <label for="addRole" ng-if="settingsCtrl.seeError1" class="control-label">{{'Empty name' | translate}}</label>
             </div>
-            <button type="button" class="btn btn-default" ng-click="settingsCtrl.addRole()">Добавить участника</button>
+            <button type="button" class="btn btn-primary" ng-click="settingsCtrl.addRole()">{{'Add participant' | translate}}</button>
         </div>
-        <button class="btn btn-primary" ng-click="settingsCtrl.applyRoles()">Применить изменения</button>
+    </div>
+    <div uib-accordion-group class="panel-info" heading="{{'Extra widgets' | translate}}">
+        <div class="checkbox">
+            <label ng-click="settingsCtrl.widgets('rates', settingsCtrl.seeRates)">
+                <input type="checkbox" ng-model="settingsCtrl.seeRates">
+                {{'Currency rate' | translate}}
+            </label>
+        </div>
+        <div class="checkbox">
+            <label ng-click="settingsCtrl.widgets('converter', settingsCtrl.seeConv)">
+                <input type="checkbox" ng-model="settingsCtrl.seeConv">
+                {{'Currency converter' | translate}}
+            </label>
+        </div>
     </div>
     <div uib-accordion-group class="panel-danger" heading="{{'Delete account' | translate}}">
-        <p>Нажмите на кнопку для удаления аккаунта</p>
-        <button class="btn btn-danger">{{'Delete' | translate}}</button>
+        <h5 class="page-header settings-header">{{'To delete account' | translate}}</h5>
+        <div ng-class="settingsCtrl.class2">
+            <input type="password" class="form-control" ng-model="settingsCtrl.pass" id="passCheck" ng-change="settingsCtrl.clearClass2()" placeholder="{{'Input password' | translate}}">
+            <label for="passCheck" ng-if="settingsCtrl.seeError2" class="control-label">{{'Wrong password' | translate}}</label>
+        </div>
+        <button class="btn btn-danger" ng-click="settingsCtrl.deleteUser(settingsCtrl.pass)">{{'Delete' | translate}}</button>
     </div>
 </uib-accordion>
-<button class="btn btn-primary" ng-click="settingsCtrl.saveSettings()">Сохранить</button>

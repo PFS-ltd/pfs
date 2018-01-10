@@ -1,9 +1,31 @@
 (function () {
-    app.controller('StatisticsController', ['$scope', 'incomeService', 'settingsService', 'costsService', '$filter', 'ngToast', 'Auth', 'currentAuth', '$timeout', 'calendarLocale',
-        function ($scope, incomeService, settingsService, costsService, $filter, ngToast, Auth, currentAuth, $timeout, calendarLocale) {
+    app.controller('StatisticsController', ['$scope', 'incomeService', 'settingsService', 'costsService', '$filter', 'ngToast', 'Auth', 'currentAuth', '$timeout', 'calendarLocale', '$translate',
+        function ($scope, incomeService, settingsService, costsService, $filter, ngToast, Auth, currentAuth, $timeout, calendarLocale, $translate) {
             $scope.load = true;
 
-                $scope.rolesArray = settingsService.getRolesArray();
+            var translation = $translate.instant([
+                'Mutual',
+                'BarChart',
+                'PieChart',
+                'LastSeven',
+                'LastThirty',
+                'ThisMonth',
+                'LastMonth',
+                'Incomes',
+                'Costs',
+                'NoData']);
+            var lastSeven = translation.LastSeven;
+            var lastThirty = translation.LastThirty;
+            var thisMonth = translation.ThisMonth;
+            var lastMonth = translation.LastMonth
+
+            var myRanges = {};
+            myRanges[lastSeven] = [moment().subtract(1, 'w'), moment()],
+                myRanges[lastThirty] = [moment().subtract(29, 'days'), moment()],
+                myRanges[thisMonth] = [moment().startOf('month'), moment().endOf('month')],
+                myRanges[lastMonth] = [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+
+            $scope.rolesArray = settingsService.getRolesArray();
             $scope.incomeTransfers = incomeService.getIncomeTransfers();
             $scope.costsTransfers = costsService.getCostsTransferArray();
             $scope.costsTransfers.$loaded(
@@ -47,14 +69,9 @@
 
             $scope.data.options = {
                 applyClass: 'btn btn-success',
-                locale: calendarLocale['ru'],
+                locale: calendarLocale[localStorage.getItem('preferredLanguage')],
                 opens: "left",
-                ranges: {
-                    'Последние 7 дней': [moment().subtract(1, 'w'), moment()],
-                    'Последние 30 дней': [moment().subtract(29, 'days'), moment()],
-                    'Этот месяц': [moment().startOf('month'), moment().endOf('month')],
-                    'Прошлый месяц': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                },
+                ranges: myRanges,
                 eventHandlers: {
                     'apply.daterangepicker': function () {
                         $scope.update();
@@ -98,7 +115,7 @@
                 var operation = 0;
                 arr.filter(function (item) {
                     if (moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')) {
-                        if (role == 'Общий') {
+                        if (role == 'Общий' || role == 'Mutual') {
                             return operation += item.sum;
                         } else {
                             if (item.who == role || item.who.title === role) {
@@ -167,10 +184,15 @@
             }
 
             $scope.chart2.data = function () {
+                console.log($scope.data.date.startDate._d);
+                console.log($scope.data.date.endDate._d);
+                console.log(moment("01/02/2018"));
+                console.log((moment("01/02/2018").isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')));
 
                 var filteredCosts = $scope.costsTransfers.filter(function (item) {
-                    if (moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')) {
-                        if ($scope.data.role.title == 'Общий') {
+                    // console.log((moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')));
+                    if (moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d)) {
+                        if ($scope.data.role.title == 'Общий' || $scope.data.role.title == 'Mutual') {
                             return item.title = item.to.title
                         } else {
                             if (item.who == $scope.data.role.title || item.who.title === $scope.data.role.title) {
@@ -179,7 +201,7 @@
                         }
                     }
                 });
-
+                console.log(filteredCosts);
                 function unique(arr) {
                     var obj = {};
                     for (var i = 0; i < arr.length; i++) {
@@ -190,9 +212,11 @@
                 };
 
                 var categoriesArr = unique(filteredCosts);
+                console.log(categoriesArr);
 
                 var dataForChart = [];
-
+                // var startYear = moment(date).startOf('Year');
+                // var endYear = moment(date).endOf('Year');
                 for (let i = 0; i < categoriesArr.length; i++) {
                     dataForChart.push({
                         key: categoriesArr[i],
@@ -201,14 +225,47 @@
                 }
 
                 dataForChart.forEach(function (item) {
-                    for (let i = 0, day = moment($scope.data.date.startDate).dayOfYear(); i < moment($scope.data.date.endDate).dayOfYear() - moment($scope.data.date.startDate).dayOfYear() + 1; i++ , day++) {
-                        item.values.push({
-                            x: moment(new Date(moment($scope.data.date.endDate).year(), 0, day)).format('YYYY-MM-DD'),
-                            y: null,
-                        })
+                    if (moment($scope.data.date.startDate).year() == moment($scope.data.date.endDate).year()) {
+                        for (let i = 0, day = moment($scope.data.date.startDate).dayOfYear(); i < moment($scope.data.date.endDate).dayOfYear() - moment($scope.data.date.startDate).dayOfYear() + 1; i++ , day++) {
+                            item.values.push({
+                                x: moment(new Date(moment($scope.data.date.endDate).year(), 0, day)).format('YYYY-MM-DD'),
+                                y: null,
+                            })
+                        }
+                    } else {
+                        for (let i = 0,
+                            dayOfYear1 = moment($scope.data.date.startDate).dayOfYear(),
+                            dayOfYear2 = moment($scope.data.date.endDate).dayOfYear(),
+                            startOfYear = 1,
+                            endOfYear = 365,
+                            range = (endOfYear - dayOfYear1) + (dayOfYear2 - startOfYear) + 1;
+
+                            i < range;
+
+                            i++
+                        ) {
+                            if (dayOfYear1 <= endOfYear) {
+                                item.values.push({
+                                    x: moment(new Date(moment($scope.data.date.startDate).year(), 0, dayOfYear1)).format('YYYY-MM-DD'),
+                                    y: null,
+                                });
+                                dayOfYear1++;
+                            } else {
+                                if (startOfYear <= dayOfYear2) {
+                                    item.values.push({
+
+                                        x: moment(new Date(moment($scope.data.date.endDate).year(), 0, startOfYear)).format('YYYY-MM-DD'),
+                                        y: null,
+                                    })
+                                    startOfYear++;
+                                }
+                            }
+                        }
                     }
                     filteredCosts.forEach(function (item2) {
                         if (item.key == item2.title) {
+                            console.log(item);
+                            console.log(item2);
                             item.values.forEach(function (itemValues) {
                                 if (itemValues.x == item2.date) {
                                     itemValues.y += item2.sum;
@@ -217,7 +274,6 @@
                         }
                     })
                 })
-
                 return dataForChart;
             }
 
@@ -248,7 +304,7 @@
 
                 var filteredCosts = $scope.costsTransfers.filter(function (item) {
                     if (moment(item.date).isBetween($scope.data.date.startDate._d, $scope.data.date.endDate._d, null, '[]')) {
-                        if ($scope.data.role.title == 'Общий') {
+                        if ($scope.data.role.title == 'Общий' | $scope.data.role.title == 'Mutual')  {
                             return item.title = item.to.title
                         } else {
                             if (item.who == $scope.data.role.title || item.who.title === $scope.data.role.title) {

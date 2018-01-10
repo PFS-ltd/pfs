@@ -9,8 +9,8 @@ body {
 }
 
 #income-form div,
-#costs-form div ,
-#goal-form div{ /*слипание блоков инпута*/
+#costs-form div,
+#goal-form div { /*слипание блоков инпута*/
     padding: 0;
 }
 
@@ -95,7 +95,6 @@ body {
 .navbar-header {
     padding-bottom: 5px;
 }
-/*--------*/
 
 .red {
     color: red; 
@@ -104,13 +103,17 @@ body {
 .green {
     color: green;
 }
-.x1 {
-    float: left;
-    line-height: 35px ; 
-    margin: 0;
-    font-size: 16px;
-    color: inherit;
+.vcenter {
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+  }
+
+
+.settings-header {
+    margin-top: 20px;
 }
-.pagination {
-    margin : 0 !important ;
+#page-select {
+    display: inline-block;
 }
+

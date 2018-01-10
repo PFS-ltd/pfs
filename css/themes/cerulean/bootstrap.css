@@ -6902,3 +6902,6 @@ button.close {
 .popover {
     color: black;
 }
+div.progress-bar i {
+  color: black;
+}

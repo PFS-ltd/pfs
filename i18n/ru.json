@@ -1,4 +1,5 @@
 {
+    "Please, sign in": "Пожалуйста, зарегистрируйтесь в приложении",
     "Sign Up": "Зарегистрироваться",
     "Login": "Вход",
     "E-mail": "Почта",
@@ -27,6 +28,7 @@
     "Calendar": "Календарь",
     "Statistics": "Статистика",
     "Goals": "Накопления",
+    "History": "История",
     "Logout": "Выход",
     "Settings": "Настройки",
     "Currency rate": "Курс валюты (ПриватБанк)",
@@ -40,11 +42,11 @@
     "Color themes": "Выбор цветовой темы",
     "Standart": "Стандарт",
     "Interface language": "Выбор языка интерфейса",
-    "Delete account": "Удалить аккаунт",
+    "Delete account": "Удалить учетную запись",
     "Add/Edit participant": "Добавить/редактировать участника бюджета",
     "Wrong password": "Неверный пароль",
     "Input password": "Введите пароль",
-    "To delete account": "Для удаления аккаунта введите свой пароль",
+    "To delete account": "Для удаления учетной записи введите свой пароль",
     "Add participant": "Добавить участника",
     "Add new participant": "Добавлен новый участник бюджета",
     "Participant name": "Имя участника",
@@ -52,7 +54,7 @@
     "Participant successfully updated": "Участник успешно обновлен",
     "Participant deleted": "Участник удален",
     "Must be minimum one participant": "Должен быть минимум один участник",
-    "Your account is deleted": "Ваш аккаунт удален",
+    "Your account is deleted": "Ваша учетная запись удалена",
     "Empty name": "Имя не может быть пустым",
     "Empty mail": "Почта не указана",
     "Invalid format": "Некорректный формат",
@@ -66,6 +68,7 @@
     "Doesnt match": "Несовпадают пароли",
     "Min 6": "Минимум 6 символов в пароле",
     "Change": "Изменить",
+    "User account": "Аккаунт пользователя",
     
     "Delete": "Удалить",
     "Income sources": "Источники доходов",
@@ -97,6 +100,12 @@
     "Cancel recent income?": "Отменить внесенный доход?",
     "Edit account": "Редактирование счета",
     "Edit income source": "Редактирование источника дохода",
+    "Date format": "dd.MM.yyyy",
+    
+    "Records": "Записей на странице",
+    "First": "Начало",
+    "Last": "Конец",
+    "Page filter": "Фильтр страницы",
 
     "Category" : "Категория",
     "Consumption category" : "Категория расходов",
@@ -118,7 +127,7 @@
     "Indicate the sum" : "Укажите сумму",
     "Goals": "Накопления",
     "Add Goal" : "Добавить цель",
-    "Money transaction" : "Перевод стредств",
+    "Money transaction" : "Перевод средств",
     "Add new goal" : "Добавить новую категорию" ,
     "Name of goal": "Имя цели",
     "Goal amount" : "Сумма цели",
@@ -139,8 +148,6 @@
     "Where" : "Куда",
 
 
-
-
     "Mutual": "Общий",
     "BarChart" : "Столбиковая диаграмма",
     "PieChart" : "Круговая диаграмма",
@@ -151,7 +158,7 @@
     "NoData": "За выбранный диапазон времени нет данных",
     "ChooseRange": "Выберите диапазон",
     "AddEvent": "Добавить",
-
+    "Total": "Сумма",
 
 
     "Incomes help1": "Здесь вы можете добавить, редактировать и удалить источники дохода, например 'Зарплата' или 'Сдача жилья', то есть источники прибыли. Должен быть минимум один.",

@@ -547,13 +547,16 @@
       });
       modalDelete.result.then(function (result) {
         if (result) {
-          costsService.delItemInCostsTransfer(item);
+          
           makeReverseTransfer(item);
-          costsService.getCostsTransferArray().$loaded(function (arr){
-            $scope.CostArray = arr;
-              // console.log($scope.CostArray.length);
-              $scope.totalItems = $scope.CostArray.length
-             } )
+          console.log(item)
+          $scope.costsTransferArrQuery.$remove(item);
+          // costsService.delItemInCostsTransfer(item);
+          // costsService.getCostsTransferArray().$loaded(function (arr){
+          //   $scope.CostArray = arr;
+          //     // console.log($scope.CostArray.length);
+          //     $scope.totalItems = $scope.CostArray.length
+          //    } )
         }
         
 

@@ -5,7 +5,7 @@
                     <input type="text"
                     class="form-control"
                     placeholder="Дата" 
-                    uib-datepicker-popup="dd.MM.yyyy" 
+                    uib-datepicker-popup="{{dateFormat}}"  
                     ng-model="newCosts.date" is-open="popup.opened"
                     datepicker-options="dateOptions" ng-required="true"
                     show-button-bar="false"
@@ -30,8 +30,8 @@
                     <option ng-repeat='key in goalArr' ng-value="key">{{key.title}}</option>
                 </select>
             </div>
-            <div class="col-lg-1 col-md-1 col-sm-1">
-                <input type="number" placeholder="{{'Sum' | translate}}"  min='0' class="form-control" ng-model='newCosts.sum'>
+            <div class="col-md-1">
+                <input type="number" placeholder="{{'Sum' | translate}}"  class="form-control" ng-model='newCosts.sum'>
             </div>
            
             <div class="col-lg-2 col-md-2 col-sm-2">
@@ -87,9 +87,11 @@
                     </div>
                 <hr> 
                     <div class="horizontal-collapse" uib-collapse="isCollapsed">
+                            <!-- <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-md vcenter" items-per-page="itemsPerPage"></ul> -->
+
                             <table class="table table-hover well well-lg ">
                                     <thead>
-                                            <th>#</th>
+                                            <!-- <th>#</th> -->
                                             <th>{{"Sum" | translate}}</th>
                                             <th>{{"Where" | translate}}</th>
                                             <th>{{"Who" | translate}}</th>
@@ -98,13 +100,15 @@
                                             <th>{{"Delete" | translate}}</th>
                                         </thead>
                                 <tbody ng-class="item.type === 'income' ? 'green' : 'red' " ng-repeat='item in goalsTransferArr| filter : MyFilter(key) '>
+                                        <!-- <tbody ng-class="item.type === 'income' ? 'green' : 'red' " ng-repeat='item in   goalsTransferArr.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))= (totalItems | filter : MyFilter(key)  )'> -->
+
                                     <tr>
-                                        <td>{{$index+1}}</td>
+                                        <!-- <td>{{$index+1}}</td> -->
                                         <td>{{item.sum}}</td>
                                         <td ng-if=" item.type ==='income' " > {{item.to.title}}</td>
                                         <td ng-if=" item.type ==='cost' " > {{item.to.title}}</td>
                                         <td>{{item.who.title}}</td>
-                                        <td>{{item.date| date:'dd.MM.yyyy'}}</td>
+                                        <td>{{item.date| date: dateFormat}}</td>
                                         <td>{{item.comment}}</td>
                                         <td>
                                             <button class="btn btn-danger btn-xs" title="{{'Delete' | translate}}" ng-click='deleteTransfer(item)'>

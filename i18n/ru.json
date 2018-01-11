@@ -125,6 +125,7 @@
     "Indicate the account" : "Укажите счет",
     "Indicate the category" : "Укажите категорию",
     "Indicate the sum" : "Укажите сумму",
+    "Indicate the name" : "Укажите название",
     "Goals": "Накопления",
     "Add Goal" : "Добавить цель",
     "Money transaction" : "Перевод средств",
@@ -135,7 +136,7 @@
     "Accumulation Successfully Added": "Накопление успешно добавлено",
     "Accumulation Successfully Deleted": "Накопление успешно удалено",
     "Editing was successful": "Редактирование прошло успешно",
-    "It's not enough money on the account" : "Недоасточно денег на счету ",
+    "It's not enough money on the account" : "Недостaточно денег на счету ",
     "The transaction was successful" : "Транзакция прошла успешна",
     "Maximum amount exceeded" : "Превышена максимальная сумма",
     "GoalPopover" : "Данная вкладка посвещена целям. Вы можете поставить перед собой цель накопить определенную сумму денег.Здесь  вы можете как внести деньги на цель, так и в случае необходимости снять.",
@@ -146,6 +147,13 @@
     "Success edit template" : "Шаблон успешно обновился",
     "Who" : "Кто",
     "Where" : "Куда",
+    "fill the form" :"Заполните форму",
+    "This name already exists" : "Такое имя уже существует",
+    "The goal amount must exceed the accumulation amount" : "Сумма цели должна превышать сумму накопления",
+    "Transfer the balance to the account" : "Переведите остаток  на счет",
+    "Invalid name" : "Некорректное имя",
+
+
 
 
     "Mutual": "Общий",

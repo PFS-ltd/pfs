@@ -7,17 +7,67 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     // console.log('billCat', $scope.billsCategories);
     $scope.goalArr = goalsService.getGoalsArr();
     $scope.goalsTransferArr = goalsService.getGoalsTransferArr();
+    $scope.dateFormat = $translate.instant('Date format');
+
    
+    // goalsService.getGoalsTransferArr().$loaded(function (arr){
+    //     $scope.GoalTransArr = arr;
+    //     function sortDate (a,b) {
+    //       if( a.date > b.date ) return -1;
+    //       if( a.date < b.date ) return 1;
+    //     };
+    //     $scope.GoalTransArr.sort(sortDate);
+    //       console.log($scope.GoalTransArr.length);
+    //       $scope.totalItems = $scope.GoalTransArr.length
+    //       if( $scope.totalItems > 50){
+    //         return $scope.totalItems = 50;
+    //        }
+    //        else if ($scope.totalItems <= 50) {
+    //          return $scope.totalItems = $scope.GoalTransArr.length;
+    //        }
+    //       $scope.GoalTransArr.$watch( function (event) {
+    //         $scope.totalItems = $scope.GoalTransArr.length
+            
+    //       })
+    //      });
+    //      $scope.currentPage = 1;
+        //  $scope.itemsPerPage = 5;
+
+        //  $scope.newArrayForTable = function (item) {
+        //     Array.prototype.diff = function(a) {
+        //         return this.filter(function(i) {return a.indexOf(i) > -1;});
+        //     };
+
+        //    return $scope.newArrayForTable = $scope.goalsTransferArr.diff(item)
+        //     console.log($scope.newArrayForTable,'smt stupid')
+        //  }
+        
+    
+  
+    // $scope.setPage = function (pageNo) {
+    //   $scope.currentPage = pageNo;
+    // // };
+  
+//     $scope.pageChanged = function() {
+//       console.log('Page changed to: ' + $scope.currentPage);
+//     };
+  
+//   $scope.setItemsPerPage = function(num) {
+//     $scope.itemsPerPage = num;
+//     $scope.currentPage = 1; //reset to first page
+
+//   }
+
     // console.log('goalArr', $scope.goalArr)
     $scope.rolesArr = settingsService.getRolesArray();
     // console.log('$scope.rolesArr', $scope.rolesArr);
     $scope.isCollapsed = true;
-//    $scope.openTable = function () {
-//        // console.log($scope.isCollapsed );
-//        return $scope.isCollapsed = !$scope.isCollapsed;
-//        
-//    };
-//     
+    // $scope.openTable = function (key) {
+    //     console.log(key)
+    //     return $scope.isCollapsed = !$scope.isCollapsed;
+        
+    // };
+     
     $scope.MyFilter = function (key) {
         return key.title;
     }
@@ -43,7 +93,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     };
 
     $scope.newCosts = angular.extend({},$scope.goalInput);
-    $scope.newCosts.date = new Date();
+    // $scope.newCosts.date = new Date();
     // добавление даты и календаря в инпут 
     $scope.today = function () {
       $scope.newCosts.date = new Date();
@@ -69,8 +119,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     };
 
     $scope.validInput = function (item) {
-        //DATE
-        // console.log(item)
+
 
        if (item.date === undefined) {
         $translate('Indicate the date').then(function(translation){
@@ -116,7 +165,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
        }
        
        //SUM
-       if (item.sum === null || item.sum === undefined) {
+       if (item.sum === null || item.sum === undefined || item.sum === 0 || item.sum < 0) {
         $translate("Indicate the sum").then(function(translation){
             ngToast.create ({
                 'content':translation,
@@ -269,35 +318,51 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
     };
       var makeReverseTransfer = function (item) {
         if (item.type === 'cost') {
-            var bill = $scope.billsCategories.$getRecord(item.from.id);
-            var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
-            // console.log('bill',bill);
-            // console.log('goal',goal);
-               
-                    bill.amount = bill.amount + item.sum;
-                    goal.sum = goal.sum - item.sum;
-              
-                    $scope.billsCategories.$save(bill);
-                    goalsService.updGoal(goal);
-                    goalsService.delGoalsTransferArr(item);
-                    goalsService.updGoalsTransferArr();
-                
-            
-              
-        }
-        else {
             var bill = $scope.billsCategories.$getRecord(item.to.id);
             var goal = goalsService.getItemInGoalCategoriesByKey(item.from.id);
-            // console.log('bill',bill);
-            // console.log('goal',goal);
-            
-              bill.amount = bill.amount - item.sum;
-              goal.sum = goal.sum + item.sum;
-              
-              $scope.billsCategories.$save(bill);
-              goalsService.updGoal(goal);
-              goalsService.delGoalsTransferArr(item);
-              goalsService.updGoalsTransferArr();
+            if ((bill.amount - item.sum)< 0) {
+                		$translate("It's not enough money on the account").then(function(translation){
+                			ngToast.create ({
+                				'content':translation,
+                				"className": 'danger'
+                			})
+                          }) 
+            }
+            else {                   
+                bill.amount = bill.amount - item.sum;
+                goal.sum = goal.sum + item.sum;
+                $scope.billsCategories.$save(bill);
+                goalsService.updGoal(goal);
+                goalsService.delGoalsTransferArr(item);
+                goalsService.updGoalsTransferArr();
+            }
+
+        }
+        else if (item.type === 'income') {
+            var bill = $scope.billsCategories.$getRecord(item.from.id);
+                var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
+            if((goal.sum - item.sum) < 0){
+                		$translate("It's not enough money on the account").then(function(translation){
+                			ngToast.create ({
+                				'content':translation,
+                				"className": 'danger'
+                			})
+                          });
+                        }
+            else {
+                
+                console.log('bill',bill);
+                console.log('goal',goal);
+                
+                  bill.amount = bill.amount + item.sum;
+                  goal.sum = goal.sum - item.sum;
+                  
+                  $scope.billsCategories.$save(bill);
+                  goalsService.updGoal(goal);
+                  goalsService.delGoalsTransferArr(item);
+                  goalsService.updGoalsTransferArr();
+            }
+           
         }
        
 
@@ -308,7 +373,7 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
             var delGoal = $uibModal.open ({
                 templateUrl: 'app/modals/goals/modalDeleteGoal/templateDelete.html',
                 controller: 'ModalTablController',
-                size: 'md',
+                size: 'sm',
                 resolve: {
                     item: function () {
                         return item;
@@ -319,28 +384,75 @@ app.controller('GoalController', function($scope, $log, $document,$uibModal,ngTo
                 },
             });
             delGoal.result.then(function (result) {
-            
-            makeReverseTransfer(item);
-            $translate("Accumulation Successfully Deleted").then(function(translation){
-            ngToast.create ({
-                'content':translation,
-                "className": 'success'
-            })
-          }) 
-              }, function() {
-                // console.log('close');
+                if (item.type === 'cost') {
+                    var bill = $scope.billsCategories.$getRecord(item.to.id);
+                    var goal = goalsService.getItemInGoalCategoriesByKey(item.from.id);
+                        if ((bill.amount - item.sum)< 0) {
+                                $translate("It's not enough money on the account").then(function(translation){
+                                    ngToast.create ({
+                                        'content':translation,
+                                        "className": 'danger'
+                                    })
+                                  });
+                        }
+                        else {                   
+                        bill.amount = bill.amount - item.sum;
+                        goal.sum = goal.sum + item.sum;
+                        $scope.billsCategories.$save(bill);
+                        goalsService.updGoal(goal);
+                        goalsService.delGoalsTransferArr(item);
+                        goalsService.updGoalsTransferArr();
+                        $translate("Accumulation Successfully Deleted").then(function(translation){
+                            ngToast.create ({
+                                'content':translation,
+                                "className": 'success'
+                            })
+                          })  
+                        }
+                }
+                else if (item.type === 'income') {
+                    // var bill = $scope.billsCategories.$getRecord(item.from.id); 
+                    var bill = incomeService.getItemInIncomeAccounts(item.from.id)
+                    var goal = goalsService.getItemInGoalCategoriesByKey(item.to.id);
+                        if( (goal.sum - item.sum) < 0){
+                                $translate("It's not enough money on the account").then(function(translation){
+                                    ngToast.create ({
+                                        'content':translation,
+                                        "className": 'danger'
+                                    })
+                                  })
+                        }
+                         else  {
+                        console.log('bill',bill);
+                        // console.log('goal',goal);
+                        
+                          bill.amount = bill.amount + item.sum;
+                          goal.sum = goal.sum - item.sum;
+                          
+                          $scope.billsCategories.$save(bill);
+                          goalsService.updGoal(goal);
+                          goalsService.delGoalsTransferArr(item);
+                          goalsService.updGoalsTransferArr();
+                          $translate("Accumulation Successfully Deleted").then(function(translation){
+                            ngToast.create ({
+                                'content':translation,
+                                "className": 'success'
+                            })
+                          })  
+                    }
+                  } 
               }); 
         }
         $scope.deleteGoalCategory = function(item){
             var delGoal = $uibModal.open ({
                 templateUrl: 'app/modals/goals/modalDeleteGoal/templateDelete.html',
                 controller: 'ModalGoalController',
-                size: 'md',
+                size: 'sm',
                 resolve: {
                     item: function () {
                         return item;
                     }, 
-                },
+                }, 
             });
             delGoal.result.then(function (result) {
                 goalsService.delGoal(item);

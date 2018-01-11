@@ -1,33 +1,82 @@
  app.controller('CostsController',
-  function ($uibModal, $log, $document, $scope, costsService, incomeService, settingsService, uibDateParser, $filter, ngToast,$translate) {
+  function ($uibModal, $log, $document, $scope, costsService, incomeService, settingsService, uibDateParser, $filter, $rootScope, ngToast,$translate,$timeout) {
+    if($rootScope.reversed){} else $rootScope.reversed = false;
     $scope.costsCategoriesArr = costsService.getCostsCategoriesArray();
   //  console.log('costsCategoriesArr',$scope.costsCategoriesArr);
     $scope.templateCostsArr = costsService.getCostsTemplateArray();
-    // console.log('$scope.templateCostsArr',$scope.templateCostsArr);
-    $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast();
-    // console.log('costTransArray',$scope.costsTransferArrQuery[0]);
-    costsService.getCostsTransferArray().$loaded(function (arr){
-    $scope.CostArray = arr;
-    function sortDate (a,b) {
-      if( a.date > b.date ) return -1;
-      if( a.date < b.date ) return 1;
-    };
-    $scope.CostArray.sort(sortDate);
-      // console.log($scope.CostArray.length);
-      $scope.totalItems = $scope.CostArray.length
-      if( $scope.totalItems > 50){
-        return $scope.totalItems = 50;
-       }
-       else if ($scope.totalItems <= 50) {
-         return $scope.totalItems = $scope.CostArray.length;
-       }
-      $scope.CostArray.$watch( function (event) {
-        $scope.totalItems = $scope.CostArray.length
+    console.log('$scope.templateCostsArr',$scope.templateCostsArr);
+    $scope.costsTransferArrQuery = costsService.getCostsTransferArrayLast().reverse();
+    
+   
+  $scope.dateFormat = $translate.instant('Date format');
+
+    // for  Pagination 
+    // costsService. getCostsTransferArrayLast().$loaded(function (arr){
+    //   if($rootScope.reversed == false) {$scope.arrFireLast = arr.reverse();
+    //   $rootScope.reversed = true;
+    //   console.log($scope.arrFireLast)
+    //   } else {
+    //     $scope.arrFireLast = arr;
+    //   console.log($scope.arrFireLast)
         
-      })
-     } )
-     
-     $scope.allCostArray = costsService.getCostsTransferArray();
+    //   }
+    //   $scope.CostArray=$scope.arrFireLast.concat() ;
+    // $scope.CostArray= $filter('orderBy')(CostArr,index);
+    // .sort(sortDate);
+    //         function sortDate (a,b) {
+    //           if( a.date > b.date ) return -1;
+    //           if( a.date < b.date ) return 1;
+    //         };
+  //   console.log($scope.CostArray);
+    
+  //     console.log($scope.CostArray.length);
+  //     $scope.totalItems = $scope.CostArray.length
+  //     if( $scope.totalItems > 50){
+  //       return $scope.totalItems = 50;
+  //      }
+  //      else if ($scope.totalItems <= 50) {
+  //        return $scope.totalItems = $scope.CostArray.length;
+  //      }
+  //    })
+
+  //   $scope.currentPage = 1;
+  //   $scope.itemsPerPage = 5;
+    
+  
+  //   $scope.setPage = function (pageNo) {
+  //     $scope.currentPage = pageNo;
+  //   };
+  
+  //   $scope.pageChanged = function() {
+  //     console.log('Page changed to: ' + $scope.currentPage);
+  //   };
+  
+  // $scope.setItemsPerPage = function(num) {
+  //   $scope.itemsPerPage = num;
+  //   $scope.currentPage = 1; 
+  // }
+ 
+  //    $timeout( function(){
+  //     $scope.$watch('CostArray' ,function () {
+  //         console.log('as');
+         
+  //         $scope.CostArray.sort(sortDate);
+  //         function sortDate (a,b) {
+  //           if( a.date > b.date ) return -1;
+  //           if( a.date < b.date ) return 1;
+  //         };
+  //         $scope.totalItems = $scope.CostArray.length;
+  //         if( $scope.totalItems > 50){
+  //           return $scope.totalItems = 50;
+  //          }
+  //          else if ($scope.totalItems <= 50) {
+  //            return $scope.totalItems = $scope.CostArray.length;
+  //          }
+  //       });
+  // }, 2000 );
+    
+ 
+    //  $scope.allCostArray = costsService.getCostsTransferArray();
     // console.log($scope.CostArray.length);
   //   var costArr = costsService.getCostsTransferArrayLast();
   //   function fixScope (arr) {
@@ -227,13 +276,25 @@
         $scope.billsCategories.$save(bill);
         costsService.updateItemInCostsCategories(cost);
         costsService.addItemInQueryCostsTransfer(item);
-
+       
+ 
         // чтобы норм добавлял страницы в пагинатор
-        costsService.getCostsTransferArray().$loaded(function (arr){
-          $scope.CostArray = arr;
-            $scope.totalItems = $scope.CostArray.length
-           
-           } )
+        // costsService.getCostsTransferArray().$loaded(function (arr){
+        //   $scope.CostArray = arr;
+         
+        //     console.log($scope.CostArray.length);
+        //     $scope.totalItems = $scope.CostArray.length
+        //     if( $scope.totalItems > 50){
+        //       return $scope.totalItems = 50;
+        //      }
+        //      else if ($scope.totalItems <= 50) {
+        //        return $scope.totalItems = $scope.CostArray.length;
+        //      }
+        //     $scope.CostArray.$watch( function (event) {
+        //       $scope.totalItems = $scope.CostArray.length
+              
+        //     })
+        //    } )
       }
     }
     var makeReverseTransfer = function (item) {
@@ -264,6 +325,9 @@
       // $scope.newCosts = angular.extend({}, $scope.costsModel);
       $scope.newCosts = {comment: ''};
       $scope.today();
+      
+
+      
       }
     };
 
@@ -272,7 +336,7 @@
       var modalExpenditureCategory = $uibModal.open({
         templateUrl: 'app/modals/costs/modaExpenditureCategory/template.html',
         controller: 'AddExpenditureCategory',
-        size: 'lg',
+        size: 'md',
         resolve: {
           newExpenditureCategoryModel: function () {
             return $scope.newExpenditureCategoryModel;
@@ -295,7 +359,7 @@
       var modalDeleteCategory = $uibModal.open({
         templateUrl: 'app/modals/costs/modalDeleteExpenditureCategory/templateDelete.html',
         controller: 'modalDeleteExpenditureCategory',
-        size: 'md',
+        size: 'sm',
         resolve :{
           item : function () {
             return item
@@ -316,7 +380,7 @@
       var modalEditExpenditureCategory = $uibModal.open({
         templateUrl: 'app/modals/costs/modalEditExpenditureCategory/template.html',
         controller: 'EditExpenditureCategory',
-        size: 'lg',
+        size: 'md',
         resolve: {
           correctCategory: function () {
             return modItem;
@@ -453,7 +517,7 @@
       var modalDelete = $uibModal.open({
         templateUrl: 'app/modals/costs/modalDeleteTemplate/templateDelete.html',
         controller: 'ModalController',
-        size: 'md' , 
+        size: 'sm' , 
         resolve: {
           item: function () {
             return item;
@@ -474,7 +538,7 @@
       var modalDelete = $uibModal.open({
         templateUrl: 'app/modals/costs/modalDelete/templateDelete.html',
         controller: 'ModalController',
-        size: 'md',
+        size: 'sm',
         resolve: {
           item : function () {
             return item;
@@ -483,13 +547,16 @@
       });
       modalDelete.result.then(function (result) {
         if (result) {
-          costsService.delItemInCostsTransfer(item);
+          
           makeReverseTransfer(item);
-          costsService.getCostsTransferArray().$loaded(function (arr){
-            $scope.CostArray = arr;
-              // console.log($scope.CostArray.length);
-              $scope.totalItems = $scope.CostArray.length
-             } )
+          console.log(item)
+          $scope.costsTransferArrQuery.$remove(item);
+          // costsService.delItemInCostsTransfer(item);
+          // costsService.getCostsTransferArray().$loaded(function (arr){
+          //   $scope.CostArray = arr;
+          //     // console.log($scope.CostArray.length);
+          //     $scope.totalItems = $scope.CostArray.length
+          //    } )
         }
         
 
@@ -529,41 +596,13 @@
       })
     };
 
-    $scope.costsTransfers.$loaded(
-      function (arr) {
-        calculateSumOfCosts(arr);
-        // console.log(arr);
-        // console.log($scope.costsCategoriesArr);
-      }
-    )
-
-    $scope.viewby = 1;
-   
-      // $scope.$watch($scope.CostArray, function (event){
-      //   // $scope.CostArray = costsService.getCostsTransferArray();
-      //   $scope.totalItems = $scope.CostArray.length
-      //   console.log(event)
-
-      // }) 
-      
-      
 
   
-    $scope.currentPage = 1;
-    $scope.itemsPerPage = 5;
-    
-  
-    $scope.setPage = function (pageNo) {
-      $scope.currentPage = pageNo;
-    };
-  
-    $scope.pageChanged = function() {
-      // console.log('Page changed to: ' + $scope.currentPage);
-    };
-  
-  $scope.setItemsPerPage = function(num) {
-    $scope.itemsPerPage = num;
-    $scope.currentPage = 1; //reset to first page
-  }
+
+  // $scope.$watch('CostArray' ,function () {
+  //   console.log('as')
+  //   $scope.totalItems = $scope.CostArray.length;
+  // });
 
   });
+  

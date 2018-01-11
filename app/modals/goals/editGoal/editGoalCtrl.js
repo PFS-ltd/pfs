@@ -1,29 +1,36 @@
- app.controller('editGoalCtrl', function($scope,$uibModalInstance,ngToast,item,goalArr){
+ app.controller('editGoalCtrl', function($scope,$uibModalInstance,ngToast,item,goalArr,$translate){
     $scope.goalArr = goalArr;
     $scope.item = item ;
+    console.log('item', item)
 
     $scope.validForm = function (item) {
         if(item === undefined || item === null || item ===""){
-            ngToast.create({
-                'content': 'Заполните форму',
-                'className': 'danger'
-            })
+            $translate("fill the form").then(function(translation){
+                ngToast.create ({
+                    'content':translation,
+                    "className": 'danger'
+                })
+              })
             return false;
         }
        else if (item.title === null || item.title === undefined || item.title === ''){
-           ngToast.create({
-               'content': 'Укажите название',
-               'className': 'danger'
-           });
+        $translate("Indicate the name").then(function(translation){
+            ngToast.create ({
+                'content':translation,
+                "className": 'danger'
+            })
+          })
            return false;
        }
         else if (item.sumMax === null || item.sumMax === undefined || item.sumMax === 0) {
-         ngToast.create({
-             "content": "Укажите сумму",
-             "className": 'danger'
-         })
+            $translate("Indicate the sum").then(function(translation){
+                ngToast.create ({
+                    'content':translation,
+                    "className": 'danger'
+                })
+              })
          return false;
-     }
+        }
      
      return true;
     };
@@ -38,11 +45,23 @@
 		});
         if (valid){
             if (sameName) {
-                ngToast.create ({
-                    'content' : 'Такое имя уже существует',
-                    "className" : 'danger'
-                });
+                $translate("This name already exists").then(function(translation){
+                    ngToast.create ({
+                        'content':translation,
+                        "className": 'danger'
+                    })
+                  })
+                 
             }
+           else if(result.sumMax < item.sum) {
+            $translate( "The goal amount must exceed the accumulation amount").then(function(translation){
+                ngToast.create ({
+                    'content':translation,
+                    "className": 'danger'
+                })
+              })
+            }
+            
             else {
                 $uibModalInstance.close(result);
             }

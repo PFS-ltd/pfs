@@ -2,61 +2,53 @@
     app.controller('IncomeController', ['$uibModal', '$scope', 'incomeService', 'settingsService', '$filter', 'ngToast', '$transitions', '$translate', function ($uibModal, $scope, incomeService, settingsService, $filter, ngToast, $transitions, $translate) {
         
         var incomeCtrl = this;
+      
         this.incomeSourceArr = incomeService.getIncomeSource();
         this.incomeAccountsArr = incomeService.getIncomeAccounts();
         this.incomeTransfers = incomeService.getIncomeTransfersLast();
+        // console.log(this.incomeTransfers)
         this.rolesArr = settingsService.getRolesArray();
         
-       
-        this.dateOptions = {
-            format: 'yy',
-            maxDate: new Date(2020, 5, 22),
-        };
-
-        this.open = function () {
-            incomeCtrl.popup.opened = true;
-        };
-
-        this.popup = {
-            opened: false
-        };
+        
         this.dateFormat = $translate.instant('Date format');
-        
-        //end
+    
+    
+    // добавление даты и календаря в инпут 
+    
+    this.tmpIncome = {comment: ''};
+    
+    this.today = function () {
+        incomeCtrl.tmpIncome.date = new Date();
+    };
+    this.today();
+    this.setDate = function (year, month, day) {
+        incomeCtrl.tmpIncome.date = new Date(year, month, day);
+      };     
+      this.dateOptions = {
+        format: 'yy',
+        maxDate: new Date(2020, 5, 22)
+    };
 
-        //big mfn input
-//            this.inputFormModel = {
-//                who: '',
-//                sum: null,
-//                from: {
-//                    id: '',
-//                    title: ''
-//                },
-//                to: {
-//                    id: '',
-//                    title: ''
-//                },
-//                date: '',
-//                comment: ''
-//            };
-//
-//            this.tmpIncome = angular.extend({}, this.inputFormModel);
-        this.tmpIncome = {comment: ''};
-        //input end
-        
-        //modals
-//            this.categoryModel = { title: '' };
+    this.open = function () {
+        incomeCtrl.popup.opened = true;
+    };
+
+    this.popup = {
+        opened: false
+    };
+    
+  
         
         $transitions.onExit({exiting: 'home.income'}, function(transition) {
             localStorage.setItem('tempIncome', JSON.stringify(incomeCtrl.tmpIncome));
-            // console.log(localStorage.getItem('tempIncome'));
+            console.log(localStorage.getItem('tempIncome'));
         });
         
         $transitions.onStart({entering: 'home.income'}, function(transition) {
             incomeCtrl.tmpIncome = angular.extend({}, JSON.parse(localStorage.getItem('tempIncome')));
-            // console.log(localStorage.getItem('tempIncome'));
+            console.log(localStorage.getItem('tempIncome'));
 //            incomeCtrl.tmpIncome = JSON.parse(tt);
-            // console.log('temp:', incomeCtrl.tmpIncome);
+            console.log('temp:', incomeCtrl.tmpIncome);
             incomeCtrl.tmpIncome.sum = 33;
 //            $scope.$digest();
         });
@@ -125,7 +117,7 @@
             item.from.id = item.from.$id;
             item.to.id = item.to.$id;
             item.date = $filter('date')(item.date, 'yyyy-MM-dd');
-            // console.log(item);
+            console.log(item);
             var account = incomeService.getItemInIncomeAccounts(item.to.id);
             account.amount = account.amount + item.sum;
             incomeService.updItemInIncomeAccounts(account);
@@ -163,8 +155,9 @@
                 incomeService.addIncomeTransfer(item);
                 
                 sessionStorage.removeItem('tempIncome');
-
-                incomeCtrl.tmpIncome = {comment: ''}; //обнуляет значения инпута
+                
+                incomeCtrl.tmpIncome = {comment: ''};
+                incomeCtrl.today(); //обнуляет значения инпута
 //                    incomeCtrl.tmpIncome = angular.extend({}, incomeCtrl.inputFormModel); //обнуляет значения инпута <- так появляются пустые строки в select (из-за ng-value)
             }
         };

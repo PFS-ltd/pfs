@@ -108,7 +108,6 @@
 
     "Category" : "Category",
     "Consumption category" : "Consumption category",
-    "Add category" : "Add category",
     "Template" : "Template",
     "Add template" : "Add template",
     "Recent costs" : "Recent costs",
@@ -125,6 +124,7 @@
     "Indicate the account" : "Indicate the account",
     "Indicate the category" : "Indicate the category",
     "Indicate the sum" : "enter amount",
+    "Indicate the name":"Indicate the name ",
     "Goals" : "Goals",
     "Add Goal" : "Add Goal",
     "Money transaction" : "Money transaction",
@@ -146,6 +146,11 @@
     "Success edit template": "Template successfully updated",
     "Who" :"Who",
     "Where" : "Where",
+    "fill the form" : "fill the form" ,
+    "This name already exists": "This name already exists",
+    "The goal amount must exceed the accumulation amount": "The goal amount must exceed the accumulation amount",
+    "Transfer the balance to the account" : "Transfer the balance to the account",
+    "Invalid name" :"Invalid name",
 
 
 

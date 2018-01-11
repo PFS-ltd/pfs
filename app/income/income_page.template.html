@@ -112,32 +112,27 @@
         <div class="panel-body">
             <table class="table table-hover">
                 <thead>
-                    <th>
-                        #
-                    </th>
-                    <th ng-click="sortBy('sum')" class="table-th-cursor" title="{{'Sort' | translate}}">
-                        <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'sum', 'glyphicon-menu-down': sortField === '-sum'}"></i>
-                        {{'Sum' | translate}}
-                    </th>
-                    <th>
-                        {{'From/To' | translate}}
-                    </th>
-                    <th ng-click="sortBy('who')" class="table-th-cursor" title="{{'Sort' | translate}}">
-                        <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'who', 'glyphicon-menu-down': sortField === '-who'}"></i>
-                        {{'Participant' | translate}}
-                    </th>
-                    <th class="table-th-cursor" title="{{'Sort' | translate}}" ng-click="sortBy('date')">
-                        <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'date', 'glyphicon-menu-down': sortField === '-date'}"></i>
-                        {{'Date' | translate}}
-                    </th>
+                    <!-- <th> -->
+<!--
+                    <th ng-click="sortBy('number')">
+                        <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'number', 'glyphicon-menu-down': sortField === '-number'}"></i>
+-->
+                        <!-- # -->
+                    <!-- </th> -->
+                    <th>{{'Sum' | translate}}</th>
+                    <th>{{'From/To' | translate}}</th>
+                    <th>{{'Participant' | translate}}</th>
+                    <th> {{'Date' | translate}}</th>
                     <th>{{'Comment' | translate}}</th>
                     <th>{{'Delete' | translate}}</th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat='item in incomeCtrl.incomeTransfers | orderBy: sortField'>
-                        <td>{{$index+1}}</td>
+                        <!-- .slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) -->
+                    <tr ng-repeat='item in  incomeCtrl.incomeTransfers'>   
+                        <!-- | orderBy: sortField -->
+                        <!-- <td>{{$index+1}}</td> -->
                         <td>{{item.sum}}</td>
-                        <td>{{'From' | translate}} "{{item.from.title}}" {{'to' | translate}} "{{item.to.title}}"</td>
+                        <td>{{'From' | translate}} {{item.from.title}} {{'to' | translate}} {{item.to.title}}</td>
                         <td>{{item.who}}</td>
                         <td>{{item.date | date : incomeCtrl.dateFormat}}</td>
                         <td>{{item.comment}}</td>
@@ -146,6 +141,42 @@
                     </tr>
                 </tbody>
             </table>
+            <!-- <table class="table table-hover">
+                    <thead>
+                        <th>
+                            #
+                        </th>
+                        <th ng-click="sortBy('sum')" class="table-th-cursor" title="{{'Sort' | translate}}">
+                            <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'sum', 'glyphicon-menu-down': sortField === '-sum'}"></i>
+                            {{'Sum' | translate}}
+                        </th>
+                        <th>
+                            {{'From/To' | translate}}
+                        </th>
+                        <th ng-click="sortBy('who')" class="table-th-cursor" title="{{'Sort' | translate}}">
+                            <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'who', 'glyphicon-menu-down': sortField === '-who'}"></i>
+                            {{'Participant' | translate}}
+                        </th>
+                        <th ng-click="sortBy('date')" class="table-th-cursor" title="{{'Sort' | translate}}">
+                            <i class="glyphicon" ng-class="{'glyphicon-menu-up': sortField === 'date', 'glyphicon-menu-down': sortField === '-date'}"></i>
+                            {{'Date' | translate}}
+                        </th>
+                        <th>{{'Comment' | translate}}</th>
+                        <th>{{'Delete' | translate}}</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat='item in incomeCtrl.incomeTransfers | orderBy: sortField'>
+                            <td>{{$index+1}}</td>
+                            <td>{{item.sum}}</td>
+                            <td>{{'From' | translate}} "{{item.from.title}}" {{'to' | translate}} "{{item.to.title}}"</td>
+                            <td>{{item.who}}</td>
+                            <td>{{item.date | date : "dd.MM.yyyy"}}</td>
+                            <td>{{item.comment}}</td>
+                            <td><button class="btn btn-danger btn-xs" title="{{'Delete' | translate}}" 
+            ng-click="incomeCtrl.delIncomeTransfer(item)"><span class="glyphicon glyphicon-remove"></span></button></td>
+                        </tr>
+                    </tbody>
+                </table> -->
         </div>
     </div>
     <div class="amount" >{{incomeCtrl.amount1}}</div>
